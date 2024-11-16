@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="empManagepane" prefHeight="605.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.EmployeeManageController">
+   <children>
+      <JFXTextField fx:id="idtext" layoutX="39.0" layoutY="67.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Id" />
+      <JFXTextField fx:id="nametxt" layoutX="39.0" layoutY="98.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Name" />
+      <JFXTextField fx:id="salarytxt" layoutX="39.0" layoutY="159.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp salary" />
+      <ImageView fx:id="searchIcon" fitHeight="18.0" fitWidth="23.0" layoutX="235.0" layoutY="80.0" onMouseClicked="#search">
+         <image>
+            <Image url="@../icon/icons8-search-50.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="addbtn" layoutX="372.0" layoutY="323.0" onAction="#addEmp" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="updatebtn" layoutX="463.0" layoutY="323.0" onAction="#UpdateEmp" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Update" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="deletebtn" layoutX="553.0" layoutY="323.0" onAction="#deleteEmp" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Delete" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="addresstxt" layoutX="39.0" layoutY="193.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Address" />
+      <DatePicker fx:id="dobtxt" layoutX="40.0" layoutY="133.0" promptText="Date Of Birth" />
+      <TableView fx:id="emptable" layoutX="4.0" layoutY="410.0" onMouseClicked="#getdetails" prefHeight="194.0" prefWidth="855.0">
+        <columns>
+          <TableColumn fx:id="empidclm" prefWidth="57.600006103515625" text="Id" />
+          <TableColumn fx:id="empNameclm" prefWidth="106.39996337890625" text="Name" />
+            <TableColumn fx:id="birthdayclm" prefWidth="74.40008544921875" text="Dob" />
+            <TableColumn fx:id="sallaryclm" prefWidth="65.59989929199219" text="sallary" />
+            <TableColumn fx:id="addressclm" prefWidth="123.20001220703125" text="Address" />
+            <TableColumn fx:id="genderclm" prefWidth="71.20001220703125" text="Gender" />
+            <TableColumn fx:id="ageclm" prefWidth="64.0" text="Age" />
+            <TableColumn fx:id="jobclm" prefWidth="84.800048828125" text="job" />
+            <TableColumn fx:id="contactclm" prefWidth="122.4000244140625" text="Contatct" />
+            <TableColumn fx:id="devisionidclm" prefWidth="78.4000244140625" text="Devision Id" />
+        </columns>
+      </TableView>
+      <Label layoutX="338.0" layoutY="14.0" prefHeight="46.0" prefWidth="250.0" style="-fx-background-color: #00000;" text="Employee Manage" textFill="#7e5252">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="backIcon" fitHeight="37.0" fitWidth="44.0" layoutX="8.0" layoutY="6.0" onMouseClicked="#goback">
+         <image>
+            <Image url="@../icon/icons8-arrow-left-94.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="gendertxt" layoutX="39.0" layoutY="229.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Gender" />
+      <JFXTextField fx:id="agetxt" layoutX="39.0" layoutY="265.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Age" />
+      <JFXTextField fx:id="jobtxt" layoutX="39.0" layoutY="296.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp job" />
+      <JFXTextField fx:id="tptxt" layoutX="39.0" layoutY="329.0" prefHeight="26.0" prefWidth="177.0" promptText="contact no" />
+      <JFXTextField fx:id="devisiontxt" layoutX="39.0" layoutY="364.0" prefHeight="26.0" prefWidth="177.0" promptText="devision Id" />
+   </children>
+</AnchorPane>

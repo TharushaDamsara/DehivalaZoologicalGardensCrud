@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="488.0" prefWidth="828.0" style="-fx-background-color: #f7eeee;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.FinanceMngController">
+   <children>
+      <Label layoutX="254.0" layoutY="21.0" prefHeight="63.0" prefWidth="269.0" text="Finance Management" textAlignment="CENTER" textFill="#0e21cf">
+         <font>
+            <Font name="Bernard MT Condensed" size="31.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="backbtn" layoutX="14.0" layoutY="426.0" onMouseClicked="#goback">
+         <image>
+            <Image url="@../icon/icons8-go-back-48.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="aniexpencebtn" layoutX="284.0" layoutY="175.0" onAction="#animalexpence" prefHeight="43.0" prefWidth="210.0" text="Animal Expencess" textFill="#050505">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="empecpnbtn" layoutX="284.0" layoutY="231.0" onAction="#employeeexpencess" prefHeight="43.0" prefWidth="210.0" text="Employee Expencess" textFill="#4b0402">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="otherexpencebtn" layoutX="284.0" layoutY="284.0" onAction="#otherexpences" prefHeight="43.0" prefWidth="210.0" text="Other Expencess" textFill="#4b0402">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

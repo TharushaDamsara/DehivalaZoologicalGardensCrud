@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="552.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.AnimalFinanceController">
+   <children>
+      <ImageView fx:id="backbtn" fitHeight="26.0" fitWidth="50.0" layoutX="14.0" layoutY="512.0" onMouseClicked="#goback">
+         <image>
+            <Image url="@../icon/icons8-arrow-left-94.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="expenceidtxt" layoutX="25.0" layoutY="76.0" prefHeight="26.0" prefWidth="177.0" promptText="Expence Id" />
+      <JFXTextField fx:id="amounttxt" layoutX="25.0" layoutY="219.0" prefHeight="26.0" prefWidth="177.0" promptText="Amount" />
+      <JFXTextField fx:id="desctxt" layoutX="25.0" layoutY="260.0" prefHeight="26.0" prefWidth="177.0" promptText="Discription" />
+      <DatePicker fx:id="datetxt" layoutX="26.0" layoutY="176.0" promptText="Date " />
+      <Label layoutX="246.0" layoutY="29.0" prefHeight="46.0" prefWidth="250.0" style="-fx-background-color: #00000;" text="Animal Expencess" textFill="#7e5252">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="addbtn" layoutX="519.0" layoutY="271.0" onAction="#add" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="updatebtn" layoutX="593.0" layoutY="271.0" onAction="#Update" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Update" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="deletebtn" layoutX="670.0" layoutY="271.0" onAction="#delete" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Delete" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="animalexpencetbl" layoutX="85.0" layoutY="332.0" onMouseClicked="#tabelClicked" prefHeight="218.0" prefWidth="662.0">
+        <columns>
+          <TableColumn fx:id="expenceidcol" prefWidth="112.7999496459961" text="Expence Id" />
+          <TableColumn fx:id="animalidcol" prefWidth="108.0" text="Animal Id" />
+            <TableColumn fx:id="datecol" prefWidth="115.20001220703125" text="Date" />
+            <TableColumn fx:id="amountcol" prefWidth="137.60000610351562" text="Amount" />
+            <TableColumn fx:id="descCol" prefWidth="186.39999999999998" text="Discription" />
+        </columns>
+      </TableView>
+      <JFXTextField fx:id="animalidtxt" layoutX="25.0" layoutY="121.0" prefHeight="26.0" prefWidth="177.0" promptText="AnimalId" />
+   </children>
+</AnchorPane>

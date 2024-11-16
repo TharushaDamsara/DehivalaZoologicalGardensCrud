@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="firstpagepane" prefHeight="639.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.UserPageController">
+   <children>
+      <Pane layoutX="1.0" prefHeight="639.0" prefWidth="414.0" style="-fx-background-color: #fff3db;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="329.6" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="381.0" fitWidth="407.0" layoutX="5.0" layoutY="111.0">
+               <image>
+                  <Image url="@../media/loginpage%20image2.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="22.0" layoutY="11.0" prefHeight="46.0" prefWidth="380.0" text="Zoological Garden Dehivala" textFill="#2a2163">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <AnchorPane layoutX="421.0" prefHeight="632.0" prefWidth="329.0" style="-fx-background-color: #333333;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton layoutX="167.0" layoutY="215.0" onAction="#userLogin" prefHeight="40.0" prefWidth="168.0" ripplerFill="#763434" text="User" textFill="#121213">
+               <font>
+                  <Font name="Arial Narrow Bold" size="21.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="Adminbtn" layoutX="153.0" layoutY="138.0" onAction="#adminLogin" prefHeight="40.0" prefWidth="168.0" ripplerFill="#763434" text="Admin" textFill="#0b100a">
+               <font>
+                  <Font name="Arial Narrow Bold" size="21.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="100.0" layoutY="23.0" prefHeight="40.0" prefWidth="133.0" text="Wellcome" textFill="#3b6121">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

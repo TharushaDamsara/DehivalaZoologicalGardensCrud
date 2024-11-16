@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="601.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.EmployeeFinanceController">
+   <children>
+      <JFXTextField fx:id="idtext" layoutX="49.0" layoutY="62.0" prefHeight="26.0" prefWidth="177.0" promptText="Payment Id" />
+      <JFXTextField fx:id="basicsaltxt" layoutX="49.0" layoutY="165.0" prefHeight="26.0" prefWidth="177.0" promptText="basic salary" />
+      <JFXTextField fx:id="addontxt" layoutX="49.0" layoutY="208.0" prefHeight="26.0" prefWidth="177.0" promptText="add ons" />
+      <JFXButton fx:id="addbtn" layoutX="409.0" layoutY="298.0" onAction="#addEmp" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="updatebtn" layoutX="492.0" layoutY="298.0" onAction="#UpdateEmp" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Update" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="deletebtn" layoutX="579.0" layoutY="298.0" onAction="#deleteEmp" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Delete" textFill="#53dcd5">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="cutoffstxt" layoutX="49.0" layoutY="246.0" prefHeight="26.0" prefWidth="177.0" promptText="cut offs" />
+      <DatePicker fx:id="datetxt" layoutX="50.0" layoutY="139.0" promptText="payment date" />
+      <Label layoutX="187.0" layoutY="11.0" prefHeight="46.0" prefWidth="293.0" style="-fx-background-color: #00000;" text="Employee Expencess" textFill="#7e5252">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="backIcon" fitHeight="37.0" fitWidth="44.0" layoutX="18.0" layoutY="16.0" onMouseClicked="#goback">
+         <image>
+            <Image url="@../icon/icons8-arrow-left-94.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="salarytbl" layoutX="49.0" layoutY="366.0" onMouseClicked="#tabelclicked" prefHeight="194.0" prefWidth="626.0">
+        <columns>
+          <TableColumn fx:id="ipaydcol" prefWidth="83.20001602172852" text="Id" />
+          <TableColumn fx:id="empidcol" prefWidth="80.79998779296875" text="Emp Id" />
+            <TableColumn fx:id="datecol" prefWidth="88.79991149902344" text="Date" />
+            <TableColumn fx:id="basicsalcol" prefWidth="88.0" text="Basic" />
+            <TableColumn fx:id="addonscol" prefWidth="76.79998779296875" text="addOns" />
+            <TableColumn fx:id="cutoffcol" prefWidth="100.0" text="CutOffs" />
+            <TableColumn fx:id="totalcol" prefWidth="100.800048828125" text="Total" />
+        </columns>
+      </TableView>
+      <JFXTextField fx:id="totsaltxt" layoutX="49.0" layoutY="285.0" prefHeight="26.0" prefWidth="177.0" promptText="total" />
+      <JFXTextField fx:id="empidtxt" layoutX="49.0" layoutY="102.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Id" />
+   </children>
+</AnchorPane>

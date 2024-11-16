@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="adminlogpane" style="-fx-background-color: #2b2b2b;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.AdminLoginController">
+   <children>
+      <ImageView fitHeight="43.0" fitWidth="66.0" layoutY="3.0">
+         <image>
+            <Image url="@../media/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="85.0" layoutY="4.0" prefHeight="20.0" prefWidth="66.0" text="Dehivala" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="25.0" prefHeight="20.0" prefWidth="124.0" text="Zoological Gardens" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="100.0" fitWidth="110.0" layoutX="360.0" layoutY="25.0">
+         <image>
+            <Image url="@../media/userIcon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="382.0" layoutY="145.0" prefHeight="38.0" prefWidth="93.0" text="Admin" textFill="#e1cbcb">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="userNametxt" focusColor="#1b378c" layoutX="299.0" layoutY="220.0" prefHeight="26.0" prefWidth="231.0" unFocusColor="#ff2424">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></JFXTextField>
+      <Label layoutX="197.0" layoutY="230.0" prefHeight="26.0" prefWidth="82.0" text="User name" textFill="#e4d4d4">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="197.0" layoutY="280.0" prefHeight="26.0" prefWidth="82.0" text="Password" textFill="#e4d4d4">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXPasswordField fx:id="pwdtxt" layoutX="299.0" layoutY="267.0" onAction="#nextpage" prefHeight="26.0" prefWidth="231.0" unFocusColor="#e10d0d" />
+      <ImageView fx:id="showpwdIcon" fitHeight="14.0" fitWidth="16.0" layoutX="548.0" layoutY="286.0" onMouseClicked="#showpwd">
+         <image>
+            <Image url="@../icon/icons8-show-30.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="dogotpwdlbl" layoutX="336.0" layoutY="327.0" onMouseClicked="#forgotpwd" prefHeight="20.0" prefWidth="157.0" text="forgot password........" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="backbtn" fitHeight="43.0" fitWidth="45.0" layoutX="8.0" layoutY="477.0" onMouseClicked="#goback">
+         <image>
+            <Image url="@../icon/icons8-arrow-left-94.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="nexticon" fitHeight="38.0" fitWidth="33.0" layoutX="831.0" layoutY="480.0" onMouseClicked="#gonextpage">
+         <image>
+            <Image url="@../icon/next.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
