@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="603.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.TaskManage">
    <children>
       <ImageView fx:id="backbtn" fitHeight="26.0" fitWidth="50.0" layoutX="10.0" layoutY="577.0" onMouseClicked="#goback">
@@ -21,7 +20,7 @@
       </ImageView>
       <JFXTextField fx:id="idtxt" layoutX="55.0" layoutY="106.0" prefHeight="26.0" prefWidth="177.0" promptText="task Id" />
       <JFXTextField fx:id="nametxt" layoutX="55.0" layoutY="151.0" prefHeight="26.0" prefWidth="177.0" promptText="task" />
-      <JFXTextField fx:id="empIdtxt" layoutX="55.0" layoutY="201.0" prefHeight="26.0" prefWidth="178.0" promptText="nic" text="Emp Id" />
+      <JFXTextField fx:id="empIdtxt" layoutX="55.0" layoutY="201.0" prefHeight="26.0" prefWidth="178.0" promptText="EmpId" />
       <Label layoutX="263.0" layoutY="46.0" prefHeight="46.0" prefWidth="189.0" style="-fx-background-color: #00000;" text="Task Manage" textFill="#7e5252">
          <font>
             <Font size="30.0" />
@@ -46,7 +45,7 @@
          <columns>
             <TableColumn fx:id="idcol" prefWidth="84.00000762939453" text="Task Id" />
             <TableColumn fx:id="namecol" prefWidth="124.00006103515625" text="Task" />
-            <TableColumn fx:id="idcol" prefWidth="159.99993896484375" text="Emp Id" />
+            <TableColumn fx:id="empidcol" prefWidth="159.99993896484375" text="Emp Id" />
             <TableColumn fx:id="datecol" prefWidth="95.2000732421875" text="Due Date" />
          </columns>
       </TableView>
