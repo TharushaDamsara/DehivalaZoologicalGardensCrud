@@ -43,7 +43,7 @@
       <JFXTextField fx:id="nametxt" layoutX="387.0" layoutY="86.0" prefHeight="26.0" prefWidth="177.0" promptText="Animal Name" />
       <JFXTextField fx:id="catogarytxt" layoutX="387.0" layoutY="127.0" prefHeight="26.0" prefWidth="177.0" promptText="Catogary" />
       <JFXTextField fx:id="devisiontxt" layoutX="387.0" layoutY="166.0" prefHeight="26.0" prefWidth="177.0" promptText="devision id" />
-      <JFXButton fx:id="reportbtn" layoutX="586.0" layoutY="281.0" onAction="#genarateReport" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Report" textFill="#53dcd5">
+      <JFXButton fx:id="reportbtn" layoutX="586.0" layoutY="281.0" onAction="#genarateReport" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Helth Report" textFill="#53dcd5">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

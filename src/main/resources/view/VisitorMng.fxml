@@ -20,7 +20,7 @@
       </ImageView>
       <JFXTextField fx:id="idtxt" layoutX="45.0" layoutY="96.0" prefHeight="26.0" prefWidth="177.0" promptText="Visitor Id" />
       <JFXTextField fx:id="addresstxt" layoutX="45.0" layoutY="150.0" prefHeight="26.0" prefWidth="177.0" promptText="Address" />
-      <JFXTextField fx:id="nictxt" layoutX="45.0" layoutY="220.0" prefHeight="26.0" prefWidth="270.0" promptText="nic" />
+      <JFXTextField fx:id="nictxt" layoutX="45.0" layoutY="220.0" prefHeight="26.0" prefWidth="191.0" promptText="nic" />
       <Label layoutX="253.0" layoutY="36.0" prefHeight="46.0" prefWidth="250.0" style="-fx-background-color: #00000;" text="Visitor Manage" textFill="#7e5252">
          <font>
             <Font size="30.0" />
@@ -43,14 +43,16 @@
       </JFXButton>
       <JFXTextField fx:id="nametxt" layoutX="397.0" layoutY="96.0" prefHeight="26.0" prefWidth="177.0" promptText=" Name" />
       <DatePicker fx:id="datetxt" layoutX="401.0" layoutY="150.0" prefHeight="26.0" prefWidth="204.0" promptText="date visited" />
-      <TableView fx:id="visitortbl" layoutX="59.0" layoutY="341.0" onMouseClicked="#tabelClicked" prefHeight="200.0" prefWidth="593.0">
+      <TableView fx:id="visitortbl" layoutX="15.0" layoutY="341.0" onMouseClicked="#tabelClicked" prefHeight="200.0" prefWidth="692.0">
         <columns>
           <TableColumn fx:id="idcol" prefWidth="84.00000762939453" text="Visitor Id" />
           <TableColumn fx:id="namecol" prefWidth="116.79998779296875" text="Name" />
             <TableColumn fx:id="addresscol" prefWidth="166.4000244140625" text="Address" />
             <TableColumn fx:id="niccol" prefWidth="132.79989624023438" text="Nic" />
             <TableColumn fx:id="datecol" prefWidth="95.2000732421875" text="Date" />
+            <TableColumn fx:id="ticketCol" prefWidth="92.7999267578125" text="Ticket Id" />
         </columns>
       </TableView>
+      <JFXTextField fx:id="ticketId" layoutX="411.0" layoutY="217.0" prefHeight="26.0" prefWidth="191.0" promptText="Ticket Id" />
    </children>
 </AnchorPane>

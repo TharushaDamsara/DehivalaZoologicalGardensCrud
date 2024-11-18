@@ -202,5 +202,6 @@ public class EventMngController implements Initializable {
     public void loadnextId() throws SQLException {
         String id = model.getnxtId();
         idtxt.setText(id);
+
     }
 }

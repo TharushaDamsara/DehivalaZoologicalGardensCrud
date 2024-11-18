@@ -184,7 +184,7 @@ public class UserDetailsController implements Initializable {
     void goback(MouseEvent event) throws IOException {
         Stage window = (Stage) backbtn.getScene().getWindow();
         window.close();
-        Parent load = FXMLLoader.load(getClass().getResource("/view/UserPage.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/view/AdminFuntion.fxml"));
         Scene scene = new Scene(load);
         window.setScene(scene);
         window.show();

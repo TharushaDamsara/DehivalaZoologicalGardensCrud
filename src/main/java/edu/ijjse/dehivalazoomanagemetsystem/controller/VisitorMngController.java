@@ -41,6 +41,7 @@ public class VisitorMngController implements Initializable {
         addresscol.setCellValueFactory(new PropertyValueFactory<>("visitorAddress"));
         datecol.setCellValueFactory(new PropertyValueFactory<>("visitDate"));
         niccol.setCellValueFactory(new PropertyValueFactory<>("visitorNic"));
+        ticketCol.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
 
         try {
             loadTabel();
@@ -56,6 +57,7 @@ public class VisitorMngController implements Initializable {
         addresstxt.setText("");
         datetxt.setValue(null);
         nictxt.setText("");
+        ticketId.setText("");
 
             try {
                 getNextId();
@@ -79,7 +81,8 @@ public class VisitorMngController implements Initializable {
                     visitorDto.getVisitorName(),
                     visitorDto.getVisitorAddress(),
                     visitorDto.getVisitDate(),
-                    visitorDto.getVisitNic()
+                    visitorDto.getVisitNic(),
+                    visitorDto.getTicketId()
             );
             visitorTMS.add(visitorTM);
         }
@@ -131,6 +134,13 @@ public class VisitorMngController implements Initializable {
     @FXML
     private TableView<VisitorTM> visitortbl;
 
+    @FXML
+    private TableColumn<VisitorTM, String> ticketCol;
+
+      @FXML
+    private JFXTextField ticketId;
+
+
     VisitorModel model = new VisitorModel();
 
     @FXML
@@ -140,8 +150,10 @@ public class VisitorMngController implements Initializable {
         String address = addresstxt.getText();
         String visitDate = datetxt.getValue().toString();
         String visitNic = nictxt.getText();
+        String ticket = ticketId.getText();
 
-        VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic);
+
+        VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
         try {
             boolean update = model.update(visitorDto);
             if (update) {
@@ -162,8 +174,9 @@ public class VisitorMngController implements Initializable {
         String address = addresstxt.getText();
         String visitDate = datetxt.getValue().toString();
         String visitNic = nictxt.getText();
+        String ticket = ticketId.getText();
 
-        VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic);
+        VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic,ticket);
         boolean add = model.add(visitorDto);
         if (add) {
             new Alert(Alert.AlertType.INFORMATION, "Visitor Added").show();
@@ -207,6 +220,7 @@ public class VisitorMngController implements Initializable {
         addresstxt.setText(selectedItem.getVisitorAddress());
         datetxt.setValue(LocalDate.parse(selectedItem.getVisitDate()));
         nictxt.setText(selectedItem.getVisitorNic());
+        ticketId.setText(selectedItem.getTicketId());
 
     }
 

@@ -18,7 +18,6 @@ import java.io.IOException;
 
 public class AdminFuntionController {
 
-    public JFXButton userbtn;
     @FXML
     private AnchorPane adminduncpane;
 
@@ -26,21 +25,25 @@ public class AdminFuntionController {
     private ImageView backIcon;
 
     @FXML
+    private Pane dashboard;
+
+    @FXML
     private JFXButton empbtn;
+
+    @FXML
+    private JFXButton empfunctionbtn;
 
     @FXML
     private JFXButton financeBtn;
 
     @FXML
-    private AnchorPane secpane;
-
-    @FXML
-    private Pane funcsubpane;
-
-
-    @FXML
     private JFXButton taskbtn;
 
+    @FXML
+    private JFXButton userbtn;
+
+    @FXML
+    private JFXButton vetbtn;
 
     @FXML
     void empmngment(ActionEvent event) throws IOException {
@@ -92,5 +95,23 @@ public class AdminFuntionController {
         window.setScene(scene);
         window.show();
 
+    }
+
+    public void vetManage(ActionEvent actionEvent) throws IOException {
+        Stage window = (Stage)financeBtn.getScene().getWindow();
+        window.close();
+        Parent load = FXMLLoader.load(getClass().getResource("/view/Vet.fxml"));
+        Scene scene = new Scene(load);
+        window.setScene(scene);
+        window.show();
+    }
+
+    public void empFunctions(ActionEvent actionEvent) throws IOException {
+        Stage window = (Stage)financeBtn.getScene().getWindow();
+        window.close();
+        Parent load = FXMLLoader.load(getClass().getResource("/view/UserFuntion.fxml"));
+        Scene scene = new Scene(load);
+        window.setScene(scene);
+        window.show();
     }
 }

@@ -246,5 +246,14 @@ public class EmployeeFinanceController implements Initializable {
         System.out.println(id);
     }
 
+    public void getTotal(ActionEvent actionEvent) {
+        double basic = Double.parseDouble(basicsaltxt.getText());
+        double addon = Double.parseDouble(addontxt.getText());
+        double cutoff = Double.parseDouble(cutoffstxt.getText());
+
+        totsaltxt.setText(String.valueOf(basic+addon-cutoff));
+        System.out.println(totsaltxt.getText());
+
+    }
 }
 

@@ -54,7 +54,7 @@
             <TableColumn fx:id="totalcol" prefWidth="100.800048828125" text="Total" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="totsaltxt" layoutX="49.0" layoutY="285.0" prefHeight="26.0" prefWidth="177.0" promptText="total" />
+      <JFXTextField fx:id="totsaltxt" layoutX="49.0" layoutY="285.0" onAction="#getTotal" prefHeight="26.0" prefWidth="177.0" promptText="Enter hear to get Total" />
       <JFXTextField fx:id="empidtxt" layoutX="49.0" layoutY="102.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Id" />
    </children>
 </AnchorPane>

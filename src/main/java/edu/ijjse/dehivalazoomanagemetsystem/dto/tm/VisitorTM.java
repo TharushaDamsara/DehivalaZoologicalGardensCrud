@@ -14,4 +14,5 @@ public class VisitorTM {
     private String visitorAddress;
     private String visitDate;
     private String visitorNic;
+    private String ticketId;
 }

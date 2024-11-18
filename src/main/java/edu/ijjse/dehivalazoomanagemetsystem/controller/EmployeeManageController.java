@@ -168,7 +168,7 @@ EmpMngModel model = new EmpMngModel();
         String devision = devisiontxt.getText();
         int age = Integer.parseInt(agetxt.getText());
         String gender = gendertxt.getText();
-        String dob = dobtxt.getAccessibleText();
+        String dob = String.valueOf(dobtxt.getValue());
         String job = jobtxt.getText();
         String cntact = tptxt.getText();
 
@@ -201,7 +201,7 @@ EmpMngModel model = new EmpMngModel();
         String devision = devisiontxt.getText();
         int age = Integer.parseInt(agetxt.getText());
         String gender = gendertxt.getText();
-        String dob = dobtxt.getAccessibleText();
+        String dob = String.valueOf(dobtxt.getValue());
         String job = jobtxt.getText();
         String cntact = tptxt.getText();
 
@@ -280,10 +280,8 @@ EmpMngModel model = new EmpMngModel();
         gendertxt.setText(emplyeeTM.getGender());
         dobtxt.setValue(LocalDate.parse(emplyeeTM.getBirthday()));
         jobtxt.setText(emplyeeTM.getJob());
+        tptxt.setText(emplyeeTM.getContact());
 
-        addbtn.setDisable(true);
-        deletebtn.setDisable(false);
-        updatebtn.setDisable(false);
 
     }
     }

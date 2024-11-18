@@ -54,6 +54,7 @@ public boolean save(EventDto dto) throws SQLException {
             String substring = index.substring(1);
             int i = Integer.parseInt(substring);
             int newId = i + 1;
+            System.out.println(newId);
             return String.format("V%03d", newId);
         }
         return "V001";

@@ -14,4 +14,5 @@ public class VisitorDto {
     private String visitorAddress;
     private String visitDate;
     private String visitNic;
+    private String ticketId;
 }

@@ -9,22 +9,25 @@ import java.util.ArrayList;
 
 public class VisitorModel {
     public boolean add(VisitorDto dto) throws SQLException {
-        String sql ="insert into visitor values(?,?,?,?,?)";
+        String sql ="insert into visitor values(?,?,?,?,?,?)";
         return CrudUtil.execute(sql,
                 dto.getVisitorId(),
                 dto.getVisitorName(),
                 dto.getVisitorAddress(),
                 dto.getVisitDate(),
-                dto.getVisitNic());
+                dto.getVisitNic(),
+                dto.getTicketId()
+        );
     }
     public boolean update(VisitorDto dto) throws SQLException {
-        String sql ="UPDATE visitor SET name=? ,address=?,date=?,nic=? WHERE visitorId =?";
+        String sql ="UPDATE visitor SET name=? ,address=?,date=?,nic=?,ticketId =? WHERE visitorId =?";
         return CrudUtil.execute(sql,
                 dto.getVisitorName(),
                 dto.getVisitorAddress(),
                 dto.getVisitDate(),
                 dto.getVisitNic(),
-                dto.getVisitorId());
+                dto.getVisitorId(),
+                dto.getTicketId());
     }
     public boolean delete(VisitorDto dto) throws SQLException {
         String sql ="DELETE FROM visitor WHERE visitorId =?";
@@ -40,7 +43,8 @@ public class VisitorModel {
                     rst.getString(2),
                     rst.getString(3),
                     rst.getString(4),
-                    rst.getString(5)
+                    rst.getString(5),
+                    rst.getString(6)
             );
             visitorDtos.add(visitorDto);
         }

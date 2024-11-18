@@ -214,7 +214,13 @@ animaltbl.setItems(AnimalTms);
     }
 
     @FXML
-    void genarateReport(ActionEvent event) {
+    void genarateReport(ActionEvent event) throws IOException {
+        Stage window = (Stage) addbtn.getScene().getWindow();
+        window.close();
+        Parent load = FXMLLoader.load(getClass().getResource("/view/HelthReport.fxml"));
+        Scene scene = new Scene(load);
+        window.setScene(scene);
+        window.show();
 
     }
 
