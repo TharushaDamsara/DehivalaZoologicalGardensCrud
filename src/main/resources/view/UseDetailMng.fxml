@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="520.0" prefWidth="749.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.UserDetailsController">
    <children>
@@ -49,6 +49,6 @@
             <TableColumn fx:id="pwdcol" prefWidth="152.80007934570312" text="Password" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="empIdtxt" layoutX="52.0" layoutY="157.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Id" />
+      <JFXComboBox fx:id="empIdtxt" layoutX="55.0" layoutY="160.0" prefHeight="26.0" prefWidth="178.0" promptText="Emp Id" />
    </children>
 </AnchorPane>

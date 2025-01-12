@@ -14,10 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +25,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HelthReport implements Initializable {
@@ -234,19 +232,24 @@ public class HelthReport implements Initializable {
     void delete(ActionEvent event) {
     HelthReportDto dto = new HelthReportDto();
     dto.setHelthReportId(idtxt.getText());
-        try {
-            boolean delete = model.delete(dto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION,"Deleted Successfully").show();
-                loadtbl();
-                refreshpage();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = model.delete(dto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully").show();
+                    loadtbl();
+                    refreshpage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Delete Failed").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"Delete Failed").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-            e.printStackTrace();
         }
 
     }

@@ -59,10 +59,9 @@ public class AdminLoginController {
         String userName = userNametxt.getText();
         String pwd = pwdtxt.getText();
 
-        AdminDto dto = new AdminDto(userName, pwd);
         try {
-            AdminDto admin = model.getAdmin(dto);
-            if (admin.getUsername().equals(userName)&&admin.getPassword().equals(pwd)) {
+            boolean resp = model.getAdmin(userName, pwd);
+            if (resp) {
                 adminlogpane.getChildren().clear();
                 AnchorPane load = FXMLLoader.load(getClass().getResource("/view/AdminFuntion.fxml"));
                 adminlogpane.getChildren().add(load);
@@ -84,10 +83,9 @@ public class AdminLoginController {
         String userName = userNametxt.getText();
         String pwd = pwdtxt.getText();
 
-        AdminDto dto = new AdminDto(userName, pwd);
         try {
-            AdminDto admin = model.getAdmin(dto);
-            if (admin.getUsername().equals(dto.getUsername())&&admin.getPassword().equals(dto.getPassword())) {
+            boolean resp = model.getAdmin(userName, pwd);
+            if (resp) {
                 adminlogpane.getChildren().clear();
                 AnchorPane load = FXMLLoader.load(getClass().getResource("/view/AdminFuntion.fxml"));
                 adminlogpane.getChildren().add(load);

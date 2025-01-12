@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="601.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.EmployeeFinanceController">
+<AnchorPane prefHeight="638.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.EmployeeFinanceController">
    <children>
       <JFXTextField fx:id="idtext" layoutX="49.0" layoutY="62.0" prefHeight="26.0" prefWidth="177.0" promptText="Payment Id" />
       <JFXTextField fx:id="basicsaltxt" layoutX="49.0" layoutY="165.0" prefHeight="26.0" prefWidth="177.0" promptText="basic salary" />
@@ -33,7 +34,7 @@
       </JFXButton>
       <JFXTextField fx:id="cutoffstxt" layoutX="49.0" layoutY="246.0" prefHeight="26.0" prefWidth="177.0" promptText="cut offs" />
       <DatePicker fx:id="datetxt" layoutX="50.0" layoutY="139.0" promptText="payment date" />
-      <Label layoutX="187.0" layoutY="11.0" prefHeight="46.0" prefWidth="293.0" style="-fx-background-color: #00000;" text="Employee Expencess" textFill="#7e5252">
+      <Label layoutX="293.0" layoutY="11.0" prefHeight="46.0" prefWidth="293.0" style="-fx-background-color: #00000;" text="Employee Expencess" textFill="#7e5252">
          <font>
             <Font size="30.0" />
          </font>
@@ -43,7 +44,7 @@
             <Image url="@../icon/icons8-arrow-left-94.png" />
          </image>
       </ImageView>
-      <TableView fx:id="salarytbl" layoutX="49.0" layoutY="366.0" onMouseClicked="#tabelclicked" prefHeight="194.0" prefWidth="626.0">
+      <TableView fx:id="salarytbl" layoutX="87.0" layoutY="364.0" onMouseClicked="#tabelclicked" prefHeight="194.0" prefWidth="626.0">
         <columns>
           <TableColumn fx:id="ipaydcol" prefWidth="83.20001602172852" text="Id" />
           <TableColumn fx:id="empidcol" prefWidth="80.79998779296875" text="Emp Id" />
@@ -55,6 +56,6 @@
         </columns>
       </TableView>
       <JFXTextField fx:id="totsaltxt" layoutX="49.0" layoutY="285.0" onAction="#getTotal" prefHeight="26.0" prefWidth="177.0" promptText="Enter hear to get Total" />
-      <JFXTextField fx:id="empidtxt" layoutX="49.0" layoutY="102.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Id" />
+      <JFXComboBox fx:id="empIdtxt" layoutX="49.0" layoutY="105.0" prefWidth="175.0" promptText="Emp Id" />
    </children>
 </AnchorPane>

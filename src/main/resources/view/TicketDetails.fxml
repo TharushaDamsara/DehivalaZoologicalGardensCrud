@@ -11,22 +11,22 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="509.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.EncloserController">
+<AnchorPane prefHeight="613.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.TicketDetails">
    <children>
       <ImageView fx:id="backbtn" fitHeight="26.0" fitWidth="50.0" layoutX="20.0" layoutY="587.0" onMouseClicked="#goback">
          <image>
             <Image url="@../icon/icons8-arrow-left-94.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="idtxt" layoutX="70.0" layoutY="119.0" prefHeight="26.0" prefWidth="177.0" promptText="encloser Id" />
-      <JFXTextField fx:id="locationtxt" layoutX="70.0" layoutY="164.0" prefHeight="26.0" prefWidth="177.0" promptText="encloserLocation" />
-      <JFXTextField fx:id="sizetxt" layoutX="70.0" layoutY="214.0" prefHeight="26.0" prefWidth="178.0" promptText="encloser size" />
-      <Label layoutX="278.0" layoutY="59.0" prefHeight="46.0" prefWidth="234.0" style="-fx-background-color: #00000;" text="Encloser Manage" textFill="#7e5252">
+      <JFXTextField fx:id="idtxt" layoutX="65.0" layoutY="116.0" prefHeight="26.0" prefWidth="177.0" promptText="id" />
+      <JFXTextField fx:id="typetxt" layoutX="65.0" layoutY="163.0" prefHeight="26.0" prefWidth="177.0" promptText="Ticket Type" />
+      <JFXTextField fx:id="qohtxt" layoutX="65.0" layoutY="211.0" prefHeight="26.0" prefWidth="178.0" promptText="Qty On Hand" />
+      <Label layoutX="273.0" layoutY="56.0" prefHeight="46.0" prefWidth="189.0" style="-fx-background-color: #00000;" text="Ticket Details" textFill="#7e5252">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton fx:id="addbtn" layoutX="391.0" layoutY="314.0" onAction="#add" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
+      <JFXButton fx:id="addbtn" layoutX="386.0" layoutY="311.0" onAction="#add" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -41,12 +41,14 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="enclosertbl" layoutX="137.0" layoutY="364.0" onMouseClicked="#tabelClicked" prefHeight="200.0" prefWidth="370.0">
+      <TableView fx:id="ticketDetailstbl" layoutX="106.0" layoutY="361.0" onMouseClicked="#tabelClicked" prefHeight="200.0" prefWidth="471.0">
          <columns>
-            <TableColumn fx:id="idcol" prefWidth="112.0" text="Encloser Id" />
-            <TableColumn fx:id="locationcol" prefWidth="120.79998779296875" text="Location" />
-            <TableColumn fx:id="sizecol" prefWidth="137.60003662109375" text="size" />
+            <TableColumn fx:id="idcol" prefWidth="84.00000762939453" text="ID" />
+            <TableColumn fx:id="typecol" prefWidth="124.00006103515625" text="Type" />
+            <TableColumn fx:id="qohcol" prefWidth="159.99993896484375" text="Qty On Hand" />
+            <TableColumn fx:id="pricecol" prefWidth="95.2000732421875" text="Price" />
          </columns>
       </TableView>
+      <JFXTextField fx:id="pricetxt" layoutX="64.0" layoutY="251.0" prefHeight="26.0" prefWidth="178.0" promptText="Price" />
    </children>
 </AnchorPane>

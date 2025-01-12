@@ -83,4 +83,22 @@ public class AnimalMngModel {
         }
         return "A001";
     }
+    public ArrayList<String> getEnclosure() throws SQLException {
+        String sql = "select enclosureId from enclosure";
+        ResultSet rst = CrudUtil.execute(sql);
+        ArrayList<String> enclosures = new ArrayList<>();
+        while (rst.next()) {
+            enclosures.add(rst.getString(1));
+        }
+        return enclosures;
+    }
+    public ArrayList<String> getDivision() throws SQLException {
+        String sql = "select divisionId from division";
+        ResultSet rst = CrudUtil.execute(sql);
+        ArrayList<String> divisions = new ArrayList<>();
+        while (rst.next()) {
+            divisions.add(rst.getString(1));
+        }
+        return divisions;
+    }
 }

@@ -46,6 +46,9 @@ public class AdminFuntionController {
     private JFXButton vetbtn;
 
     @FXML
+    private AnchorPane innerPane;
+
+    @FXML
     void empmngment(ActionEvent event) throws IOException {
 
 

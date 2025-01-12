@@ -1,10 +1,12 @@
 package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.EmployeeExpencesDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.EmployeeExpencessTM;
 import edu.ijjse.dehivalazoomanagemetsystem.model.EmpExpencessModel;
+import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +26,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EmployeeFinanceController implements Initializable {
@@ -44,10 +47,26 @@ public class EmployeeFinanceController implements Initializable {
             try {
                 loadTbl();
                 getnxtId();
+                setEmpIds();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.toString(), ButtonType.OK).show();
             }
         }
+
+    private void setEmpIds() {
+        try {
+            ArrayList<String> employeeIds = model.getEmployeeIds();
+            ObservableList<String> ids = FXCollections.observableArrayList();
+            ids.addAll(employeeIds);
+            empIdtxt.setItems(ids);
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Employee could not load", ButtonType.OK).show();
+        }
+
+
+    }
+
     private void loadTbl() throws SQLException {
         ArrayList<EmployeeExpencesDto> employeeExpencesDtos = model.viewAll();
         ObservableList<EmployeeExpencessTM> employeeExpencessTMS = FXCollections.observableArrayList();
@@ -104,9 +123,9 @@ public class EmployeeFinanceController implements Initializable {
     @FXML
     private TableColumn<EmployeeExpencessTM, String> empidcol;
 
-    @FXML
-    private JFXTextField empidtxt;
 
+    @FXML
+    private JFXComboBox<String> empIdtxt;
     @FXML
     private JFXTextField idtext;
 
@@ -130,54 +149,109 @@ public class EmployeeFinanceController implements Initializable {
     @FXML
     void UpdateEmp(ActionEvent event) {
         String payid = idtext.getText();
-        String  empid= empidtxt.getText();
+        String  empid= empIdtxt.getValue();
         String date = datetxt.getValue().toString();
         double basic = Double.parseDouble(basicsaltxt.getText());
         double addon = Double.parseDouble(addontxt.getText());
         double text = Double.parseDouble(cutoffstxt.getText());
         double total = Double.parseDouble(totsaltxt.getText());
 
+        idtext.setStyle(idtext.getStyle() + ";-fx-border-color: #7367F0;");
+        empIdtxt.setStyle(empIdtxt.getStyle() + ";-fx-border-color: #7367F0;");
+        datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: #7367F0;");
+        basicsaltxt.setStyle(basicsaltxt.getStyle() + ";-fx-border-color: #7367F0;");
+        addontxt.setStyle(addontxt.getStyle() + ";-fx-border-color: #7367F0;");
+        cutoffstxt.setStyle(cutoffstxt.getStyle() + ";-fx-border-color: #7367F0;");
+        totsaltxt.setStyle(totsaltxt.getStyle() + ";-fx-border-color: #7367F0;");
 
-        EmployeeExpencesDto dto = new EmployeeExpencesDto(payid,empid,date,basic,addon,text,total);
+        boolean IsBasicValidSalary = RegexUtill.IsValidSalary(basicsaltxt.getText());
+        boolean  ISAddonValid = RegexUtill.IsValidSalary(addontxt.getText());
+        boolean IsCutoffValid = RegexUtill.IsValidSalary(cutoffstxt.getText());
+        boolean isTotalValid = RegexUtill.IsValidSalary(totsaltxt.getText());
 
-        try {
-            boolean update = model.update(dto);
-            if(update){
-                new Alert(Alert.AlertType.INFORMATION,"Employee Expences Successfully Updated").show();
-                loadTbl();
-                refresh();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR);
-            e.printStackTrace();
+        if (!IsBasicValidSalary){
+            basicsaltxt.setStyle(basicsaltxt.getStyle() + ";-fx-border-color: red;");
         }
+        if (!ISAddonValid){
+            addontxt.setStyle(addontxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!IsCutoffValid){
+            cutoffstxt.setStyle( cutoffstxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isTotalValid){
+            totsaltxt.setStyle(totsaltxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (IsBasicValidSalary&ISAddonValid&IsCutoffValid&isTotalValid) {
 
+            EmployeeExpencesDto dto = new EmployeeExpencesDto(payid, empid, date, basic, addon, text, total);
+
+            try {
+                boolean update = model.update(dto);
+                if (update) {
+                    new Alert(Alert.AlertType.INFORMATION, "Employee Expences Successfully Updated").show();
+                    loadTbl();
+                    refresh();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        }
 
     }
 
     @FXML
     void addEmp(ActionEvent event) {
         String payid = idtext.getText();
-        String  empid= empidtxt.getText();
+        String  empid= empIdtxt.getValue();
         String date = datetxt.getValue().toString();
         double basic = Double.parseDouble(basicsaltxt.getText());
         double addon = Double.parseDouble(addontxt.getText());
         double text = Double.parseDouble(cutoffstxt.getText());
         double total = Double.parseDouble(totsaltxt.getText());
 
-        EmployeeExpencesDto dto = new EmployeeExpencesDto(payid,empid,date,basic,addon,text,total);
+        idtext.setStyle(idtext.getStyle() + ";-fx-border-color: #7367F0;");
+        empIdtxt.setStyle(empIdtxt.getStyle() + ";-fx-border-color: #7367F0;");
+        datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: #7367F0;");
+        basicsaltxt.setStyle(basicsaltxt.getStyle() + ";-fx-border-color: #7367F0;");
+        addontxt.setStyle(addontxt.getStyle() + ";-fx-border-color: #7367F0;");
+        cutoffstxt.setStyle(cutoffstxt.getStyle() + ";-fx-border-color: #7367F0;");
+        totsaltxt.setStyle(totsaltxt.getStyle() + ";-fx-border-color: #7367F0;");
 
-        try {
-            boolean save = model.save(dto);
-            if(save){
-                new Alert(Alert.AlertType.INFORMATION,"Employee Expences Successfully Added").show();
-                loadTbl();
-                refresh();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR);
-            e.printStackTrace();
+        boolean IsBasicValidSalary = RegexUtill.IsValidSalary(basicsaltxt.getText());
+        boolean  ISAddonValid = RegexUtill.IsValidSalary(addontxt.getText());
+        boolean IsCutoffValid = RegexUtill.IsValidSalary(cutoffstxt.getText());
+        boolean isTotalValid = RegexUtill.IsValidSalary(totsaltxt.getText());
+
+        if (!IsBasicValidSalary){
+            basicsaltxt.setStyle(basicsaltxt.getStyle() + ";-fx-border-color: red;");
         }
+        if (!ISAddonValid){
+            addontxt.setStyle(addontxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!IsCutoffValid){
+            cutoffstxt.setStyle( cutoffstxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isTotalValid){
+            totsaltxt.setStyle(totsaltxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (IsBasicValidSalary&ISAddonValid&IsCutoffValid&isTotalValid){
+            EmployeeExpencesDto dto = new EmployeeExpencesDto(payid,empid,date,basic,addon,text,total);
+
+            try {
+                boolean save = model.save(dto);
+                if(save){
+                    new Alert(Alert.AlertType.INFORMATION,"Employee Expences Successfully Added").show();
+                    loadTbl();
+                    refresh();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
     @FXML
@@ -185,23 +259,32 @@ public class EmployeeFinanceController implements Initializable {
         EmployeeExpencesDto dto = new EmployeeExpencesDto();
         dto.setPaymentId(idtext.getText());
 
-        try {
-            boolean delete = model.delete(dto);
-            if(delete){
-                new Alert(Alert.AlertType.INFORMATION,"Employee Expences Successfully Deleted").show();
-                loadTbl();
-                refresh();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = model.delete(dto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Employee Expences Successfully Deleted").show();
+                    loadTbl();
+                    refresh();
+                }
+                else {
+                    new Alert(Alert.AlertType.ERROR, "Employee Expences Failed").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR);
-            e.printStackTrace();
         }
 
     }
 
     private void refresh() {
         idtext.setText("");
-        empidtxt.setText("");
+        empIdtxt.getSelectionModel().clearSelection();
         datetxt.setValue(null);
         basicsaltxt.setText("");
         addontxt.setText("");
@@ -232,7 +315,7 @@ public class EmployeeFinanceController implements Initializable {
         EmployeeExpencessTM selectedItem = salarytbl.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             idtext.setText(selectedItem.getPaymentId());
-            empidtxt.setText(selectedItem.getEmployeeId());
+            empIdtxt.setValue(selectedItem.getEmployeeId());
             datetxt.setValue(LocalDate.parse(selectedItem.getDate()));
             basicsaltxt.setText(String.valueOf(selectedItem.getBasic()));
             addontxt.setText(String.valueOf(selectedItem.getAddons()));
@@ -250,8 +333,9 @@ public class EmployeeFinanceController implements Initializable {
         double basic = Double.parseDouble(basicsaltxt.getText());
         double addon = Double.parseDouble(addontxt.getText());
         double cutoff = Double.parseDouble(cutoffstxt.getText());
+        double total = basic+addon-cutoff;
 
-        totsaltxt.setText(String.valueOf(basic+addon-cutoff));
+        totsaltxt.setText(String.valueOf(total));
         System.out.println(totsaltxt.getText());
 
     }

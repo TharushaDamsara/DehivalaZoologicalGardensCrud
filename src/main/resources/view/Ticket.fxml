@@ -12,47 +12,58 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="633.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.TicketController">
+<AnchorPane prefHeight="668.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijjse.dehivalazoomanagemetsystem.controller.TicketController">
    <children>
-      <ImageView fx:id="backbtn" fitHeight="26.0" fitWidth="50.0" layoutX="40.0" layoutY="607.0" onMouseClicked="#goback">
+      <ImageView fx:id="backbtn" fitHeight="26.0" fitWidth="50.0" layoutX="21.0" layoutY="581.0" onMouseClicked="#goback">
          <image>
             <Image url="@../icon/icons8-arrow-left-94.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="idtxt" layoutX="90.0" layoutY="145.0" prefHeight="26.0" prefWidth="177.0" promptText="Ticket Id" />
-      <Label layoutX="324.0" layoutY="59.0" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: #00000;" text="Ticket" textFill="#7e5252">
+      <JFXTextField fx:id="idtxt" layoutX="85.0" layoutY="97.0" prefHeight="26.0" prefWidth="177.0" promptText="Ticket Id" />
+      <Label layoutX="463.0" layoutY="23.0" prefHeight="46.0" prefWidth="110.0" style="-fx-background-color: #00000;" text="Ticket" textFill="#7e5252">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton fx:id="addbtn" layoutX="460.0" layoutY="340.0" onAction="#add" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
+      <JFXButton fx:id="addbtn" layoutX="662.0" layoutY="280.0" onAction="#add" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="updatebtn" layoutX="532.0" layoutY="341.0" onAction="#Update" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Update" textFill="#53dcd5">
+      <JFXButton fx:id="updatebtn" layoutX="771.0" layoutY="280.0" onAction="#Update" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Update" textFill="#53dcd5">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="deletebtn" layoutX="609.0" layoutY="341.0" onAction="#delete" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Delete" textFill="#53dcd5">
+      <JFXButton fx:id="deletebtn" layoutX="857.0" layoutY="280.0" onAction="#delete" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Delete" textFill="#53dcd5">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="ticketTbl" layoutX="46.0" layoutY="384.0" onMouseClicked="#tabelClicked" prefHeight="200.0" prefWidth="657.0">
+      <TableView fx:id="ticketTbl" layoutX="10.0" layoutY="353.0" onMouseClicked="#tabelClicked" prefHeight="200.0" prefWidth="932.0">
          <columns>
             <TableColumn fx:id="idcol" prefWidth="95.99999237060547" text="Ticket id" />
             <TableColumn fx:id="visitorIdcol" prefWidth="136.79998779296875" text="Visitor Id" />
-            <TableColumn fx:id="dateCol" prefWidth="137.60003662109375" text="date" />
-            <TableColumn fx:id="amountCol" prefWidth="137.60003662109375" text="amount" />
-            <TableColumn fx:id="paymentTypeClo" prefWidth="137.60003662109375" text="Payment Type" />
+            <TableColumn fx:id="typeCol" prefWidth="136.0" text="Ticket Type" />
+            <TableColumn fx:id="dateCol" prefWidth="123.20001220703125" text="date" />
+            <TableColumn fx:id="qtycol" minWidth="4.79998779296875" prefWidth="145.59994506835938" text="qty" />
+            <TableColumn fx:id="amountCol" prefWidth="157.5999755859375" text="amount" />
+            <TableColumn fx:id="paymentTypeCol" prefWidth="157.5999755859375" text="Payment Type" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="amounttxt" layoutX="90.0" layoutY="281.0" prefHeight="26.0" prefWidth="178.0" promptText="amount" />
-      <JFXComboBox fx:id="visitorIdtxt" layoutX="91.0" layoutY="201.0" prefHeight="26.0" prefWidth="178.0" promptText="Visitor Id" />
-      <DatePicker fx:id="dateTxt" layoutX="86.0" layoutY="245.0" prefHeight="26.0" prefWidth="192.0" promptText="date" />
-      <JFXTextField fx:id="paymentTypetxt" layoutX="92.0" layoutY="322.0" prefHeight="26.0" prefWidth="178.0" promptText="payment type" />
+      <JFXTextField fx:id="amounttxt" layoutX="463.0" layoutY="108.0" onAction="#amountenterd" prefHeight="26.0" prefWidth="178.0" promptText="Enter hear to get your Amount" />
+      <JFXComboBox fx:id="visitorIdtxt" layoutX="85.0" layoutY="143.0" prefHeight="26.0" prefWidth="178.0" promptText="Visitor Id" />
+      <DatePicker fx:id="dateTxt" layoutX="78.0" layoutY="223.0" prefHeight="26.0" prefWidth="192.0" promptText="date" />
+      <JFXTextField fx:id="paymentTypetxt" layoutX="461.0" layoutY="177.0" prefHeight="26.0" prefWidth="178.0" promptText="payment type" />
+      <JFXComboBox fx:id="typetxt" layoutX="85.0" layoutY="177.0" onAction="#typecmbOnaction" prefHeight="26.0" prefWidth="178.0" promptText="TicketType" />
+      <Label layoutX="448.0" layoutY="223.0" prefHeight="26.0" prefWidth="78.0" text="Qty availabel :" />
+      <Label fx:id="qohlbl" layoutX="527.0" layoutY="223.0" prefHeight="26.0" prefWidth="90.0" />
+      <JFXTextField fx:id="qtytxt" layoutX="460.0" layoutY="145.0" prefHeight="26.0" prefWidth="178.0" promptText="qty" />
+      <Label fx:id="datelbl1" layoutX="763.0" layoutY="24.0" prefHeight="26.0" prefWidth="178.0" text="currunt date" />
+      <Label layoutX="717.0" layoutY="28.0" prefHeight="18.0" prefWidth="42.0" text="date :" />
+      <Label layoutX="277.0" layoutY="182.0" prefHeight="26.0" prefWidth="78.0" text="price of ticket" />
+      <Label fx:id="priceLbl" layoutX="356.0" layoutY="182.0" prefHeight="26.0" prefWidth="90.0" />
+      <Label layoutX="277.0" layoutY="143.0" prefHeight="26.0" prefWidth="78.0" text="Type Name" />
+      <Label fx:id="typelbl" layoutX="356.0" layoutY="143.0" prefHeight="26.0" prefWidth="90.0" />
    </children>
 </AnchorPane>

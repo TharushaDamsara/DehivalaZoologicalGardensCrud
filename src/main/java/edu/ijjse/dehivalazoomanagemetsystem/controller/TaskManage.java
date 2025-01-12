@@ -1,6 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TaskDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.TaskMngTm;
@@ -13,10 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +25,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TaskManage implements Initializable {
@@ -43,6 +42,19 @@ public class TaskManage implements Initializable {
 
      loadTabel();
      getnextId();
+     getEmpIds();
+
+    }
+
+    private void getEmpIds() {
+        try {
+            ArrayList<String> employeeIds = taskModel.getEmployeeIds();
+            ObservableList<String> objects = FXCollections.observableArrayList();
+            objects.addAll(employeeIds);
+            empIdtxt.setItems(objects);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        }
 
     }
 
@@ -87,8 +99,7 @@ public class TaskManage implements Initializable {
     private JFXButton deletebtn;
 
     @FXML
-    private JFXTextField empIdtxt;
-
+    private JFXComboBox<String> empIdtxt;
     @FXML
     private TableColumn<TaskMngTm, String> idcol;
 
@@ -112,7 +123,7 @@ public class TaskManage implements Initializable {
     @FXML
     void Update(ActionEvent event) {
         String id = idtxt.getText();
-        String empId = empIdtxt.getText();
+        String empId = empIdtxt.getValue();
         String taskName = nametxt.getText();
         String date = String.valueOf(datetxt.getValue());
 
@@ -135,7 +146,7 @@ public class TaskManage implements Initializable {
 
     private void clearAll() {
         idtxt.setText("");
-        empIdtxt.setText("");
+        empIdtxt.getSelectionModel().clearSelection();
         nametxt.setText("");
         datetxt.setValue(null);
 
@@ -154,7 +165,7 @@ public class TaskManage implements Initializable {
     @FXML
     void add(ActionEvent event) {
         String id = idtxt.getText();
-        String empId = empIdtxt.getText();
+        String empId = empIdtxt.getValue();
         String taskName = nametxt.getText();
         String date = String.valueOf(datetxt.getValue());
 
@@ -181,19 +192,24 @@ public class TaskManage implements Initializable {
     void delete(ActionEvent event) {
         TaskDto taskDto = new TaskDto();
         taskDto.setTaskId(idtxt.getText());
-        try {
-            boolean delete = taskModel.delete(taskDto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION,"Task deleted successfully").show();
-                loadTabel();
-                clearAll();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = taskModel.delete(taskDto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Task deleted successfully").show();
+                    loadTabel();
+                    clearAll();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Task delete failed").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"Task delete failed").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            e.printStackTrace();
         }
     }
 
@@ -214,7 +230,7 @@ public class TaskManage implements Initializable {
         TaskMngTm selectedItem = Tasktbl.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
            idtxt.setText(selectedItem.getTaskId());
-            empIdtxt.setText(selectedItem.getEmpId());
+            empIdtxt.setValue(selectedItem.getEmpId());
             nametxt.setText(selectedItem.getTaskName());
             datetxt.setValue(LocalDate.parse(selectedItem.getDueDate()));
         }

@@ -6,6 +6,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.dto.VetDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.VetTM;
 import edu.ijjse.dehivalazoomanagemetsystem.model.VetModel;
+import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class VetController implements Initializable {
@@ -119,19 +122,37 @@ public class VetController implements Initializable {
         String name = nametxt.getText();
         String address = adresstxt.getText();
         String phone = tptxt.getText();
-        VetDto dto = new VetDto(id, name, address, phone);
-        try {
-            boolean update = model.update(dto);
-            if (update) {
-                new Alert(Alert.AlertType.INFORMATION,"Vet Updated").show();
-                loadTbl();
-                refeshPage();
+
+        idtxt.setStyle(idtxt.getStyle() + ";-fx-border-color: #7367F0;");
+        nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: #7367F0;");
+        adresstxt.setStyle(adresstxt.getStyle() + ";-fx-border-color: #7367F0;");
+        tptxt.setStyle(tptxt.getStyle() + ";-fx-border-color: #7367F0;");
+
+        boolean valueDoc = RegexUtill.isValueDoc(nametxt.getText());
+        boolean validPhone = RegexUtill.IsValidPhone(tptxt.getText());
+        if (!valueDoc){
+            nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!validPhone){
+            tptxt.setStyle(tptxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (validPhone&&valueDoc){
+            VetDto dto = new VetDto(id, name, address, phone);
+            try {
+                boolean update = model.update(dto);
+                if (update) {
+                    new Alert(Alert.AlertType.INFORMATION,"Vet Updated").show();
+                    loadTbl();
+                    refeshPage();
+                }
+                else {
+                    new Alert(Alert.AlertType.ERROR,"Vet Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"Vet Not Updated").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+
+
         }
 
 
@@ -151,21 +172,35 @@ public class VetController implements Initializable {
         String name = nametxt.getText();
         String address = adresstxt.getText();
         String phone = tptxt.getText();
-        VetDto dto = new VetDto(id, name, address, phone);
-        try {
-            boolean add = model.add(dto);
-            if (add) {
-                new Alert(Alert.AlertType.INFORMATION,"Vet Added").show();
-                loadTbl();
-                refeshPage();
-            }
-            else {
-                new Alert(Alert.AlertType.ERROR,"Vet Not Added").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-        }
+        idtxt.setStyle(idtxt.getStyle() + ";-fx-border-color: #7367F0;");
+        nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: #7367F0;");
+        adresstxt.setStyle(adresstxt.getStyle() + ";-fx-border-color: #7367F0;");
+        tptxt.setStyle(tptxt.getStyle() + ";-fx-border-color: #7367F0;");
 
+        boolean valueDoc = RegexUtill.isValueDoc(nametxt.getText());
+        boolean validPhone = RegexUtill.IsValidPhone(tptxt.getText());
+        if (!valueDoc){
+            nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!validPhone){
+            tptxt.setStyle(tptxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (validPhone&&valueDoc) {
+
+            VetDto dto = new VetDto(id, name, address, phone);
+            try {
+                boolean add = model.add(dto);
+                if (add) {
+                    new Alert(Alert.AlertType.INFORMATION, "Vet Added").show();
+                    loadTbl();
+                    refeshPage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Vet Not Added").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+        }
 
     }
 
@@ -173,18 +208,23 @@ public class VetController implements Initializable {
     void delete(ActionEvent event) {
     VetDto dto = new VetDto();
     dto.setVetId(idtxt.getText());
-        try {
-            boolean delete = model.delete(dto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION,"Vet Deleted").show();
-                loadTbl();
-                refeshPage();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = model.delete(dto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Vet Deleted").show();
+                    loadTbl();
+                    refeshPage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Vet Not Deleted").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"Vet Not Deleted").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 
     }

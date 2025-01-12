@@ -1,6 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDetailsMngDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.UserDetailMngTM;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UserDetailsController implements Initializable {
@@ -42,8 +45,22 @@ public class UserDetailsController implements Initializable {
         try {
             loadtabel();
             getnxtId();
+            loadUserIDs();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+
+    }
+
+    private void loadUserIDs() {
+        try {
+            ArrayList<String> employeeIds = model.getEmployeeIds();
+            ObservableList<String> objects = FXCollections.observableArrayList();
+            objects.addAll(employeeIds);
+            empIdtxt.setItems(objects);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
 
     }
@@ -64,7 +81,8 @@ public class UserDetailsController implements Initializable {
     private JFXButton deletebtn;
 
     @FXML
-    private JFXTextField empIdtxt;
+    private JFXComboBox<String> empIdtxt;
+
 
     @FXML
     private TableColumn<UserDetailMngTM, String> empidcol;
@@ -91,7 +109,7 @@ public class UserDetailsController implements Initializable {
     @FXML
     void Update(ActionEvent event) {
         String id = idtxt.getText();
-        String empId = empIdtxt.getText();
+        String empId = empIdtxt.getValue();
         String userName = UserNametxt.getText();
         String pwd = pwdTxt.getText();
         UserDetailsMngDto dto = new UserDetailsMngDto(id, empId, userName, pwd);
@@ -111,7 +129,7 @@ public class UserDetailsController implements Initializable {
     private void refesh() throws SQLException {
 
     idtxt.setText("");
-    empIdtxt.setText("");
+    empIdtxt.getSelectionModel().clearSelection();
     UserNametxt.setText("");
     pwdTxt.setText("");
     loadtabel();
@@ -120,7 +138,7 @@ public class UserDetailsController implements Initializable {
 
     private void getnxtId() {
     UserDetailsMngDto dto = new UserDetailsMngDto();
-    dto.setEmpId(empIdtxt.getText());
+    dto.setEmpId(empIdtxt.getValue());
         try {
             String nxtId = model.getNxtId(dto);
             idtxt.setText(nxtId);
@@ -148,7 +166,7 @@ public class UserDetailsController implements Initializable {
     @FXML
     void add(ActionEvent event) {
         String id = idtxt.getText();
-        String empId = empIdtxt.getText();
+        String empId = empIdtxt.getValue();
         String userName = UserNametxt.getText();
         String pwd = pwdTxt.getText();
         UserDetailsMngDto dto = new UserDetailsMngDto(id, empId, userName, pwd);
@@ -168,15 +186,21 @@ public class UserDetailsController implements Initializable {
     void delete(ActionEvent event) {
     UserDetailsMngDto dto = new UserDetailsMngDto();
     dto.setUserId(idtxt.getText());
-        try {
-            boolean delete = model.deleteUser(dto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION,"user deleted successfully").show();
-                refesh();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = model.deleteUser(dto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "user deleted successfully").show();
+                    refesh();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            e.printStackTrace();
         }
     }
 
@@ -194,7 +218,7 @@ public class UserDetailsController implements Initializable {
     void tabelClicked(MouseEvent event) {
         UserDetailMngTM selectedItem = usertbl.getSelectionModel().getSelectedItem();
       idtxt.setText(selectedItem.getId());
-      empIdtxt.setText(selectedItem.getEmpId());
+      empIdtxt.setValue(selectedItem.getEmpId());
       UserNametxt.setText(selectedItem.getUsername());
       pwdTxt.setText(selectedItem.getPassword());
 

@@ -41,6 +41,8 @@ public class UserFuntionController {
     @FXML
     private JFXButton ticketBtn;
 
+    @FXML
+    private JFXButton ticketDetailsBTn;
 
     @FXML
     void animalmng(ActionEvent event) throws IOException {
@@ -105,6 +107,15 @@ public class UserFuntionController {
         Stage window = (Stage) animalmngBtn.getScene().getWindow();
         window.close();
         Parent load = FXMLLoader.load(getClass().getResource("/view/Ticket.fxml"));
+        Scene scene = new Scene(load);
+        window.setScene(scene);
+        window.show();
+    }
+
+    public void ticketDetailsMng(ActionEvent actionEvent) throws IOException {
+        Stage window = (Stage) animalmngBtn.getScene().getWindow();
+        window.close();
+        Parent load = FXMLLoader.load(getClass().getResource("/view/TicketDetails.fxml"));
         Scene scene = new Scene(load);
         window.setScene(scene);
         window.show();

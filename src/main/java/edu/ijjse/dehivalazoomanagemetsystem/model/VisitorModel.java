@@ -26,8 +26,8 @@ public class VisitorModel {
                 dto.getVisitorAddress(),
                 dto.getVisitDate(),
                 dto.getVisitNic(),
-                dto.getVisitorId(),
-                dto.getTicketId());
+                dto.getTicketId(),
+                dto.getVisitorId());
     }
     public boolean delete(VisitorDto dto) throws SQLException {
         String sql ="DELETE FROM visitor WHERE visitorId =?";

@@ -1,11 +1,13 @@
 package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.AnimalExpencesDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.AnimalExpencessTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.AnimalMngTM;
 import edu.ijjse.dehivalazoomanagemetsystem.model.AnimalExpencessModel;
+import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,10 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +27,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AnimalFinanceController implements Initializable {
@@ -46,10 +46,24 @@ public class AnimalFinanceController implements Initializable {
         try {
             tabelload();
             getNextid();
+            getAnimalIds();
             System.out.println("inizial");
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
+        }
+
+    }
+
+    private void getAnimalIds() {
+        try {
+            ArrayList<String> animalIds = model.getAnimalIds();
+            ObservableList<String> objects = FXCollections.observableArrayList();
+            objects.addAll(animalIds);
+            animalidtxt.setItems(objects);
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }
@@ -89,7 +103,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
     private TableColumn<AnimalExpencessTM, String> animalidcol;
 
     @FXML
-    private JFXTextField animalidtxt;
+    private JFXComboBox<String> animalidtxt;
 
     @FXML
     private ImageView backbtn;
@@ -123,69 +137,121 @@ animalexpencetbl.setItems(animalExpencessTMS);
     @FXML
     void Update(ActionEvent event) throws SQLException {
         String expenceid = expenceidtxt.getText();
-        String animalid = animalidtxt.getText();
-        double amount = Double.parseDouble(amounttxt.getText()) ;
+        String animalid = animalidtxt.getValue();
+        double amount = Double.parseDouble(amounttxt.getText());
         String desc = desctxt.getText();
         String expencedate = datetxt.getValue().toString();
 
-        AnimalExpencesDto dto = new AnimalExpencesDto(expenceid,animalid,amount,desc,expencedate);
+        expenceidtxt.setStyle(expenceidtxt.getStyle()+"-fx-border-color: #7367F0;");
+        animalidtxt.setStyle(animalidtxt.getStyle()+"-fx-border-color: #7367F0;");
+        amounttxt.setStyle(amounttxt.getStyle() + "-fx-border-color: #7367F0;");
+        desctxt.setStyle(desctxt.getStyle()+"-fx-border-color: #7367F0;");
+        datetxt.setStyle(datetxt.getStyle()+"-fx-border-color: #7367F0;");
 
 
-        try {
-            boolean update = model.update(dto);
-            if (update) {
-                new Alert(Alert.AlertType.INFORMATION, "Animal Expences Updated Successfully").show();
-                tabelload();
-                clearForm();
-                getNextid();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR);
+        boolean isValidAmount = RegexUtill.IsValidAmount(String.valueOf(amounttxt));
+        boolean isValidDate = RegexUtill.IsValidDate(String.valueOf(datetxt));
+
+        if (!isValidAmount) {
+            amounttxt.setStyle(amounttxt.getStyle() + ";-fx-border-color: red;");
+            System.out.println(amounttxt.getStyle());
+           // new Alert(Alert.AlertType.ERROR, "Amount is not valid", ButtonType.OK).show();
         }
+        if (!isValidDate) {
+            datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (isValidAmount&isValidDate) {
+            AnimalExpencesDto dto = new AnimalExpencesDto(expenceid,animalid,amount,desc,expencedate);
+            try {
+                boolean update = model.update(dto);
+                if (update) {
+                    new Alert(Alert.AlertType.INFORMATION, "Animal Expences Updated Successfully").show();
+                    tabelload();
+                    clearForm();
+                    getNextid();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR);
+            }
+        }
+
     }
 
     @FXML
     void add(ActionEvent event) {
+
         String expenceid = expenceidtxt.getText();
-        String animalid = animalidtxt.getText();
+        String animalid = animalidtxt.getValue();
         double amount = Double.parseDouble(amounttxt.getText()) ;
         String desc = desctxt.getText();
         String expencedate = datetxt.getValue().toString();
 
-        AnimalExpencesDto dto = new AnimalExpencesDto(expenceid,animalid,amount,desc,expencedate);
+        expenceidtxt.setStyle(expenceidtxt.getStyle()+"-fx-border-color: #7367F0;");
+        animalidtxt.setStyle(animalidtxt.getStyle()+"-fx-border-color: #7367F0;");
+        amounttxt.setStyle(amounttxt.getStyle() + "-fx-border-color: #7367F0;");
+        desctxt.setStyle(desctxt.getStyle()+"-fx-border-color: #7367F0;");
+        datetxt.setStyle(datetxt.getStyle()+"-fx-border-color: #7367F0;");
 
-        try {
-            boolean resp = model.add(dto);
-            System.out.println(resp);
-            if (resp) {
-                new Alert(Alert.AlertType.INFORMATION, "Animal Expences Added Successfully").show();
-                tabelload();
-                clearForm();
-                getNextid();
+
+        boolean isValidAmount = RegexUtill.IsValidAmount(String.valueOf(amounttxt));
+        boolean isValidDate = RegexUtill.IsValidDate(String.valueOf(datetxt));
+
+        if (!isValidAmount) {
+            amounttxt.setStyle(amounttxt.getStyle() + ";-fx-border-color: red;");
+            System.out.println(amounttxt.getStyle());
+             new Alert(Alert.AlertType.ERROR, "Amount is not valid", ButtonType.OK).show();
+        }
+        if (!isValidDate) {
+            datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (isValidAmount&isValidDate) {
+
+
+            AnimalExpencesDto dto = new AnimalExpencesDto(expenceid, animalid, amount, desc, expencedate);
+
+            try {
+                boolean resp = model.add(dto);
+                System.out.println(resp);
+                if (resp) {
+                    new Alert(Alert.AlertType.INFORMATION, "Animal Expences Added Successfully").show();
+                    tabelload();
+                    clearForm();
+                    getNextid();
+                }
+            } catch (SQLException a) {
+                a.printStackTrace();
+                new Alert(Alert.AlertType.ERROR);
             }
-        } catch (SQLException a) {
-            a.printStackTrace();
-            new Alert(Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     void delete(ActionEvent event) {
+
         AnimalExpencesDto dto = new AnimalExpencesDto();
         dto.setAnimalExpencesId(expenceidtxt.getText());
 
-        try {
-         //   new Alert(Alert.AlertType.CONFIRMATION, "Are you shuver you want to delete this").show();
-            boolean delete = model.delete(dto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION, "Animal Expences Deleted").show();
-                tabelload();
-                clearForm();
-                getNextid();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+
+                boolean delete = model.delete(dto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Animal Expences Deleted").show();
+                    tabelload();
+                    clearForm();
+                    getNextid();
+                }
+                else {
+                    new Alert(Alert.AlertType.ERROR, "Animal Expences Not Deleted").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-           new Alert(Alert.AlertType.ERROR);
-           e.printStackTrace();
         }
     }
 
@@ -205,7 +271,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
         AnimalExpencessTM expencessTM = animalexpencetbl.getSelectionModel().getSelectedItem();
         if (expencessTM != null) {
             expenceidtxt.setText(expencessTM.getExpenceId());
-            animalidtxt.setText(expencessTM.getAnimalId());
+            animalidtxt.setValue(expencessTM.getAnimalId());
             amounttxt.setText(String.valueOf(expencessTM.getAmount()));
             desctxt.setText(expencessTM.getDescription());
             datetxt.setValue(LocalDate.parse(expencessTM.getDate()));
@@ -215,7 +281,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
         }
     }
     public void clearForm(){
-        animalidtxt.setText("");
+        animalidtxt.getSelectionModel().clearSelection();
         expenceidtxt.setText("");
         amounttxt.setText("");
         desctxt.setText("");

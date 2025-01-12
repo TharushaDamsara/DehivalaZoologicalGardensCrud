@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -20,7 +21,6 @@
       </ImageView>
       <JFXTextField fx:id="idtxt" layoutX="55.0" layoutY="106.0" prefHeight="26.0" prefWidth="177.0" promptText="task Id" />
       <JFXTextField fx:id="nametxt" layoutX="55.0" layoutY="151.0" prefHeight="26.0" prefWidth="177.0" promptText="task" />
-      <JFXTextField fx:id="empIdtxt" layoutX="55.0" layoutY="201.0" prefHeight="26.0" prefWidth="178.0" promptText="EmpId" />
       <Label layoutX="263.0" layoutY="46.0" prefHeight="46.0" prefWidth="189.0" style="-fx-background-color: #00000;" text="Task Manage" textFill="#7e5252">
          <font>
             <Font size="30.0" />
@@ -50,5 +50,6 @@
          </columns>
       </TableView>
       <DatePicker fx:id="datetxt" layoutX="52.0" layoutY="254.0" prefHeight="26.0" prefWidth="178.0" promptText="Due date" />
+      <JFXComboBox fx:id="empIdtxt" layoutX="52.0" layoutY="201.0" prefHeight="26.0" prefWidth="178.0" promptText="Emp Id" />
    </children>
 </AnchorPane>

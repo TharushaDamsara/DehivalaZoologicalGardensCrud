@@ -37,7 +37,7 @@
       </JFXButton>
       <JFXTextField fx:id="nametxt" layoutX="55.0" layoutY="160.0" prefHeight="26.0" prefWidth="177.0" promptText=" Name" />
       <DatePicker fx:id="datetxt" layoutX="54.0" layoutY="265.0" prefHeight="26.0" prefWidth="178.0" promptText="date " />
-      <Label layoutX="225.0" layoutY="28.0" prefHeight="46.0" prefWidth="250.0" style="-fx-background-color: #00000;" text="Visitor Manage" textFill="#7e5252">
+      <Label layoutX="228.0" layoutY="33.0" prefHeight="46.0" prefWidth="214.0" style="-fx-background-color: #00000;" text="Event Manage" textFill="#7e5252">
          <font>
             <Font size="30.0" />
          </font>

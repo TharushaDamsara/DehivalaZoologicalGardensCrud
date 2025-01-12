@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.VisitorTM;
 import edu.ijjse.dehivalazoomanagemetsystem.model.VisitorModel;
+import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,10 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +25,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class VisitorMngController implements Initializable {
@@ -145,6 +144,7 @@ public class VisitorMngController implements Initializable {
 
     @FXML
     void Update(ActionEvent event) {
+
         String id = idtxt.getText();
         String name = nametxt.getText();
         String address = addresstxt.getText();
@@ -152,19 +152,40 @@ public class VisitorMngController implements Initializable {
         String visitNic = nictxt.getText();
         String ticket = ticketId.getText();
 
+        idtxt.setStyle(idtxt.getStyle() + ";-fx-border-color: #7367F0;");
+        nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: #7367F0;");
+        addresstxt.setStyle(addresstxt.getStyle() + ";-fx-border-color: #7367F0;");
+        datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: #7367F0;");
+        nictxt.setStyle(nictxt.getStyle() + ";-fx-border-color: #7367F0;");
+        ticketId.setStyle(ticketId.getStyle() + ";-fx-border-color: #7367F0;");
 
-        VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
-        try {
-            boolean update = model.update(visitorDto);
-            if (update) {
-                new Alert(Alert.AlertType.INFORMATION, "Visitor Updated").show();
-                loadTabel();
-                clearForm();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        boolean isValidName = RegexUtill.IsValidName(nametxt.getText());
+        boolean validNic = RegexUtill.isValidNic(nictxt.getText());
+
+        if (!isValidName){
+            nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: red;");
         }
+        if (!validNic){
+            nictxt.setStyle(nictxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (isValidName&&validNic){
+            VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
+            try {
+                boolean update = model.update(visitorDto);
+                if (update) {
+                    new Alert(Alert.AlertType.INFORMATION, "Visitor Updated").show();
+                    loadTabel();
+                    clearForm();
+                }
+                else {
+                    new Alert(Alert.AlertType.ERROR, "Visitor Update Failld").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
+            }
 
+        }
     }
 
     @FXML
@@ -176,12 +197,32 @@ public class VisitorMngController implements Initializable {
         String visitNic = nictxt.getText();
         String ticket = ticketId.getText();
 
-        VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic,ticket);
-        boolean add = model.add(visitorDto);
-        if (add) {
-            new Alert(Alert.AlertType.INFORMATION, "Visitor Added").show();
-            loadTabel();
-            clearForm();
+        idtxt.setStyle(idtxt.getStyle() + ";-fx-border-color: #7367F0;");
+        nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: #7367F0;");
+        addresstxt.setStyle(addresstxt.getStyle() + ";-fx-border-color: #7367F0;");
+        datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: #7367F0;");
+        nictxt.setStyle(nictxt.getStyle() + ";-fx-border-color: #7367F0;");
+        ticketId.setStyle(ticketId.getStyle() + ";-fx-border-color: #7367F0;");
+
+        boolean isValidName = RegexUtill.IsValidName(nametxt.getText());
+        boolean validNic = RegexUtill.isValidNic(nictxt.getText());
+
+        if (!isValidName){
+            nametxt.setStyle(nametxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!validNic){
+            nictxt.setStyle(nictxt.getStyle() + ";-fx-border-color: red;");
+        }
+        if (isValidName&&validNic) {
+
+
+            VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
+            boolean add = model.add(visitorDto);
+            if (add) {
+                new Alert(Alert.AlertType.INFORMATION, "Visitor Added").show();
+                loadTabel();
+                clearForm();
+            }
         }
 
     }
@@ -190,15 +231,21 @@ public class VisitorMngController implements Initializable {
     void delete(ActionEvent event) {
     VisitorDto visitorDto = new VisitorDto();
     visitorDto.setVisitorId(idtxt.getText());
-        try {
-            boolean delete = model.delete(visitorDto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION, "Visitor Deleted").show();
-                loadTabel();
-                clearForm();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = model.delete(visitorDto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Visitor Deleted").show();
+                    loadTabel();
+                    clearForm();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

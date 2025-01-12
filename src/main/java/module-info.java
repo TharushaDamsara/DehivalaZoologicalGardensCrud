@@ -13,5 +13,3 @@ module edu.ijjse.dehivalazoomanagemetsystem {
     opens view to javafx.fxml;
     opens edu.ijjse.dehivalazoomanagemetsystem.model to javafx.fxml;
 }
-
-

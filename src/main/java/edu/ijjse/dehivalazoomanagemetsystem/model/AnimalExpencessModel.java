@@ -51,4 +51,13 @@ public class AnimalExpencessModel {
        }
         return "X001";
     }
+    public ArrayList<String> getAnimalIds() throws SQLException{
+        String sql = "select animalId from animal";
+        ResultSet rst = CrudUtil.execute(sql);
+        ArrayList<String> animalIds = new ArrayList<>();
+        while(rst.next()){
+            animalIds.add(rst.getString(1));
+        }
+        return animalIds;
+    }
 }

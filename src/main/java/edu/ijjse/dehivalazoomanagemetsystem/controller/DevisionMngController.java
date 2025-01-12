@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DevisionMngController implements Initializable {
@@ -39,6 +41,7 @@ public class DevisionMngController implements Initializable {
         descclm.setCellValueFactory(new PropertyValueFactory<>("devisionDescription"));
         try {
             loadTabel();
+            getnxtId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
@@ -153,15 +156,24 @@ public class DevisionMngController implements Initializable {
     void delete(ActionEvent event) {
     DevisionDto dto = new DevisionDto();
     dto.setDevisionId(idtxt.getText());
-        try {
-            boolean delete = model.delete(dto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION, "Devision deleted successfully").show();
-                loadTabel();
-                clearForm();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = model.delete(dto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Devision deleted successfully").show();
+                    loadTabel();
+                    clearForm();
+                }
+                else {
+                    new Alert(Alert.AlertType.ERROR, "Devision not deleted").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

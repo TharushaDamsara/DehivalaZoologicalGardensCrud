@@ -11,10 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +22,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -241,16 +239,22 @@ EmpMngModel model = new EmpMngModel();
     void deleteEmp(ActionEvent event) {
     EmpMngDto empMngDto = new EmpMngDto();
     empMngDto.setEmpId(idtext.getText());
-        try {
-            boolean delete = model.delete(empMngDto);
-            if (delete) {
-                new Alert(Alert.AlertType.INFORMATION,"Deleted Successfully").show();
-                tabelLoad();
-                clearForm();
-                getnextId();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            try {
+                boolean delete = model.delete(empMngDto);
+                if (delete) {
+                    new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully").show();
+                    tabelLoad();
+                    clearForm();
+                    getnextId();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Employee could not be deleted" + e.toString()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"Employee could not be deleted"+e.toString()).show();
         }
     }
 

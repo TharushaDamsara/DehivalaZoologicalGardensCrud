@@ -68,4 +68,13 @@ public class EmpExpencessModel {
         }
         return "P001";
     }
+    public ArrayList<String> getEmployeeIds() throws SQLException {
+        String sql = "select empId from employee";
+        ResultSet rst = CrudUtil.execute(sql);
+        ArrayList<String> employees = new ArrayList<>();
+        while (rst.next()) {
+            employees.add(rst.getString(1));
+        }
+        return employees;
+    }
 }
