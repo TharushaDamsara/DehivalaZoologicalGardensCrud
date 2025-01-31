@@ -3,10 +3,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.AnimalMngDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.AnimalMngTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.AnimalMngModel;
-import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.AnimalMngTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.AnimalMngDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -159,7 +159,7 @@ animaltbl.setItems(AnimalTms);
  @FXML
  private TableView<AnimalMngTM> animaltbl;
 
- AnimalMngModel model = new AnimalMngModel();
+ AnimalMngDaoImpl model = new AnimalMngDaoImpl();
 
     @FXML
     void Update(ActionEvent event) {
@@ -328,7 +328,7 @@ animaltbl.setItems(AnimalTms);
     }
  }
  public void nextAnimalId() throws SQLException {
-     String nextAnimalId = model.getNextAnimalId();
+     String nextAnimalId = model.getNextId();
      idtxt.setText(nextAnimalId);
  }
 }

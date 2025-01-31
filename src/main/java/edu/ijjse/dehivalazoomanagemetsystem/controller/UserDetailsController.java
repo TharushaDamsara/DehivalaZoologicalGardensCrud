@@ -3,9 +3,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDetailsMngDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.UserDetailMngTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.UserDetailsModel;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.UserDetailsMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.UserDetailMngTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.UserDetailsDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,7 +104,7 @@ public class UserDetailsController implements Initializable {
 
     @FXML
     private TableView<UserDetailMngTM> usertbl;
-    UserDetailsModel model = new UserDetailsModel();
+    UserDetailsDaoImpl model = new UserDetailsDaoImpl();
 
     @FXML
     void Update(ActionEvent event) {
@@ -114,7 +114,7 @@ public class UserDetailsController implements Initializable {
         String pwd = pwdTxt.getText();
         UserDetailsMngDto dto = new UserDetailsMngDto(id, empId, userName, pwd);
         try {
-            boolean update = model.updateUser(dto);
+            boolean update = model.update(dto);
             if (update) {
                 new Alert(Alert.AlertType.INFORMATION,"user aded successfully").show();
                 refesh();
@@ -137,10 +137,8 @@ public class UserDetailsController implements Initializable {
     }
 
     private void getnxtId() {
-    UserDetailsMngDto dto = new UserDetailsMngDto();
-    dto.setEmpId(empIdtxt.getValue());
         try {
-            String nxtId = model.getNxtId(dto);
+            String nxtId = model.getNextId();
             idtxt.setText(nxtId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -148,7 +146,7 @@ public class UserDetailsController implements Initializable {
     }
 
     private void loadtabel() throws SQLException {
-        ArrayList<UserDetailsMngDto> userDetailsMngDtos = model.getAllUsers();
+        ArrayList<UserDetailsMngDto> userDetailsMngDtos = model.getAll();
         ObservableList<UserDetailMngTM> userDetailMngTMS = FXCollections.observableArrayList();
 
         for (UserDetailsMngDto dto : userDetailsMngDtos) {
@@ -171,7 +169,7 @@ public class UserDetailsController implements Initializable {
         String pwd = pwdTxt.getText();
         UserDetailsMngDto dto = new UserDetailsMngDto(id, empId, userName, pwd);
         try {
-            boolean add = model.addUser(dto);
+            boolean add = model.add(dto);
             if (add) {
                 new Alert(Alert.AlertType.INFORMATION,"user added successfully").show();
                 refesh();
@@ -192,7 +190,7 @@ public class UserDetailsController implements Initializable {
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = model.deleteUser(dto);
+                boolean delete = model.delete(dto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "user deleted successfully").show();
                     refesh();

@@ -2,9 +2,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.EventDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.EventTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.EventModel;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EventDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.EventTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EventDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -103,7 +103,7 @@ public class EventMngController implements Initializable {
     private TableView<EventTM> eventtbl;
 
 
-    EventModel model = new EventModel();
+    EventDaoImpl model = new EventDaoImpl();
 
     @FXML
     void Update(ActionEvent event) {
@@ -136,7 +136,7 @@ public class EventMngController implements Initializable {
         String date = datetxt.getValue().toString();
         EventDto eventDto = new EventDto(id,name,location,date);
         try {
-            boolean save = model.save(eventDto);
+            boolean save = model.add(eventDto);
             if (save){
                 new Alert(Alert.AlertType.INFORMATION, "Event added successfully").show();
                 loadtabel();
@@ -204,7 +204,7 @@ public class EventMngController implements Initializable {
         }
     }
     public void loadnextId() throws SQLException {
-        String id = model.getnxtId();
+        String id = model.getNextId();
         idtxt.setText(id);
 
     }

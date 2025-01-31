@@ -2,9 +2,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.DevisionDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.DevisionTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.DevisionModel;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.DevisionDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.DevisionTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.DevisionDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -94,7 +94,7 @@ public class DevisionMngController implements Initializable {
     @FXML
     private JFXButton updatebtn;
 
-    DevisionModel model = new DevisionModel();
+    DevisionDaoImpl model = new DevisionDaoImpl();
     @FXML
     void Update(ActionEvent event) {
         String id = idtxt.getText();
@@ -128,7 +128,7 @@ public class DevisionMngController implements Initializable {
     }
 
     private void getnxtId() throws SQLException {
-        String nextDevisionId = model.getNextDevisionId();
+        String nextDevisionId = model.getNextId();
         idtxt.setText(nextDevisionId);
 
 

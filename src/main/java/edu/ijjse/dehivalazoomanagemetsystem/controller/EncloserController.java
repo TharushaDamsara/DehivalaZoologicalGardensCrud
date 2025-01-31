@@ -2,10 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.EncloserDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.EncloserTm;
-import edu.ijjse.dehivalazoomanagemetsystem.model.EncloserModel;
-import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EncloserDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.EncloserTm;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EncloserDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,7 +63,7 @@ public class EncloserController implements Initializable {
         }
     }
 
-    EncloserModel model = new EncloserModel();
+    EncloserDaoImpl model = new EncloserDaoImpl();
     @FXML
     private JFXButton addbtn;
 
@@ -180,7 +180,7 @@ public class EncloserController implements Initializable {
     }
 
     private void getnxtId() throws SQLException {
-        String id = model.getnextId();
+        String id = model.getNextId();
         idtxt.setText(id);
         System.out.println(id);
 

@@ -2,8 +2,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.UserModel;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.UserDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +40,7 @@ public class EmpLoginController {
 
     @FXML
     private JFXTextField usertxt;
-        UserModel model = new UserModel();
+        UserDaoImpl model = new UserDaoImpl();
     @FXML
     void forgotpwd(MouseEvent event) {
 

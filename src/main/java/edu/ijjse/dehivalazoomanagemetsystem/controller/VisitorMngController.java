@@ -2,10 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.VisitorTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.VisitorModel;
-import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.VisitorDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.VisitorTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.VisitorDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,7 +67,7 @@ public class VisitorMngController implements Initializable {
         }
 
     private void getNextId() throws SQLException {
-        String id = model.getnextId();
+        String id = model.getNextId();
         idtxt.setText(id);
     }
 
@@ -140,7 +140,7 @@ public class VisitorMngController implements Initializable {
     private JFXTextField ticketId;
 
 
-    VisitorModel model = new VisitorModel();
+    VisitorDaoImpl model = new VisitorDaoImpl();
 
     @FXML
     void Update(ActionEvent event) {

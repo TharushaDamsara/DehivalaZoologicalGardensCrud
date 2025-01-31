@@ -3,10 +3,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.EmployeeExpencesDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.EmployeeExpencessTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.EmpExpencessModel;
-import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EmployeeExpencesDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.EmployeeExpencessTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EmpExpencessDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,7 +68,7 @@ public class EmployeeFinanceController implements Initializable {
     }
 
     private void loadTbl() throws SQLException {
-        ArrayList<EmployeeExpencesDto> employeeExpencesDtos = model.viewAll();
+        ArrayList<EmployeeExpencesDto> employeeExpencesDtos = model.getAll();
         ObservableList<EmployeeExpencessTM> employeeExpencessTMS = FXCollections.observableArrayList();
 
         for (EmployeeExpencesDto employeeExpencesDto : employeeExpencesDtos) {
@@ -144,7 +144,7 @@ public class EmployeeFinanceController implements Initializable {
     @FXML
     private JFXButton updatebtn;
 
-    EmpExpencessModel model = new EmpExpencessModel();
+    EmpExpencessDaoImpl model = new EmpExpencessDaoImpl();
 
     @FXML
     void UpdateEmp(ActionEvent event) {
@@ -239,7 +239,7 @@ public class EmployeeFinanceController implements Initializable {
             EmployeeExpencesDto dto = new EmployeeExpencesDto(payid,empid,date,basic,addon,text,total);
 
             try {
-                boolean save = model.save(dto);
+                boolean save = model.add(dto);
                 if(save){
                     new Alert(Alert.AlertType.INFORMATION,"Employee Expences Successfully Added").show();
                     loadTbl();
@@ -324,7 +324,7 @@ public class EmployeeFinanceController implements Initializable {
         }
     }
     public void getnxtId() throws SQLException {
-        String id = model.getnextId();
+        String id = model.getNextId();
         idtext.setText(id);
         System.out.println(id);
     }

@@ -2,11 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.VetDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.VetTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.VetModel;
-import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.VetDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.VetTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.VetDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,7 +48,7 @@ public class VetController implements Initializable {
 
     private void getnxtId() {
         try {
-            String id = model.getnxtId();
+            String id = model.getNextId();
             idtxt.setText(id);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -76,7 +75,7 @@ public class VetController implements Initializable {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
     }
-  VetModel model = new VetModel();
+  VetDaoImpl model = new VetDaoImpl();
     @FXML
     private JFXButton addbtn;
 

@@ -6,10 +6,11 @@ module edu.ijjse.dehivalazoomanagemetsystem {
     requires static lombok;
 
 
-   // opens edu.ijjse.dehivalazoomanagemetsystem.dto.tm to javafx.fxml;
+   // opens edu.ijjse.dehivalazoomanagemetsystem.model.tm to javafx.fxml;
     opens edu.ijjse.dehivalazoomanagemetsystem.controller to javafx.fxml;
     exports edu.ijjse.dehivalazoomanagemetsystem;
-    exports edu.ijjse.dehivalazoomanagemetsystem.dto.tm;
+    exports edu.ijjse.dehivalazoomanagemetsystem.model.tm;
     opens view to javafx.fxml;
-    opens edu.ijjse.dehivalazoomanagemetsystem.model to javafx.fxml;
+    opens edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl to javafx.fxml;
+    opens edu.ijjse.dehivalazoomanagemetsystem.dao.custom to javafx.fxml;
 }

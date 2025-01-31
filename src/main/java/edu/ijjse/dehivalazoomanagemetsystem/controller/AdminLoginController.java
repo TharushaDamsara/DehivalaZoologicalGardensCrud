@@ -2,8 +2,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.AdminDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.AdminModel;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AdminDao;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.AdminDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +40,8 @@ public class AdminLoginController {
     @FXML
     private JFXTextField userNametxt;
 
-    AdminModel model = new AdminModel();
+    AdminDao adminDao = new AdminDaoImpl();
+
 
     @FXML
     void forgotpwd(MouseEvent event) {
@@ -60,7 +62,7 @@ public class AdminLoginController {
         String pwd = pwdtxt.getText();
 
         try {
-            boolean resp = model.getAdmin(userName, pwd);
+            boolean resp = adminDao.getAdmin(userName, pwd);
             if (resp) {
                 adminlogpane.getChildren().clear();
                 AnchorPane load = FXMLLoader.load(getClass().getResource("/view/AdminFuntion.fxml"));
@@ -84,7 +86,7 @@ public class AdminLoginController {
         String pwd = pwdtxt.getText();
 
         try {
-            boolean resp = model.getAdmin(userName, pwd);
+            boolean resp = adminDao.getAdmin(userName, pwd);
             if (resp) {
                 adminlogpane.getChildren().clear();
                 AnchorPane load = FXMLLoader.load(getClass().getResource("/view/AdminFuntion.fxml"));

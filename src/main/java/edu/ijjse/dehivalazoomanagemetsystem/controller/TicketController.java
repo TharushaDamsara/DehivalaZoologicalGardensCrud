@@ -3,11 +3,11 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.TicketDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.TicketTm;
-import edu.ijjse.dehivalazoomanagemetsystem.model.TicketModel;
-import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TickDetailsDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TicketDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.TicketTm;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.TicketDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,7 +67,7 @@ public class TicketController implements Initializable {
 
     private void getnextId() {
         try {
-            String id = model.getnextId();
+            String id = model.getNextId();
             idtxt.setText(id);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -111,7 +111,7 @@ public class TicketController implements Initializable {
             e.printStackTrace();
         }
     }
-TicketModel model = new TicketModel();
+TicketDaoImpl model = new TicketDaoImpl();
     @FXML
     private JFXButton addbtn;
 

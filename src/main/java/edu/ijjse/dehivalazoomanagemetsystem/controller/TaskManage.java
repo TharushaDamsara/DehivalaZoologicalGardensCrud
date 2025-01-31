@@ -3,9 +3,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.TaskDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.TaskMngTm;
-import edu.ijjse.dehivalazoomanagemetsystem.model.TaskModel;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TaskDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.TaskMngTm;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.TaskDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,7 +48,7 @@ public class TaskManage implements Initializable {
 
     private void getEmpIds() {
         try {
-            ArrayList<String> employeeIds = taskModel.getEmployeeIds();
+            ArrayList<String> employeeIds = taskDaoImpl.getEmployeeIds();
             ObservableList<String> objects = FXCollections.observableArrayList();
             objects.addAll(employeeIds);
             empIdtxt.setItems(objects);
@@ -60,7 +60,7 @@ public class TaskManage implements Initializable {
 
     private void loadTabel() {
         try {
-            ArrayList<TaskDto> taskDtos = taskModel.getAll();
+            ArrayList<TaskDto> taskDtos = taskDaoImpl.getAll();
             ObservableList<TaskMngTm> taskMngTms = FXCollections.observableArrayList();
             for (TaskDto taskDto : taskDtos) {
                 TaskMngTm taskMngTm = new TaskMngTm(
@@ -118,7 +118,7 @@ public class TaskManage implements Initializable {
     @FXML
     private TableColumn<TaskMngTm, String> empidcol;
 
-    TaskModel taskModel = new TaskModel();
+    TaskDaoImpl taskDaoImpl = new TaskDaoImpl();
 
     @FXML
     void Update(ActionEvent event) {
@@ -129,7 +129,7 @@ public class TaskManage implements Initializable {
 
         TaskDto taskDto = new TaskDto(id, empId, taskName, date);
         try {
-            boolean update = taskModel.update(taskDto);
+            boolean update = taskDaoImpl.update(taskDto);
             if (update) {
                new Alert(Alert.AlertType.INFORMATION,"Task updated successfully").show();
                 loadTabel();
@@ -155,7 +155,7 @@ public class TaskManage implements Initializable {
 
     private void getnextId() {
         try {
-            String nextTaskId = taskModel.getNextTaskId();
+            String nextTaskId = taskDaoImpl.getNextId();
             idtxt.setText(nextTaskId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -171,7 +171,7 @@ public class TaskManage implements Initializable {
 
         TaskDto taskDto = new TaskDto(id, empId, taskName, date);
         try {
-            boolean add = taskModel.add(taskDto);
+            boolean add = taskDaoImpl.add(taskDto);
             if (add) {
                 new Alert(Alert.AlertType.INFORMATION,"Task added successfully").show();
                 loadTabel();
@@ -198,7 +198,7 @@ public class TaskManage implements Initializable {
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = taskModel.delete(taskDto);
+                boolean delete = taskDaoImpl.delete(taskDto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Task deleted successfully").show();
                     loadTabel();

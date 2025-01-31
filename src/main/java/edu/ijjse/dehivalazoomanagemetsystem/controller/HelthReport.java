@@ -3,9 +3,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.HelthReportDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.HelthReportTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.HelthReportModel;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.HelthReportDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.HelthReportTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.HelthReportDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -152,7 +152,7 @@ public class HelthReport implements Initializable {
     @FXML
     private JFXComboBox<String> wetNametxt;
 
-    HelthReportModel model = new HelthReportModel();
+    HelthReportDaoImpl model = new HelthReportDaoImpl();
 
     @FXML
     void Update(ActionEvent event) {
@@ -194,7 +194,7 @@ public class HelthReport implements Initializable {
 
     private void getnxtId() {
         try {
-            String nxtId = model.getNxtId();
+            String nxtId = model.getNextId();
             idtxt.setText(nxtId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();

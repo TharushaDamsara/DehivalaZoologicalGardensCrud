@@ -3,11 +3,11 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.AnimalExpencesDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.AnimalExpencessTM;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.AnimalMngTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.AnimalExpencessModel;
-import edu.ijjse.dehivalazoomanagemetsystem.utill.RegexUtill;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalExpencessDao;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalExpencesDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.AnimalExpencessTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.AnimalExpencessDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,7 +57,7 @@ public class AnimalFinanceController implements Initializable {
 
     private void getAnimalIds() {
         try {
-            ArrayList<String> animalIds = model.getAnimalIds();
+            ArrayList<String> animalIds = animalExpencessDao.getAnimalIds();
             ObservableList<String> objects = FXCollections.observableArrayList();
             objects.addAll(animalIds);
             animalidtxt.setItems(objects);
@@ -70,7 +70,7 @@ public class AnimalFinanceController implements Initializable {
 
     private void tabelload() throws SQLException {
 
-        ArrayList<AnimalExpencesDto> animalExpencesDtos = model.getAll();
+        ArrayList<AnimalExpencesDto> animalExpencesDtos = animalExpencessDao.getAll();
         ObservableList<AnimalExpencessTM>animalExpencessTMS  = FXCollections.observableArrayList();
 
 for (AnimalExpencesDto animalExpencesDto : animalExpencesDtos) {
@@ -132,7 +132,8 @@ animalexpencetbl.setItems(animalExpencessTMS);
     @FXML
     private JFXButton updatebtn;
 
-    AnimalExpencessModel model = new AnimalExpencessModel();
+    AnimalExpencessDao animalExpencessDao = new AnimalExpencessDaoImpl();
+
 
     @FXML
     void Update(ActionEvent event) throws SQLException {
@@ -163,7 +164,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
         if (isValidAmount&isValidDate) {
             AnimalExpencesDto dto = new AnimalExpencesDto(expenceid,animalid,amount,desc,expencedate);
             try {
-                boolean update = model.update(dto);
+                boolean update = animalExpencessDao.update(dto);
                 if (update) {
                     new Alert(Alert.AlertType.INFORMATION, "Animal Expences Updated Successfully").show();
                     tabelload();
@@ -210,7 +211,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
             AnimalExpencesDto dto = new AnimalExpencesDto(expenceid, animalid, amount, desc, expencedate);
 
             try {
-                boolean resp = model.add(dto);
+                boolean resp = animalExpencessDao.add(dto);
                 System.out.println(resp);
                 if (resp) {
                     new Alert(Alert.AlertType.INFORMATION, "Animal Expences Added Successfully").show();
@@ -238,7 +239,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
 
             try {
 
-                boolean delete = model.delete(dto);
+                boolean delete = animalExpencessDao.delete(dto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Animal Expences Deleted").show();
                     tabelload();
@@ -288,7 +289,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
         datetxt.setValue(null);
     }
     public void getNextid() throws SQLException {
-        String nextId = model.nextId();
+        String nextId = animalExpencessDao.getNextId();
         expenceidtxt.setText(nextId);
     }
 }

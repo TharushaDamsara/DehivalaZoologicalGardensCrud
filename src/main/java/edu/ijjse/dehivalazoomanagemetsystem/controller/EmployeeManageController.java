@@ -2,9 +2,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.EmpMngDto;
-import edu.ijjse.dehivalazoomanagemetsystem.dto.tm.EmplyeeTM;
-import edu.ijjse.dehivalazoomanagemetsystem.model.EmpMngModel;
+import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EmpMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.model.tm.EmplyeeTM;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EmpMngDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -156,7 +156,7 @@ public class EmployeeManageController implements Initializable {
     @FXML
     private JFXTextField devisiontxt;
 
-EmpMngModel model = new EmpMngModel();
+EmpMngDaoImpl model = new EmpMngDaoImpl();
     @FXML
     void UpdateEmp(ActionEvent event) {
         String id = idtext.getText();
