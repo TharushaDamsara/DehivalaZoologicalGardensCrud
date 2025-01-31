@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface AdminBo extends SuperBo {
 
-    public boolean getAdmin(String userName,String pwd) throws SQLException ;
+    public void getAdmin(String userName,String pwd) throws SQLException ;
     public boolean add(AdminDto dto) throws SQLException;
     public boolean update(AdminDto dto) throws SQLException;
     public boolean delete(AdminDto dto) throws SQLException;
