@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalExpencessDao;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalExpencesDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.AnimalExpences;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -11,38 +11,38 @@ import java.util.ArrayList;
 public class AnimalExpencessDaoImpl implements AnimalExpencessDao {
 
     @Override
-    public boolean add(AnimalExpencesDto dto) throws SQLException {
+    public boolean add(AnimalExpences dto) throws SQLException {
         String sql = "insert into animalexpencess values(?,?,?,?,?)";
         return CrudUtil.execute(sql,dto.getAnimalExpencesId(),dto.getAnimalId(),dto.getAmount(),dto.getDiscription(),dto.getDate());
     }
     @Override
-    public boolean update(AnimalExpencesDto dto) throws SQLException {
+    public boolean update(AnimalExpences dto) throws SQLException {
         String sql ="UPDATE animalexpencess SET animalId =?, amount=?,description=?,date=? WHERE expenceld =?";
         return CrudUtil.execute(sql,dto.getAnimalId(),dto.getAmount(),dto.getDiscription(),dto.getDate(),dto.getAnimalExpencesId());
     }
     @Override
-    public boolean delete(AnimalExpencesDto dto) throws SQLException {
+    public boolean delete(AnimalExpences dto) throws SQLException {
         String sql = "delete from animalexpencess where expenceld =?";
         return CrudUtil.execute(sql,dto.getAnimalExpencesId());
     }
     @Override
-    public ArrayList<AnimalExpencesDto> getAll() throws SQLException {
+    public ArrayList<AnimalExpences> getAll() throws SQLException {
         String sql = "select * from animalexpencess";
         ResultSet rst = CrudUtil.execute(sql);
 
-        ArrayList<AnimalExpencesDto> animalExpencesDtos = new ArrayList<>();
+        ArrayList<AnimalExpences> animalExpences = new ArrayList<>();
         while(rst.next()){
-            AnimalExpencesDto dto = new AnimalExpencesDto(
+            AnimalExpences dto = new AnimalExpences(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDouble(3),
                     rst.getString(4),
                     rst.getString(5)
             );
-            animalExpencesDtos.add(dto);
+            animalExpences.add(dto);
         }
 
-        return animalExpencesDtos;
+        return animalExpences;
     }
 @Override
     public String getNextId() throws SQLException {

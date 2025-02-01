@@ -1,20 +1,23 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.AnimalMngBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalMngDao;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Animal;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AnimalMngBoImpl implements AnimalMngBo {
+    AnimalMngDao dao = (AnimalMngDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Animal);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(AnimalMngDto dto) throws SQLException {
-        return false;
+    public boolean add(Animal dto) throws SQLException {
+        return dao.add(dto);
     }
 
     /**
@@ -23,8 +26,8 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(AnimalMngDto dto) throws SQLException {
-        return false;
+    public boolean update(Animal dto) throws SQLException {
+        return dao.update(dto);
     }
 
     /**
@@ -33,8 +36,8 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(AnimalMngDto dto) throws SQLException {
-        return false;
+    public boolean delete(Animal dto) throws SQLException {
+        return dao.delete(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<AnimalMngDto> getAll() throws SQLException {
-        return null;
+    public ArrayList<Animal> getAll() throws SQLException {
+        return dao.getAll();
     }
 
     /**
@@ -52,6 +55,6 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return dao.getNextId();
     }
 }

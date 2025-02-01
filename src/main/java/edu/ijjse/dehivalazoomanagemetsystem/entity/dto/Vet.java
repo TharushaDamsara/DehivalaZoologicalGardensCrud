@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class VetDto {
+public class Vet {
     private String vetId;
     private String vetName;
     private String vetAddress;

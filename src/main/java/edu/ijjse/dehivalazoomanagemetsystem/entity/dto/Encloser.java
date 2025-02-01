@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class EncloserDto {
+public class Encloser {
     private String id;
     private String location;
     private String size;

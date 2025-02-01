@@ -1,20 +1,23 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EmpExpencessBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EmployeeExpencesDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EmpExpencessDao;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmployeeExpences;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmpExpencessBoImpl implements EmpExpencessBo {
+    EmpExpencessDao empExpencessDao = (EmpExpencessDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.EmpExpencess);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(EmployeeExpencesDto dto) throws SQLException {
-        return false;
+    public boolean add(EmployeeExpences dto) throws SQLException {
+        return empExpencessDao.add(dto);
     }
 
     /**
@@ -23,7 +26,7 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      */
     @Override
     public ArrayList<String> getEmployeeIds() throws SQLException {
-        return null;
+        return empExpencessDao.getEmployeeIds();
     }
 
     /**
@@ -32,8 +35,8 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(EmployeeExpencesDto dto) throws SQLException {
-        return false;
+    public boolean update(EmployeeExpences dto) throws SQLException {
+        return empExpencessDao.update(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(EmployeeExpencesDto dto) throws SQLException {
-        return false;
+    public boolean delete(EmployeeExpences dto) throws SQLException {
+        return empExpencessDao.delete(dto);
     }
 
     /**
@@ -51,7 +54,7 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<EmployeeExpencesDto> getAll() throws SQLException {
+    public ArrayList<EmployeeExpences> getAll() throws SQLException {
         return null;
     }
 
@@ -61,6 +64,6 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return empExpencessDao.getNextId();
     }
 }

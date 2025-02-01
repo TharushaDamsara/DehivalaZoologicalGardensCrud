@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class TaskDto {
+public class Task {
     private String taskId;
     private String empId;
     private String taskName;

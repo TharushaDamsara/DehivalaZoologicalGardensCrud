@@ -1,20 +1,24 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.AdminBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AdminDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AdminDao;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Admin;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class AdminBoImpl implements AdminBo {
+    AdminDao adminDao = (AdminDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Admin);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(AdminDto dto) throws SQLException {
-        return false;
+    public boolean add(Admin dto) throws SQLException {
+        return adminDao.add(dto);
     }
 
     /**
@@ -24,7 +28,7 @@ public class AdminBoImpl implements AdminBo {
      */
     @Override
     public void getAdmin(String userName, String pwd) throws SQLException {
-
+    adminDao.getAdmin(userName, pwd);
     }
 
     /**
@@ -33,8 +37,8 @@ public class AdminBoImpl implements AdminBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(AdminDto dto) throws SQLException {
-        return false;
+    public boolean update(Admin dto) throws SQLException {
+        return adminDao.update(dto);
     }
 
     /**
@@ -43,8 +47,8 @@ public class AdminBoImpl implements AdminBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(AdminDto dto) throws SQLException {
-        return false;
+    public boolean delete(Admin dto) throws SQLException {
+        return adminDao.delete(dto);
     }
 
     /**
@@ -52,8 +56,8 @@ public class AdminBoImpl implements AdminBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<AdminDto> getAll() throws SQLException {
-        return null;
+    public ArrayList<Admin> getAll() throws SQLException {
+        return adminDao.getAll();
     }
 
     /**
@@ -62,6 +66,6 @@ public class AdminBoImpl implements AdminBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return adminDao.getNextId();
     }
 }

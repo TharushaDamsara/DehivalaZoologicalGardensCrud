@@ -2,8 +2,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.VetDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.VetTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Vet;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.VetTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.VetDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -58,9 +58,9 @@ public class VetController implements Initializable {
 
     private void loadTbl() {
         try {
-            ArrayList<VetDto> dtos = model.getAll();
+            ArrayList<Vet> dtos = model.getAll();
             ObservableList<VetTM> objects = FXCollections.observableArrayList();
-            for (VetDto dto : dtos) {
+            for (Vet dto : dtos) {
                 VetTM vetTM = new VetTM(
                   dto.getVetId(),
                   dto.getVetName(),
@@ -136,7 +136,7 @@ public class VetController implements Initializable {
             tptxt.setStyle(tptxt.getStyle() + ";-fx-border-color: red;");
         }
         if (validPhone&&valueDoc){
-            VetDto dto = new VetDto(id, name, address, phone);
+            Vet dto = new Vet(id, name, address, phone);
             try {
                 boolean update = model.update(dto);
                 if (update) {
@@ -186,7 +186,7 @@ public class VetController implements Initializable {
         }
         if (validPhone&&valueDoc) {
 
-            VetDto dto = new VetDto(id, name, address, phone);
+            Vet dto = new Vet(id, name, address, phone);
             try {
                 boolean add = model.add(dto);
                 if (add) {
@@ -205,7 +205,7 @@ public class VetController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    VetDto dto = new VetDto();
+    Vet dto = new Vet();
     dto.setVetId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

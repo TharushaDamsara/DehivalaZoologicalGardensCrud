@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.UserDetailsDao;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.UserDetailsMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.UserDetails;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,25 +9,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDetailsDaoImpl implements UserDetailsDao {
-    public boolean add(UserDetailsMngDto dto) throws SQLException {
+    public boolean add(UserDetails dto) throws SQLException {
         String sql = "insert into user values(?,?,?,?)";
 
         return CrudUtil.execute(sql,dto.getUserId(),dto.getEmpId(),dto.getUserName(),dto.getPassword());
     }
-    public boolean update(UserDetailsMngDto dto) throws SQLException {
+    public boolean update(UserDetails dto) throws SQLException {
         String sql = "update user set empId =?, userName=?,password=? where userId=?";
      return CrudUtil.execute(sql,dto.getEmpId(),dto.getUserName(),dto.getPassword(),dto.getUserId());
     }
-    public boolean delete(UserDetailsMngDto dto) throws SQLException {
+    public boolean delete(UserDetails dto) throws SQLException {
         String sql = "delete from user where userId=?";
         return CrudUtil.execute(sql,dto.getUserId());
     }
-    public ArrayList<UserDetailsMngDto> getAll() throws SQLException {
+    public ArrayList<UserDetails> getAll() throws SQLException {
         String sql = "select * from user";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<UserDetailsMngDto> dtos = new ArrayList<>();
+        ArrayList<UserDetails> dtos = new ArrayList<>();
         while (rst.next()) {
-            UserDetailsMngDto dto = new UserDetailsMngDto(
+            UserDetails dto = new UserDetails(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),

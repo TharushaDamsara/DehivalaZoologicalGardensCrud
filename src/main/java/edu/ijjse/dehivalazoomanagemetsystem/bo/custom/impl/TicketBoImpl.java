@@ -1,19 +1,22 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TicketBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TicketDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDao;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Ticket;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TicketBoImpl implements TicketBo {
+    TicketDao ticketDao = (TicketDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Ticket);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(TicketDto dto) throws SQLException {
+    public boolean add(Ticket dto) throws SQLException {
         return false;
     }
 
@@ -23,7 +26,7 @@ public class TicketBoImpl implements TicketBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(TicketDto dto) throws SQLException {
+    public boolean update(Ticket dto) throws SQLException {
         return false;
     }
 
@@ -33,7 +36,7 @@ public class TicketBoImpl implements TicketBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(TicketDto dto) throws SQLException {
+    public boolean delete(Ticket dto) throws SQLException {
         return false;
     }
 
@@ -42,7 +45,7 @@ public class TicketBoImpl implements TicketBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<TicketDto> getAll() throws SQLException {
+    public ArrayList<Ticket> getAll() throws SQLException {
         return null;
     }
 

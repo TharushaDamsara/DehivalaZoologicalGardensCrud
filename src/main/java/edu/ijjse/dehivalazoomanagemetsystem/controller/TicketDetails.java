@@ -2,8 +2,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TickDetailsDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.TickDetailsTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.TickDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.TickDetailsTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.TickDetailsDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -59,14 +59,14 @@ public class TicketDetails implements Initializable {
 
     private void loadtbl() {
         try {
-            ArrayList<TickDetailsDto> tickDetailsDtos = tickDetailsDaoImpl.getAll();
+            ArrayList<TickDetails> tickDetails = tickDetailsDaoImpl.getAll();
             ObservableList<TickDetailsTM> tickDetailsTMS = FXCollections.observableArrayList();
-            for (TickDetailsDto tickDetailsDto : tickDetailsDtos) {
+            for (TickDetails tickDetailsd : tickDetails) {
                 TickDetailsTM tickDetailsTM = new TickDetailsTM(
-                        tickDetailsDto.getId(),
-                        tickDetailsDto.getType(),
-                        tickDetailsDto.getQty(),
-                        tickDetailsDto.getPrice()
+                        tickDetailsd.getId(),
+                        tickDetailsd.getType(),
+                        tickDetailsd.getQty(),
+                        tickDetailsd.getPrice()
                 );
                 tickDetailsTMS.add(tickDetailsTM);
             }
@@ -143,9 +143,9 @@ public class TicketDetails implements Initializable {
         if (isValidAmount && isValidQuantity) {
 
 
-            TickDetailsDto tickDetailsDto = new TickDetailsDto(id, type, qoh, price);
+            TickDetails tickDetails = new TickDetails(id, type, qoh, price);
             try {
-                boolean update = tickDetailsDaoImpl.update(tickDetailsDto);
+                boolean update = tickDetailsDaoImpl.update(tickDetails);
                 if (update) {
                     new Alert(Alert.AlertType.INFORMATION, "Ticket updated successfully").show();
                     loadtbl();
@@ -184,9 +184,9 @@ public class TicketDetails implements Initializable {
         }
 
         if (isValidAmount && isValidQuantity) {
-            TickDetailsDto tickDetailsDto = new TickDetailsDto(id, type, qoh, price);
+            TickDetails tickDetails = new TickDetails(id, type, qoh, price);
             try {
-                boolean add = tickDetailsDaoImpl.add(tickDetailsDto);
+                boolean add = tickDetailsDaoImpl.add(tickDetails);
                 if (add) {
                     new Alert(Alert.AlertType.INFORMATION, "Added Successfully").show();
                     loadtbl();
@@ -211,7 +211,7 @@ public class TicketDetails implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    TickDetailsDto dto = new TickDetailsDto();
+    TickDetails dto = new TickDetails();
     dto.setId(idtxt.getText());
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);

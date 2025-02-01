@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class TickDetailsDto {
+public class TickDetails {
     private String id;
     private String type;
     private int qty;

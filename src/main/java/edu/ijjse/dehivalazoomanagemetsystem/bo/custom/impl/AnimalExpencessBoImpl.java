@@ -1,19 +1,22 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.AnimalExpencessBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalExpencesDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalExpencessDao;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.AnimalExpences;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AnimalExpencessBoImpl implements AnimalExpencessBo {
+    AnimalExpencessDao animalExpencessDao = (AnimalExpencessDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.AnimalExpencess);
     /**
      * @return
      * @throws SQLException
      */
     @Override
     public ArrayList<String> getAnimalIds() throws SQLException {
-        return null;
+        return animalExpencessDao.getAnimalIds();
     }
 
     /**
@@ -22,8 +25,8 @@ public class AnimalExpencessBoImpl implements AnimalExpencessBo {
      * @throws SQLException
      */
     @Override
-    public boolean add(AnimalExpencesDto dto) throws SQLException {
-        return false;
+    public boolean add(AnimalExpences dto) throws SQLException {
+        return animalExpencessDao.add(dto);
     }
 
     /**
@@ -32,8 +35,8 @@ public class AnimalExpencessBoImpl implements AnimalExpencessBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(AnimalExpencesDto dto) throws SQLException {
-        return false;
+    public boolean update(AnimalExpences dto) throws SQLException {
+        return animalExpencessDao.update(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class AnimalExpencessBoImpl implements AnimalExpencessBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(AnimalExpencesDto dto) throws SQLException {
-        return false;
+    public boolean delete(AnimalExpences dto) throws SQLException {
+        return animalExpencessDao.delete(dto);
     }
 
     /**
@@ -51,8 +54,8 @@ public class AnimalExpencessBoImpl implements AnimalExpencessBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<AnimalExpencesDto> getAll() throws SQLException {
-        return null;
+    public ArrayList<AnimalExpences> getAll() throws SQLException {
+        return animalExpencessDao.getAll();
     }
 
     /**
@@ -61,6 +64,6 @@ public class AnimalExpencessBoImpl implements AnimalExpencessBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return animalExpencessDao.getNextId()   ;
     }
 }

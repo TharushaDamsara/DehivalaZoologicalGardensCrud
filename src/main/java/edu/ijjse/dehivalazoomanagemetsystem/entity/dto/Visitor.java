@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class VisitorDto {
+public class Visitor {
     private String visitorId;
     private String visitorName;
     private String visitorAddress;

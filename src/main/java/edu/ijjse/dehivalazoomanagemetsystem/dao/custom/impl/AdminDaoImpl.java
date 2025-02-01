@@ -2,7 +2,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AdminDao;
 import edu.ijjse.dehivalazoomanagemetsystem.db.DBConnection;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AdminDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Admin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +32,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public boolean add(AdminDto dto) throws SQLException {
+    public boolean add(Admin dto) throws SQLException {
         return false;
     }
 
@@ -42,7 +42,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public boolean update(AdminDto dto) throws SQLException {
+    public boolean update(Admin dto) throws SQLException {
         return false;
     }
 
@@ -52,7 +52,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public boolean delete(AdminDto dto) throws SQLException {
+    public boolean delete(Admin dto) throws SQLException {
         return false;
     }
 
@@ -61,7 +61,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public ArrayList<AdminDto> getAll() throws SQLException {
+    public ArrayList<Admin> getAll() throws SQLException {
         return null;
     }
 

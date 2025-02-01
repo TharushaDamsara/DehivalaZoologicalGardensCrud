@@ -3,8 +3,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalMngDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.AnimalMngTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Animal;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.AnimalMngTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.AnimalMngDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -84,17 +84,17 @@ public class AnimalMngController implements Initializable {
     }
 
     private void tabelload() throws SQLException {
-  ArrayList<AnimalMngDto> animalMngDtos = model.getAll();
+  ArrayList<Animal> animals = model.getAll();
   ObservableList<AnimalMngTM> AnimalTms = FXCollections.observableArrayList();
-for (AnimalMngDto animalMngDto : animalMngDtos) {
+for (Animal animal : animals) {
  AnimalMngTM animalMngTM = new AnimalMngTM(
-   animalMngDto.getAnimalId(),
-   animalMngDto.getAnimalName(),
-    animalMngDto.getAnimalAge(),
-    animalMngDto.getAnimalGender(),
-    animalMngDto.getCatagory(),
-    animalMngDto.getEnclosureId(),
-    animalMngDto.getDivisionId()
+   animal.getAnimalId(),
+   animal.getAnimalName(),
+    animal.getAnimalAge(),
+    animal.getAnimalGender(),
+    animal.getCatagory(),
+    animal.getEnclosureId(),
+    animal.getDivisionId()
  );
    AnimalTms.add(animalMngTM);
   }
@@ -191,7 +191,7 @@ animaltbl.setItems(AnimalTms);
             return;
         }
         if (isValidGender&&isvalidAge){
-            AnimalMngDto dto = new AnimalMngDto(animalId, name, age,gender, catogary, encloser, devision);
+            Animal dto = new Animal(animalId, name, age,gender, catogary, encloser, devision);
             try {
                 boolean update = model.update(dto);
                 if (update) {
@@ -238,7 +238,7 @@ animaltbl.setItems(AnimalTms);
         }
         if (isValidGender&&isvalidAge) {
 
-            AnimalMngDto dto = new AnimalMngDto(animalId, name, age, gender, catogary, encloser, devision);
+            Animal dto = new Animal(animalId, name, age, gender, catogary, encloser, devision);
             try {
                 boolean add = model.add(dto);
                 if (add) {
@@ -268,7 +268,7 @@ animaltbl.setItems(AnimalTms);
 
     @FXML
     void delete(ActionEvent event) {
-        AnimalMngDto dto = new AnimalMngDto();
+        Animal dto = new Animal();
         dto.setAnimalId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

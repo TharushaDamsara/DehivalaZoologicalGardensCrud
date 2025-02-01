@@ -3,8 +3,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EmployeeExpencesDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.EmployeeExpencessTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmployeeExpences;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.EmployeeExpencessTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EmpExpencessDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -68,18 +68,18 @@ public class EmployeeFinanceController implements Initializable {
     }
 
     private void loadTbl() throws SQLException {
-        ArrayList<EmployeeExpencesDto> employeeExpencesDtos = model.getAll();
+        ArrayList<EmployeeExpences> employeeExpences = model.getAll();
         ObservableList<EmployeeExpencessTM> employeeExpencessTMS = FXCollections.observableArrayList();
 
-        for (EmployeeExpencesDto employeeExpencesDto : employeeExpencesDtos) {
+        for (EmployeeExpences employeeExpencesd : employeeExpences) {
             EmployeeExpencessTM employeeExpencessTM = new EmployeeExpencessTM(
-                    employeeExpencesDto.getPaymentId(),
-                    employeeExpencesDto.getEmployeeId(),
-                    employeeExpencesDto.getDate(),
-                    employeeExpencesDto.getBasicSalary(),
-                    employeeExpencesDto.getAddonSalary(),
-                    employeeExpencesDto.getCutOffSalary(),
-                    employeeExpencesDto.getTotalSalary()
+                    employeeExpencesd.getPaymentId(),
+                    employeeExpencesd.getEmployeeId(),
+                    employeeExpencesd.getDate(),
+                    employeeExpencesd.getBasicSalary(),
+                    employeeExpencesd.getAddonSalary(),
+                    employeeExpencesd.getCutOffSalary(),
+                    employeeExpencesd.getTotalSalary()
             );
            employeeExpencessTMS.add(employeeExpencessTM);
         }
@@ -183,7 +183,7 @@ public class EmployeeFinanceController implements Initializable {
         }
         if (IsBasicValidSalary&ISAddonValid&IsCutoffValid&isTotalValid) {
 
-            EmployeeExpencesDto dto = new EmployeeExpencesDto(payid, empid, date, basic, addon, text, total);
+            EmployeeExpences dto = new EmployeeExpences(payid, empid, date, basic, addon, text, total);
 
             try {
                 boolean update = model.update(dto);
@@ -236,7 +236,7 @@ public class EmployeeFinanceController implements Initializable {
             totsaltxt.setStyle(totsaltxt.getStyle() + ";-fx-border-color: red;");
         }
         if (IsBasicValidSalary&ISAddonValid&IsCutoffValid&isTotalValid){
-            EmployeeExpencesDto dto = new EmployeeExpencesDto(payid,empid,date,basic,addon,text,total);
+            EmployeeExpences dto = new EmployeeExpences(payid,empid,date,basic,addon,text,total);
 
             try {
                 boolean save = model.add(dto);
@@ -256,7 +256,7 @@ public class EmployeeFinanceController implements Initializable {
 
     @FXML
     void deleteEmp(ActionEvent event) {
-        EmployeeExpencesDto dto = new EmployeeExpencesDto();
+        EmployeeExpences dto = new EmployeeExpences();
         dto.setPaymentId(idtext.getText());
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);

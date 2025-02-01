@@ -2,8 +2,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.DevisionDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.DevisionTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Devision;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.DevisionTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.DevisionDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,13 +48,13 @@ public class DevisionMngController implements Initializable {
     }
 
     private void loadTabel() throws SQLException {
-        ArrayList<DevisionDto> devisionDtos = model.getAll();
+        ArrayList<Devision> devisions = model.getAll();
         ObservableList<DevisionTM> devisionTMS= FXCollections.observableArrayList();
-        for (DevisionDto devisionDto : devisionDtos) {
+        for (Devision devision : devisions) {
             DevisionTM devisionTM = new DevisionTM(
-                    devisionDto.getDevisionId(),
-                    devisionDto.getDevisionName(),
-                    devisionDto.getDevisionDescription()
+                    devision.getDevisionId(),
+                    devision.getDevisionName(),
+                    devision.getDevisionDescription()
             );
             devisionTMS.add(devisionTM);
         }
@@ -100,7 +100,7 @@ public class DevisionMngController implements Initializable {
         String id = idtxt.getText();
         String name = nametxt.getText();
         String desc = desctxt.getText();
-        DevisionDto dto = new DevisionDto(id, name, desc);
+        Devision dto = new Devision(id, name, desc);
         try {
             boolean update = model.update(dto);
             if (update) {
@@ -139,7 +139,7 @@ public class DevisionMngController implements Initializable {
         String id = idtxt.getText();
         String name = nametxt.getText();
         String desc = desctxt.getText();
-        DevisionDto dto = new DevisionDto(id, name, desc);
+        Devision dto = new Devision(id, name, desc);
         try {
             boolean add = model.add(dto);
             if (add) {
@@ -154,7 +154,7 @@ public class DevisionMngController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    DevisionDto dto = new DevisionDto();
+    Devision dto = new Devision();
     dto.setDevisionId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

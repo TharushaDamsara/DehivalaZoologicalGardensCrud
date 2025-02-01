@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserDetailsBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.UserDetailsMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.UserDetails;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      * @throws SQLException
      */
     @Override
-    public boolean add(UserDetailsMngDto dto) throws SQLException {
+    public boolean add(UserDetails dto) throws SQLException {
         return false;
     }
 
@@ -32,7 +32,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(UserDetailsMngDto dto) throws SQLException {
+    public boolean update(UserDetails dto) throws SQLException {
         return false;
     }
 
@@ -42,7 +42,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(UserDetailsMngDto dto) throws SQLException {
+    public boolean delete(UserDetails dto) throws SQLException {
         return false;
     }
 
@@ -51,7 +51,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<UserDetailsMngDto> getAll() throws SQLException {
+    public ArrayList<UserDetails> getAll() throws SQLException {
         return null;
     }
 

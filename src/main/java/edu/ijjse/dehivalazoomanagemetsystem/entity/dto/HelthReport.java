@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class HelthReportDto {
+public class HelthReport {
     private String helthReportId;
     private String animalId;
     private String vetId;

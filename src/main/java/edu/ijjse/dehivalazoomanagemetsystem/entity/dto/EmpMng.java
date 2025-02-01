@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class EmpMngDto {
+public class EmpMng {
     private String empId;
     private String empName;
     private double empSalary;

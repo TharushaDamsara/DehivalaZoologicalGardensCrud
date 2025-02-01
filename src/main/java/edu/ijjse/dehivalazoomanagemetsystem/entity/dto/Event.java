@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class EventDto {
+public class Event {
 private String eventId;
 private String eventName;
 private String eventLocation;

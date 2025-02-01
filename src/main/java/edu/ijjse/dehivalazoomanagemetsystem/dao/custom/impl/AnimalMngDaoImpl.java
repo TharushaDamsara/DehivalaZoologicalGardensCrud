@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalMngDao;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Animal;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AnimalMngDaoImpl implements AnimalMngDao {
-    public boolean add(AnimalMngDto dto) throws SQLException {
+    public boolean add(Animal dto) throws SQLException {
     String sql = "insert into animal values(?,?,?,?,?,?,?)";
         return CrudUtil.execute(sql,
                 dto.getAnimalId(),
@@ -21,7 +21,7 @@ public class AnimalMngDaoImpl implements AnimalMngDao {
                 dto.getDivisionId()
         );
     }
-    public boolean update(AnimalMngDto dto) throws SQLException {
+    public boolean update(Animal dto) throws SQLException {
         String sql = "update animal set name=?,age=?,gender=?,category=?,enclosureId=?,divisionId=? where animalId=?";
 
         return CrudUtil.execute(sql,
@@ -34,16 +34,16 @@ public class AnimalMngDaoImpl implements AnimalMngDao {
                 dto.getAnimalId()
                 );
     }
-    public boolean delete(AnimalMngDto dto) throws SQLException {
+    public boolean delete(Animal dto) throws SQLException {
         String sql = "delete from animal where animalId=?";
         return CrudUtil.execute(sql,dto.getAnimalId());
     }
-    public ArrayList<AnimalMngDto> getAll() throws SQLException {
+    public ArrayList<Animal> getAll() throws SQLException {
         String sql = "select * from animal";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<AnimalMngDto> dtos = new ArrayList<AnimalMngDto>();
+        ArrayList<Animal> dtos = new ArrayList<Animal>();
         while (rst.next()) {
-            AnimalMngDto dto = new AnimalMngDto(
+            Animal dto = new Animal(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDouble(3),

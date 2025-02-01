@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class TicketDto {
+public class Ticket {
     private String ticketCode;
     private String visitorId;
     private String type;

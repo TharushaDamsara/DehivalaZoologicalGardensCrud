@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class AdminDto {
+public class Admin {
 
     private String username;
     private String password;

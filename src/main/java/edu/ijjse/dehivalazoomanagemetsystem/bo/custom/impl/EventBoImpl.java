@@ -1,20 +1,23 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EventBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EventDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EventDao;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Event;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EventBoImpl implements EventBo {
+    EventDao eventDao = (EventDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Event);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(EventDto dto) throws SQLException {
-        return false;
+    public boolean add(Event dto) throws SQLException {
+        return eventDao.add(dto);
     }
 
     /**
@@ -23,8 +26,8 @@ public class EventBoImpl implements EventBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(EventDto dto) throws SQLException {
-        return false;
+    public boolean update(Event dto) throws SQLException {
+        return eventDao.update(dto);
     }
 
     /**
@@ -33,8 +36,8 @@ public class EventBoImpl implements EventBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(EventDto dto) throws SQLException {
-        return false;
+    public boolean delete(Event dto) throws SQLException {
+        return eventDao.delete(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class EventBoImpl implements EventBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<EventDto> getAll() throws SQLException {
-        return null;
+    public ArrayList<Event> getAll() throws SQLException {
+        return eventDao.getAll();
     }
 
     /**
@@ -52,6 +55,6 @@ public class EventBoImpl implements EventBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return eventDao.getNextId();
     }
 }

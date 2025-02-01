@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class DevisionDto {
+public class Devision {
     private String devisionId;
     private String devisionName;
     private String devisionDescription;

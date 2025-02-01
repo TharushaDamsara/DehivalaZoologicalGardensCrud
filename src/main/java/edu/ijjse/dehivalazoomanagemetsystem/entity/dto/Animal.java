@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class AnimalMngDto {
+public class Animal {
     private String animalId;
     private String animalName;
     private double animalAge;

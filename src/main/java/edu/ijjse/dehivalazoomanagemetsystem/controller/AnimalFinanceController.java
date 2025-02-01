@@ -4,8 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalExpencessDao;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.AnimalExpencesDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.AnimalExpencessTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.AnimalExpences;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.AnimalExpencessTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.AnimalExpencessDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -70,16 +70,16 @@ public class AnimalFinanceController implements Initializable {
 
     private void tabelload() throws SQLException {
 
-        ArrayList<AnimalExpencesDto> animalExpencesDtos = animalExpencessDao.getAll();
+        ArrayList<AnimalExpences> animalExpences = animalExpencessDao.getAll();
         ObservableList<AnimalExpencessTM>animalExpencessTMS  = FXCollections.observableArrayList();
 
-for (AnimalExpencesDto animalExpencesDto : animalExpencesDtos) {
+for (AnimalExpences animalExpencesd : animalExpences) {
     AnimalExpencessTM animalExpencessTM = new AnimalExpencessTM(
-            animalExpencesDto.getAnimalExpencesId(),
-            animalExpencesDto.getAnimalId(),
-            animalExpencesDto.getAmount(),
-            animalExpencesDto.getDiscription(),
-            animalExpencesDto.getDate()
+            animalExpencesd.getAnimalExpencesId(),
+            animalExpencesd.getAnimalId(),
+            animalExpencesd.getAmount(),
+            animalExpencesd.getDiscription(),
+            animalExpencesd.getDate()
     );
     animalExpencessTMS.add(animalExpencessTM);
 }
@@ -162,7 +162,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
             datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: red;");
         }
         if (isValidAmount&isValidDate) {
-            AnimalExpencesDto dto = new AnimalExpencesDto(expenceid,animalid,amount,desc,expencedate);
+            AnimalExpences dto = new AnimalExpences(expenceid,animalid,amount,desc,expencedate);
             try {
                 boolean update = animalExpencessDao.update(dto);
                 if (update) {
@@ -208,7 +208,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
         if (isValidAmount&isValidDate) {
 
 
-            AnimalExpencesDto dto = new AnimalExpencesDto(expenceid, animalid, amount, desc, expencedate);
+            AnimalExpences dto = new AnimalExpences(expenceid, animalid, amount, desc, expencedate);
 
             try {
                 boolean resp = animalExpencessDao.add(dto);
@@ -229,7 +229,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
     @FXML
     void delete(ActionEvent event) {
 
-        AnimalExpencesDto dto = new AnimalExpencesDto();
+        AnimalExpences dto = new AnimalExpences();
         dto.setAnimalExpencesId(expenceidtxt.getText());
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);

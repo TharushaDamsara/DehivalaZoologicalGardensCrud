@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDetailsDao;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TickDetailsDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.TickDetails;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,24 +9,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TickDetailsDaoImpl implements TicketDetailsDao {
-    public boolean add(TickDetailsDto dto) throws SQLException {
+    public boolean add(TickDetails dto) throws SQLException {
         String sql ="INSERT INTO ticketdetails VALUES (?,?,?,?)";
         return CrudUtil.execute(sql,dto.getId(),dto.getType(),dto.getQty(),dto.getPrice());
     }
-    public boolean update(TickDetailsDto dto) throws SQLException {
+    public boolean update(TickDetails dto) throws SQLException {
         String sql ="UPDATE ticketdetails SET type=?,qty=?,price=? WHERE id =?";
         return  CrudUtil.execute(sql,dto.getType(),dto.getQty(),dto.getPrice(),dto.getId());
     }
-    public boolean delete(TickDetailsDto dto) throws SQLException {
+    public boolean delete(TickDetails dto) throws SQLException {
         String sql ="DELETE FROM ticketdetails WHERE id =?";
         return CrudUtil.execute(sql,dto.getId());
     }
-    public ArrayList<TickDetailsDto> getAll() throws SQLException {
+    public ArrayList<TickDetails> getAll() throws SQLException {
         String sql ="SELECT * FROM ticketdetails";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<TickDetailsDto> dtos = new ArrayList<>();
+        ArrayList<TickDetails> dtos = new ArrayList<>();
         while(rst.next()){
-            TickDetailsDto dto = new TickDetailsDto(
+            TickDetails dto = new TickDetails(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getInt(3),

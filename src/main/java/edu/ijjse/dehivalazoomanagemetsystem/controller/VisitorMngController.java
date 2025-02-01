@@ -2,8 +2,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.VisitorDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.VisitorTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Visitor;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.VisitorTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.VisitorDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -72,16 +72,16 @@ public class VisitorMngController implements Initializable {
     }
 
     public void loadTabel() throws SQLException {
-        ArrayList<VisitorDto> visitorDtos = model.getAll();
+        ArrayList<Visitor> visitors = model.getAll();
         ObservableList<VisitorTM> visitorTMS = FXCollections.observableArrayList();
-        for (VisitorDto visitorDto : visitorDtos) {
+        for (Visitor visitor : visitors) {
             VisitorTM visitorTM = new VisitorTM(
-                    visitorDto.getVisitorId(),
-                    visitorDto.getVisitorName(),
-                    visitorDto.getVisitorAddress(),
-                    visitorDto.getVisitDate(),
-                    visitorDto.getVisitNic(),
-                    visitorDto.getTicketId()
+                    visitor.getVisitorId(),
+                    visitor.getVisitorName(),
+                    visitor.getVisitorAddress(),
+                    visitor.getVisitDate(),
+                    visitor.getVisitNic(),
+                    visitor.getTicketId()
             );
             visitorTMS.add(visitorTM);
         }
@@ -169,9 +169,9 @@ public class VisitorMngController implements Initializable {
             nictxt.setStyle(nictxt.getStyle() + ";-fx-border-color: red;");
         }
         if (isValidName&&validNic){
-            VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
+            Visitor visitor = new Visitor(id, name, address, visitDate, visitNic, ticket);
             try {
-                boolean update = model.update(visitorDto);
+                boolean update = model.update(visitor);
                 if (update) {
                     new Alert(Alert.AlertType.INFORMATION, "Visitor Updated").show();
                     loadTabel();
@@ -216,8 +216,8 @@ public class VisitorMngController implements Initializable {
         if (isValidName&&validNic) {
 
 
-            VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
-            boolean add = model.add(visitorDto);
+            Visitor visitor = new Visitor(id, name, address, visitDate, visitNic, ticket);
+            boolean add = model.add(visitor);
             if (add) {
                 new Alert(Alert.AlertType.INFORMATION, "Visitor Added").show();
                 loadTabel();
@@ -229,15 +229,15 @@ public class VisitorMngController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    VisitorDto visitorDto = new VisitorDto();
-    visitorDto.setVisitorId(idtxt.getText());
+    Visitor visitor = new Visitor();
+    visitor.setVisitorId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = model.delete(visitorDto);
+                boolean delete = model.delete(visitor);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Visitor Deleted").show();
                     loadTabel();

@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.VetBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.VetDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Vet;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class VetBoImpl implements VetBo {
      * @throws SQLException
      */
     @Override
-    public boolean add(VetDto dto) throws SQLException {
+    public boolean add(Vet dto) throws SQLException {
         return false;
     }
 
@@ -23,7 +23,7 @@ public class VetBoImpl implements VetBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(VetDto dto) throws SQLException {
+    public boolean update(Vet dto) throws SQLException {
         return false;
     }
 
@@ -33,7 +33,7 @@ public class VetBoImpl implements VetBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(VetDto dto) throws SQLException {
+    public boolean delete(Vet dto) throws SQLException {
         return false;
     }
 
@@ -42,7 +42,7 @@ public class VetBoImpl implements VetBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<VetDto> getAll() throws SQLException {
+    public ArrayList<Vet> getAll() throws SQLException {
         return null;
     }
 

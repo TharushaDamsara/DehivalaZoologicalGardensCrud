@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TaskDao;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TaskDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Task;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,24 +9,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TaskDaoImpl implements TaskDao {
-    public boolean add(TaskDto dto) throws SQLException {
+    public boolean add(Task dto) throws SQLException {
         String sql = "insert into task values(?,?,?,?)";
         return CrudUtil.execute(sql,dto.getTaskId(),dto.getEmpId(),dto.getTaskName(),dto.getDueDate());
     }
-    public boolean update(TaskDto dto) throws SQLException {
+    public boolean update(Task dto) throws SQLException {
         String sql = "update task set empId =?,taskName=?,dueDate=? where taskId=?";
         return CrudUtil.execute(sql,dto.getEmpId(),dto.getTaskName(),dto.getDueDate(),dto.getTaskId());
     }
-    public boolean delete(TaskDto dto) throws SQLException {
+    public boolean delete(Task dto) throws SQLException {
         String sql = "delete from task where taskId=?";
         return CrudUtil.execute(sql,dto.getTaskId());
     }
-    public ArrayList<TaskDto> getAll() throws SQLException {
+    public ArrayList<Task> getAll() throws SQLException {
         String sql = "select * from task";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<TaskDto> dtos = new ArrayList<>();
+        ArrayList<Task> dtos = new ArrayList<>();
         while (rst.next()) {
-            TaskDto dto = new TaskDto(
+            Task dto = new Task(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),

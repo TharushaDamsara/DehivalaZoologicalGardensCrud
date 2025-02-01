@@ -3,9 +3,9 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TickDetailsDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TicketDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.TicketTm;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.TickDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Ticket;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.TicketTm;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.TicketDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -91,17 +91,17 @@ public class TicketController implements Initializable {
 
     private void loadTbl() {
         try {
-            ArrayList<TicketDto> ticketDtos = model.getAll();
+            ArrayList<Ticket> tickets = model.getAll();
             ObservableList<TicketTm> ticketTms = FXCollections.observableArrayList();
-            for (TicketDto ticketDto : ticketDtos) {
+            for (Ticket ticket : tickets) {
                 TicketTm ticketTm = new TicketTm(
-                        ticketDto.getTicketCode(),
-                        ticketDto.getVisitorId(),
-                        ticketDto.getType(),
-                        ticketDto.getDate(),
-                        ticketDto.getQty(),
-                        ticketDto.getAmount(),
-                        ticketDto.getPaymentType()
+                        ticket.getTicketCode(),
+                        ticket.getVisitorId(),
+                        ticket.getType(),
+                        ticket.getDate(),
+                        ticket.getQty(),
+                        ticket.getAmount(),
+                        ticket.getPaymentType()
                 );
                 ticketTms.add(ticketTm);
             }
@@ -216,7 +216,7 @@ TicketDaoImpl model = new TicketDaoImpl();
             amounttxt.setStyle(amounttxt.getStyle() + ";-fx-border-color: red;");
         }
         if (isValidQuantity && isValidAmount) {
-            TicketDto dto = new TicketDto(id,visitorId,type,date,qty,amount,paymentType);
+            Ticket dto = new Ticket(id,visitorId,type,date,qty,amount,paymentType);
             try {
                 boolean update = model.update(dto);
                 if (update) {
@@ -266,7 +266,7 @@ TicketDaoImpl model = new TicketDaoImpl();
         if (isValidQuantity && isValidAmount) {
 
 
-            TicketDto dto = new TicketDto(id, visitorId, type, date, qty, amount, paymentType);
+            Ticket dto = new Ticket(id, visitorId, type, date, qty, amount, paymentType);
 
             int qoh = Integer.parseInt(qohlbl.getText());
             double price = Double.parseDouble(priceLbl.getText());
@@ -315,7 +315,7 @@ TicketDaoImpl model = new TicketDaoImpl();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            TicketDto dto = new TicketDto();
+            Ticket dto = new Ticket();
             dto.setTicketCode(idtxt.getText());
             dto.setType(typetxt.getValue());
             dto.setQty(Integer.parseInt(qtytxt.getText()));
@@ -369,7 +369,7 @@ TicketDaoImpl model = new TicketDaoImpl();
     public void typecmbOnaction(ActionEvent actionEvent) {
         String selectedItem = typetxt.getSelectionModel().getSelectedItem();
         try {
-            TickDetailsDto byId = model.findById(selectedItem);
+            TickDetails byId = model.findById(selectedItem);
             priceLbl.setText(String.valueOf(byId.getPrice()));
             qohlbl.setText(String.valueOf(byId.getQty()));
             typelbl.setText(byId.getType());

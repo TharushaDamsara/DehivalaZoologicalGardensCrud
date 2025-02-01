@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.CrudDao;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.EmpMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmpMng;
 
-public interface EmpMngDao extends CrudDao<EmpMngDto> {
+public interface EmpMngDao extends CrudDao<EmpMng> {
 }

@@ -3,8 +3,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.UserDetailsMngDto;
-import edu.ijjse.dehivalazoomanagemetsystem.model.tm.UserDetailMngTM;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.UserDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.UserDetailMngTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.UserDetailsDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -112,7 +112,7 @@ public class UserDetailsController implements Initializable {
         String empId = empIdtxt.getValue();
         String userName = UserNametxt.getText();
         String pwd = pwdTxt.getText();
-        UserDetailsMngDto dto = new UserDetailsMngDto(id, empId, userName, pwd);
+        UserDetails dto = new UserDetails(id, empId, userName, pwd);
         try {
             boolean update = model.update(dto);
             if (update) {
@@ -146,10 +146,10 @@ public class UserDetailsController implements Initializable {
     }
 
     private void loadtabel() throws SQLException {
-        ArrayList<UserDetailsMngDto> userDetailsMngDtos = model.getAll();
+        ArrayList<UserDetails> userDetails = model.getAll();
         ObservableList<UserDetailMngTM> userDetailMngTMS = FXCollections.observableArrayList();
 
-        for (UserDetailsMngDto dto : userDetailsMngDtos) {
+        for (UserDetails dto : userDetails) {
             UserDetailMngTM userDetailMngTM = new UserDetailMngTM(
               dto.getUserId(),
               dto.getEmpId(),
@@ -167,7 +167,7 @@ public class UserDetailsController implements Initializable {
         String empId = empIdtxt.getValue();
         String userName = UserNametxt.getText();
         String pwd = pwdTxt.getText();
-        UserDetailsMngDto dto = new UserDetailsMngDto(id, empId, userName, pwd);
+        UserDetails dto = new UserDetails(id, empId, userName, pwd);
         try {
             boolean add = model.add(dto);
             if (add) {
@@ -182,7 +182,7 @@ public class UserDetailsController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    UserDetailsMngDto dto = new UserDetailsMngDto();
+    UserDetails dto = new UserDetails();
     dto.setUserId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

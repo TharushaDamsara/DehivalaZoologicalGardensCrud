@@ -1,20 +1,23 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TaskBo;
-import edu.ijjse.dehivalazoomanagemetsystem.model.dto.TaskDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TaskDao;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Task;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TaskBoImpl implements TaskBo {
+    TaskDao taskDao = (TaskDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Task);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(TaskDto dto) throws SQLException {
-        return false;
+    public boolean add(Task dto) throws SQLException {
+        return taskDao.add(dto);
     }
 
     /**
@@ -23,7 +26,7 @@ public class TaskBoImpl implements TaskBo {
      */
     @Override
     public ArrayList<String> getEmployeeIds() throws SQLException {
-        return null;
+        return taskDao.getEmployeeIds();
     }
 
     /**
@@ -32,8 +35,8 @@ public class TaskBoImpl implements TaskBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(TaskDto dto) throws SQLException {
-        return false;
+    public boolean update(Task dto) throws SQLException {
+        return taskDao.update(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class TaskBoImpl implements TaskBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(TaskDto dto) throws SQLException {
-        return false;
+    public boolean delete(Task dto) throws SQLException {
+        return taskDao.delete(dto);
     }
 
     /**
@@ -51,8 +54,8 @@ public class TaskBoImpl implements TaskBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<TaskDto> getAll() throws SQLException {
-        return null;
+    public ArrayList<Task> getAll() throws SQLException {
+        return taskDao.getAll();
     }
 
     /**
@@ -61,6 +64,6 @@ public class TaskBoImpl implements TaskBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return taskDao.getNextId();
     }
 }
