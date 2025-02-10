@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalMngDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Animal;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.AnimalDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AnimalMngDaoImpl implements AnimalMngDao {
-    public boolean add(Animal dto) throws SQLException {
+    public boolean add(AnimalDto dto) throws SQLException {
     String sql = "insert into animal values(?,?,?,?,?,?,?)";
         return CrudUtil.execute(sql,
                 dto.getAnimalId(),
@@ -21,7 +21,7 @@ public class AnimalMngDaoImpl implements AnimalMngDao {
                 dto.getDivisionId()
         );
     }
-    public boolean update(Animal dto) throws SQLException {
+    public boolean update(AnimalDto dto) throws SQLException {
         String sql = "update animal set name=?,age=?,gender=?,category=?,enclosureId=?,divisionId=? where animalId=?";
 
         return CrudUtil.execute(sql,
@@ -34,16 +34,16 @@ public class AnimalMngDaoImpl implements AnimalMngDao {
                 dto.getAnimalId()
                 );
     }
-    public boolean delete(Animal dto) throws SQLException {
+    public boolean delete(AnimalDto dto) throws SQLException {
         String sql = "delete from animal where animalId=?";
         return CrudUtil.execute(sql,dto.getAnimalId());
     }
-    public ArrayList<Animal> getAll() throws SQLException {
+    public ArrayList<AnimalDto> getAll() throws SQLException {
         String sql = "select * from animal";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<Animal> dtos = new ArrayList<Animal>();
+        ArrayList<AnimalDto> dtos = new ArrayList<AnimalDto>();
         while (rst.next()) {
-            Animal dto = new Animal(
+            AnimalDto dto = new AnimalDto(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDouble(3),
@@ -79,6 +79,7 @@ public class AnimalMngDaoImpl implements AnimalMngDao {
         }
         return enclosures;
     }
+    @Override
     public ArrayList<String> getDivision() throws SQLException {
         String sql = "select divisionId from division";
         ResultSet rst = CrudUtil.execute(sql);

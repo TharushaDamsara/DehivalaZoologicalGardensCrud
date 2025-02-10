@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.HelthReportDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.HelthReportDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,32 +9,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HelthReportDaoImpl implements HelthReportDao {
-    public boolean add(HelthReport dto) throws SQLException {
+    public boolean add(HelthReportDto dto) throws SQLException {
         String sql="INSERT INTO helthreport VALUES (?,?,?,?,?)";
         return CrudUtil.execute(sql,dto.getHelthReportId(),dto.getAnimalId(),dto.getVetId(),dto.getCondition(),dto.getDate());
     }
-    public boolean update(HelthReport dto) throws SQLException {
+    public boolean update(HelthReportDto dto) throws SQLException {
         String sql ="UPDATE helthreport Set animald=?,vetId=?,Animalcondition=?,date=? WHERE helthReportid = ?";
         return CrudUtil.execute(sql,dto.getAnimalId(),dto.getVetId(),dto.getCondition(),dto.getDate(),dto.getHelthReportId());
     }
-    public boolean delete(HelthReport dto) throws SQLException {
+    public boolean delete(HelthReportDto dto) throws SQLException {
         String sql ="DELETE FROM helthreport WHERE helthReportid =?";
         return CrudUtil.execute(sql,dto.getHelthReportId());
     }
-    public ArrayList<HelthReport> getAll() throws SQLException {
+    public ArrayList<HelthReportDto> getAll() throws SQLException {
         String sql ="SELECT * FROM helthreport";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<HelthReport> helthReports = new ArrayList<>();
+        ArrayList<HelthReportDto> helthReportDtos = new ArrayList<>();
         while(rst.next()){
-            HelthReport helthReport = new HelthReport(
+            HelthReportDto helthReportDto = new HelthReportDto(
             rst.getString(1),
             rst.getString(2),
             rst.getString(3),
             rst.getString(4),
             rst.getString(5));
-            helthReports.add(helthReport);
+            helthReportDtos.add(helthReportDto);
         }
-        return helthReports;
+        return helthReportDtos;
     }
     public String getNextId() throws SQLException {
         String sql ="select helthReportid from helthreport order by helthReportid desc limit 1";

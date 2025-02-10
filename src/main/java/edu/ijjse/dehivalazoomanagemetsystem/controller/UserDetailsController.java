@@ -3,9 +3,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.UserDetails;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.UserDetailMngTM;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.UserDetailsDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserDetailsBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDetailsDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.UserDetailMngTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,7 +105,7 @@ public class UserDetailsController implements Initializable {
 
     @FXML
     private TableView<UserDetailMngTM> usertbl;
-    UserDetailsDaoImpl model = new UserDetailsDaoImpl();
+  UserDetailsBo model = (UserDetailsBo) BOFactory.getInstance().getBOType(BOFactory.BOType.UserDetails);
 
     @FXML
     void Update(ActionEvent event) {
@@ -112,7 +113,7 @@ public class UserDetailsController implements Initializable {
         String empId = empIdtxt.getValue();
         String userName = UserNametxt.getText();
         String pwd = pwdTxt.getText();
-        UserDetails dto = new UserDetails(id, empId, userName, pwd);
+        UserDetailsDto dto = new UserDetailsDto(id, empId, userName, pwd);
         try {
             boolean update = model.update(dto);
             if (update) {
@@ -146,10 +147,10 @@ public class UserDetailsController implements Initializable {
     }
 
     private void loadtabel() throws SQLException {
-        ArrayList<UserDetails> userDetails = model.getAll();
+        ArrayList<UserDetailsDto> userDetailDtos = model.getAll();
         ObservableList<UserDetailMngTM> userDetailMngTMS = FXCollections.observableArrayList();
 
-        for (UserDetails dto : userDetails) {
+        for (UserDetailsDto dto : userDetailDtos) {
             UserDetailMngTM userDetailMngTM = new UserDetailMngTM(
               dto.getUserId(),
               dto.getEmpId(),
@@ -167,7 +168,7 @@ public class UserDetailsController implements Initializable {
         String empId = empIdtxt.getValue();
         String userName = UserNametxt.getText();
         String pwd = pwdTxt.getText();
-        UserDetails dto = new UserDetails(id, empId, userName, pwd);
+        UserDetailsDto dto = new UserDetailsDto(id, empId, userName, pwd);
         try {
             boolean add = model.add(dto);
             if (add) {
@@ -182,7 +183,7 @@ public class UserDetailsController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    UserDetails dto = new UserDetails();
+    UserDetailsDto dto = new UserDetailsDto();
     dto.setUserId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

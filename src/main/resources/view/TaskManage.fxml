@@ -19,8 +19,8 @@
             <Image url="@../icon/icons8-arrow-left-94.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="idtxt" layoutX="55.0" layoutY="106.0" prefHeight="26.0" prefWidth="177.0" promptText="task Id" />
-      <JFXTextField fx:id="nametxt" layoutX="55.0" layoutY="151.0" prefHeight="26.0" prefWidth="177.0" promptText="task" />
+      <JFXTextField fx:id="idtxt" layoutX="55.0" layoutY="106.0" prefHeight="26.0" prefWidth="177.0" promptText="taskDto Id" />
+      <JFXTextField fx:id="nametxt" layoutX="55.0" layoutY="151.0" prefHeight="26.0" prefWidth="177.0" promptText="taskDto" />
       <Label layoutX="263.0" layoutY="46.0" prefHeight="46.0" prefWidth="189.0" style="-fx-background-color: #00000;" text="Task Manage" textFill="#7e5252">
          <font>
             <Font size="30.0" />

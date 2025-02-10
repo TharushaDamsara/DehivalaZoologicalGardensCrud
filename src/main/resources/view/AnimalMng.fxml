@@ -54,7 +54,7 @@
             <TableColumn fx:id="agecol" prefWidth="87.20001220703125" text="Age" />
             <TableColumn fx:id="gendercol" prefWidth="90.4000244140625" text="gender" />
             <TableColumn fx:id="catogarycol" prefWidth="118.4000244140625" text="Catogary" />
-            <TableColumn fx:id="enclosercol" prefWidth="93.5999755859375" text="encloser Id" />
+            <TableColumn fx:id="enclosercol" prefWidth="93.5999755859375" text="encloserDto Id" />
             <TableColumn fx:id="devisoncol" prefWidth="82.4000244140625" text="Devision Id" />
         </columns>
       </TableView>

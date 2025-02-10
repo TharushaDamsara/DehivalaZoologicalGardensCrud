@@ -1,20 +1,23 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TicketDetailsBo;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.TickDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDetailsDao;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TicketDetailsBoImpl implements TicketDetailsBo {
+    TicketDetailsDao ticketDetailsDao = (TicketDetailsDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.TicketDetails);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(TickDetails dto) throws SQLException {
-        return false;
+    public boolean add(TickDetailsDto dto) throws SQLException {
+        return ticketDetailsDao.add(dto);
     }
 
     /**
@@ -23,8 +26,8 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(TickDetails dto) throws SQLException {
-        return false;
+    public boolean update(TickDetailsDto dto) throws SQLException {
+        return ticketDetailsDao.update(dto);
     }
 
     /**
@@ -33,8 +36,8 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(TickDetails dto) throws SQLException {
-        return false;
+    public boolean delete(TickDetailsDto dto) throws SQLException {
+        return ticketDetailsDao.delete(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<TickDetails> getAll() throws SQLException {
-        return null;
+    public ArrayList<TickDetailsDto> getAll() throws SQLException {
+        return ticketDetailsDao.getAll();
     }
 
     /**
@@ -52,6 +55,6 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return ticketDetailsDao.getNextId();
     }
 }

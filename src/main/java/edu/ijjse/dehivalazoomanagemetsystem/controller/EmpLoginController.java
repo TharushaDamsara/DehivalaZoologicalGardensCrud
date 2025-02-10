@@ -2,6 +2,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.UserDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,7 +42,7 @@ public class EmpLoginController {
 
     @FXML
     private JFXTextField usertxt;
-        UserDaoImpl model = new UserDaoImpl();
+     UserBo model = (UserBo) BOFactory.getInstance().getBOType(BOFactory.BOType.User);
     @FXML
     void forgotpwd(MouseEvent event) {
 

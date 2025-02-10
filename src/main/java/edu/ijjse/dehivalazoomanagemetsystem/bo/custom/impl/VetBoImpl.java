@@ -1,20 +1,23 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.VetBo;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Vet;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.VetDao;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.VetDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VetBoImpl implements VetBo {
+    VetDao vetDao = (VetDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Vet);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(Vet dto) throws SQLException {
-        return false;
+    public boolean add(VetDto dto) throws SQLException {
+        return vetDao.add(dto);
     }
 
     /**
@@ -23,8 +26,8 @@ public class VetBoImpl implements VetBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(Vet dto) throws SQLException {
-        return false;
+    public boolean update(VetDto dto) throws SQLException {
+        return vetDao.update(dto);
     }
 
     /**
@@ -33,8 +36,8 @@ public class VetBoImpl implements VetBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(Vet dto) throws SQLException {
-        return false;
+    public boolean delete(VetDto dto) throws SQLException {
+        return vetDao.delete(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class VetBoImpl implements VetBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<Vet> getAll() throws SQLException {
-        return null;
+    public ArrayList<VetDto> getAll() throws SQLException {
+        return vetDao.getAll();
     }
 
     /**
@@ -52,6 +55,6 @@ public class VetBoImpl implements VetBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return vetDao.getNextId();
     }
 }

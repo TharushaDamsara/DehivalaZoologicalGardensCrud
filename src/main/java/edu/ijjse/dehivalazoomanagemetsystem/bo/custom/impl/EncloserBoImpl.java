@@ -3,7 +3,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EncloserBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EncloserDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Encloser;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EncloserDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class EncloserBoImpl implements EncloserBo {
      * @throws SQLException
      */
     @Override
-    public boolean add(Encloser dto) throws SQLException {
+    public boolean add(EncloserDto dto) throws SQLException {
         return encloserDao.add(dto);
     }
 
@@ -26,7 +26,7 @@ public class EncloserBoImpl implements EncloserBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(Encloser dto) throws SQLException {
+    public boolean update(EncloserDto dto) throws SQLException {
         return encloserDao.update(dto);
     }
 
@@ -36,7 +36,7 @@ public class EncloserBoImpl implements EncloserBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(Encloser dto) throws SQLException {
+    public boolean delete(EncloserDto dto) throws SQLException {
         return encloserDao.delete(dto);
     }
 
@@ -45,7 +45,7 @@ public class EncloserBoImpl implements EncloserBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<Encloser> getAll() throws SQLException {
+    public ArrayList<EncloserDto> getAll() throws SQLException {
         return encloserDao.getAll();
     }
 

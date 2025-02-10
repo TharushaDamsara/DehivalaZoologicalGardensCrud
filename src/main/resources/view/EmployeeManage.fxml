@@ -66,6 +66,6 @@
       <JFXTextField fx:id="agetxt" layoutX="39.0" layoutY="265.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp Age" />
       <JFXTextField fx:id="jobtxt" layoutX="39.0" layoutY="296.0" prefHeight="26.0" prefWidth="177.0" promptText="Emp job" />
       <JFXTextField fx:id="tptxt" layoutX="39.0" layoutY="329.0" prefHeight="26.0" prefWidth="177.0" promptText="contact no" />
-      <JFXTextField fx:id="devisiontxt" layoutX="39.0" layoutY="364.0" prefHeight="26.0" prefWidth="177.0" promptText="devision Id" />
+      <JFXTextField fx:id="devisiontxt" layoutX="39.0" layoutY="364.0" prefHeight="26.0" prefWidth="177.0" promptText="devisionDto Id" />
    </children>
 </AnchorPane>

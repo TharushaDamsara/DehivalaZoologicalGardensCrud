@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EmpExpencessDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmployeeExpences;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EmployeeExpencesDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class EmpExpencessDaoImpl implements EmpExpencessDao {
     @Override
-    public boolean add(EmployeeExpences dto) throws SQLException {
+    public boolean add(EmployeeExpencesDto dto) throws SQLException {
         String sql = "INSERT INTO payment VALUES (?,?,?,?,?,?,?)";
         return CrudUtil.execute(sql,
                 dto.getPaymentId(),
@@ -24,7 +24,7 @@ public class EmpExpencessDaoImpl implements EmpExpencessDao {
         );
     }
     @Override
-    public boolean update(EmployeeExpences dto) throws SQLException {
+    public boolean update(EmployeeExpencesDto dto) throws SQLException {
     String sql ="UPDATE payment SET date=?,totalSalary=?,basic=?,addons=?,cutoffs=?,emold=? WHERE paymetld=?";
         return CrudUtil.execute(sql,
                 dto.getDate(),
@@ -37,18 +37,18 @@ public class EmpExpencessDaoImpl implements EmpExpencessDao {
                 );
     }
     @Override
-    public boolean delete(EmployeeExpences dto) throws SQLException {
+    public boolean delete(EmployeeExpencesDto dto) throws SQLException {
         String sql = "delete from payment  where paymetld = ? ";
         return CrudUtil.execute(sql,dto.getPaymentId());
     }
     @Override
-    public ArrayList<EmployeeExpences> getAll() throws SQLException {
+    public ArrayList<EmployeeExpencesDto> getAll() throws SQLException {
 
         String sql = "select * from payment ";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<EmployeeExpences> employees = new ArrayList<>();
+        ArrayList<EmployeeExpencesDto> employees = new ArrayList<>();
         while (rst.next()) {
-            EmployeeExpences dto = new EmployeeExpences(
+            EmployeeExpencesDto dto = new EmployeeExpencesDto(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),

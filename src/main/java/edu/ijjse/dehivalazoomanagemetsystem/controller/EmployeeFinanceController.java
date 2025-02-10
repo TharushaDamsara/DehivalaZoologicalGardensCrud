@@ -3,8 +3,11 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmployeeExpences;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.EmployeeExpencessTM;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EmpExpencessBo;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EmployeeExpencesDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.EmployeeExpencessTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EmpExpencessDaoImpl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
@@ -68,18 +71,18 @@ public class EmployeeFinanceController implements Initializable {
     }
 
     private void loadTbl() throws SQLException {
-        ArrayList<EmployeeExpences> employeeExpences = model.getAll();
+        ArrayList<EmployeeExpencesDto> employeeExpenceDtos = model.getAll();
         ObservableList<EmployeeExpencessTM> employeeExpencessTMS = FXCollections.observableArrayList();
 
-        for (EmployeeExpences employeeExpencesd : employeeExpences) {
+        for (EmployeeExpencesDto employeeExpencesdDto : employeeExpenceDtos) {
             EmployeeExpencessTM employeeExpencessTM = new EmployeeExpencessTM(
-                    employeeExpencesd.getPaymentId(),
-                    employeeExpencesd.getEmployeeId(),
-                    employeeExpencesd.getDate(),
-                    employeeExpencesd.getBasicSalary(),
-                    employeeExpencesd.getAddonSalary(),
-                    employeeExpencesd.getCutOffSalary(),
-                    employeeExpencesd.getTotalSalary()
+                    employeeExpencesdDto.getPaymentId(),
+                    employeeExpencesdDto.getEmployeeId(),
+                    employeeExpencesdDto.getDate(),
+                    employeeExpencesdDto.getBasicSalary(),
+                    employeeExpencesdDto.getAddonSalary(),
+                    employeeExpencesdDto.getCutOffSalary(),
+                    employeeExpencesdDto.getTotalSalary()
             );
            employeeExpencessTMS.add(employeeExpencessTM);
         }
@@ -144,7 +147,8 @@ public class EmployeeFinanceController implements Initializable {
     @FXML
     private JFXButton updatebtn;
 
-    EmpExpencessDaoImpl model = new EmpExpencessDaoImpl();
+//    EmpExpencessDaoImpl model = new EmpExpencessDaoImpl();
+EmpExpencessBo model = (EmpExpencessBo) BOFactory.getInstance().getBOType(BOFactory.BOType.EmpExpencess);
 
     @FXML
     void UpdateEmp(ActionEvent event) {
@@ -183,7 +187,7 @@ public class EmployeeFinanceController implements Initializable {
         }
         if (IsBasicValidSalary&ISAddonValid&IsCutoffValid&isTotalValid) {
 
-            EmployeeExpences dto = new EmployeeExpences(payid, empid, date, basic, addon, text, total);
+            EmployeeExpencesDto dto = new EmployeeExpencesDto(payid, empid, date, basic, addon, text, total);
 
             try {
                 boolean update = model.update(dto);
@@ -236,7 +240,7 @@ public class EmployeeFinanceController implements Initializable {
             totsaltxt.setStyle(totsaltxt.getStyle() + ";-fx-border-color: red;");
         }
         if (IsBasicValidSalary&ISAddonValid&IsCutoffValid&isTotalValid){
-            EmployeeExpences dto = new EmployeeExpences(payid,empid,date,basic,addon,text,total);
+            EmployeeExpencesDto dto = new EmployeeExpencesDto(payid,empid,date,basic,addon,text,total);
 
             try {
                 boolean save = model.add(dto);
@@ -256,7 +260,7 @@ public class EmployeeFinanceController implements Initializable {
 
     @FXML
     void deleteEmp(ActionEvent event) {
-        EmployeeExpences dto = new EmployeeExpences();
+        EmployeeExpencesDto dto = new EmployeeExpencesDto();
         dto.setPaymentId(idtext.getText());
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);

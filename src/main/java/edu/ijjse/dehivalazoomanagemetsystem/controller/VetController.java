@@ -2,9 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Vet;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.VetTM;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.VetDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.VetBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.VetDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.VetTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,9 +59,9 @@ public class VetController implements Initializable {
 
     private void loadTbl() {
         try {
-            ArrayList<Vet> dtos = model.getAll();
+            ArrayList<VetDto> dtos = model.getAll();
             ObservableList<VetTM> objects = FXCollections.observableArrayList();
-            for (Vet dto : dtos) {
+            for (VetDto dto : dtos) {
                 VetTM vetTM = new VetTM(
                   dto.getVetId(),
                   dto.getVetName(),
@@ -75,7 +76,7 @@ public class VetController implements Initializable {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
     }
-  VetDaoImpl model = new VetDaoImpl();
+  VetBo model = (VetBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Vet);
     @FXML
     private JFXButton addbtn;
 
@@ -136,7 +137,7 @@ public class VetController implements Initializable {
             tptxt.setStyle(tptxt.getStyle() + ";-fx-border-color: red;");
         }
         if (validPhone&&valueDoc){
-            Vet dto = new Vet(id, name, address, phone);
+            VetDto dto = new VetDto(id, name, address, phone);
             try {
                 boolean update = model.update(dto);
                 if (update) {
@@ -186,7 +187,7 @@ public class VetController implements Initializable {
         }
         if (validPhone&&valueDoc) {
 
-            Vet dto = new Vet(id, name, address, phone);
+            VetDto dto = new VetDto(id, name, address, phone);
             try {
                 boolean add = model.add(dto);
                 if (add) {
@@ -205,7 +206,7 @@ public class VetController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    Vet dto = new Vet();
+    VetDto dto = new VetDto();
     dto.setVetId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

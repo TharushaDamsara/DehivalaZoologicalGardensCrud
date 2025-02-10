@@ -2,6 +2,8 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.AdminBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AdminDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.AdminDaoImpl;
@@ -18,7 +20,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class AdminLoginController {
-
+    AdminBo adminBo = (AdminBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Admin);
+//    AdminDao adminBo = new AdminDaoImpl();
     @FXML
     private AnchorPane adminlogpane;
 
@@ -40,7 +43,6 @@ public class AdminLoginController {
     @FXML
     private JFXTextField userNametxt;
 
-    AdminDao adminDao = new AdminDaoImpl();
 
 
     @FXML
@@ -62,7 +64,7 @@ public class AdminLoginController {
         String pwd = pwdtxt.getText();
 
         try {
-            boolean resp = adminDao.getAdmin(userName, pwd);
+            boolean resp = adminBo.getAdmin(userName,pwd);
             if (resp) {
                 adminlogpane.getChildren().clear();
                 AnchorPane load = FXMLLoader.load(getClass().getResource("/view/AdminFuntion.fxml"));
@@ -86,7 +88,7 @@ public class AdminLoginController {
         String pwd = pwdtxt.getText();
 
         try {
-            boolean resp = adminDao.getAdmin(userName, pwd);
+            boolean resp = adminBo.getAdmin(userName, pwd);
             if (resp) {
                 adminlogpane.getChildren().clear();
                 AnchorPane load = FXMLLoader.load(getClass().getResource("/view/AdminFuntion.fxml"));

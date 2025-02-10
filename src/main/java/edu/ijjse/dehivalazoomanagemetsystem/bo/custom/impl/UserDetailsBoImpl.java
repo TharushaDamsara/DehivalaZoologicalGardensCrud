@@ -1,20 +1,23 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserDetailsBo;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.UserDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.UserDetailsDao;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDetailsDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDetailsBoImpl implements UserDetailsBo {
+    UserDetailsDao userDetailsDao = (UserDetailsDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.UserDetails);
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(UserDetails dto) throws SQLException {
-        return false;
+    public boolean add(UserDetailsDto dto) throws SQLException {
+        return userDetailsDao.add(dto);
     }
 
     /**
@@ -23,7 +26,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      */
     @Override
     public ArrayList<String> getEmployeeIds() throws SQLException {
-        return null;
+        return userDetailsDao.getEmployeeIds();
     }
 
     /**
@@ -32,8 +35,8 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(UserDetails dto) throws SQLException {
-        return false;
+    public boolean update(UserDetailsDto dto) throws SQLException {
+        return userDetailsDao.update(dto);
     }
 
     /**
@@ -42,8 +45,8 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(UserDetails dto) throws SQLException {
-        return false;
+    public boolean delete(UserDetailsDto dto) throws SQLException {
+        return userDetailsDao.delete(dto);
     }
 
     /**
@@ -51,8 +54,8 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<UserDetails> getAll() throws SQLException {
-        return null;
+    public ArrayList<UserDetailsDto> getAll() throws SQLException {
+        return userDetailsDao.getAll();
     }
 
     /**
@@ -61,6 +64,6 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return userDetailsDao.getNextId();
     }
 }

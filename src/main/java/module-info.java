@@ -9,7 +9,7 @@ module edu.ijjse.dehivalazoomanagemetsystem {
    // opens edu.ijjse.dehivalazoomanagemetsystem.entity.tm to javafx.fxml;
     opens edu.ijjse.dehivalazoomanagemetsystem.controller to javafx.fxml;
     exports edu.ijjse.dehivalazoomanagemetsystem;
-    exports edu.ijjse.dehivalazoomanagemetsystem.entity.tm;
+    exports edu.ijjse.dehivalazoomanagemetsystem.tm;
     opens view to javafx.fxml;
     opens edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl to javafx.fxml;
     opens edu.ijjse.dehivalazoomanagemetsystem.dao.custom to javafx.fxml;

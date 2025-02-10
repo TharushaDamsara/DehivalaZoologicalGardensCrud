@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EventDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Event;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EventDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EventDaoImpl implements EventDao {
-public boolean add(Event dto) throws SQLException {
+public boolean add(EventDto dto) throws SQLException {
     String sql = "insert into event values(?,?,?,?)";
 
     return CrudUtil.execute(sql,
@@ -19,7 +19,7 @@ public boolean add(Event dto) throws SQLException {
             dto.getEventDate()
         );
     }
-    public boolean update(Event dto) throws SQLException {
+    public boolean update(EventDto dto) throws SQLException {
     String sql ="update event set name=?,location=?,date=? where eventId=?";
         return CrudUtil.execute(sql,
                 dto.getEventName(),
@@ -28,16 +28,16 @@ public boolean add(Event dto) throws SQLException {
                 dto.getEventId()
         );
     }
-    public boolean delete(Event dto) throws SQLException {
+    public boolean delete(EventDto dto) throws SQLException {
     String sql = "delete from event where eventId=?";
         return CrudUtil.execute(sql, dto.getEventId());
     }
-    public ArrayList<Event> getAll() throws SQLException {
+    public ArrayList<EventDto> getAll() throws SQLException {
     String sql = "select * from event";
     ResultSet rst = CrudUtil.execute(sql);
-    ArrayList<Event> dtos = new ArrayList<>();
+    ArrayList<EventDto> dtos = new ArrayList<>();
     while (rst.next()) {
-        Event dto = new Event(
+        EventDto dto = new EventDto(
                 rst.getString(1),
                 rst.getString(2),
                 rst.getString(3),

@@ -18,7 +18,7 @@
             <Image url="@../icon/icons8-arrow-left-94.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="idtxt" layoutX="55.0" layoutY="106.0" prefHeight="26.0" prefWidth="177.0" promptText="event id" />
+      <JFXTextField fx:id="idtxt" layoutX="55.0" layoutY="106.0" prefHeight="26.0" prefWidth="177.0" promptText="eventDto id" />
       <JFXTextField fx:id="locationtxt" layoutX="55.0" layoutY="215.0" prefHeight="26.0" prefWidth="190.0" promptText="location" />
       <JFXButton fx:id="addbtn" layoutX="399.0" layoutY="302.0" onAction="#add" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #283747; -fx-background-radius: 25;" text="Add" textFill="#53dcd5">
          <font>

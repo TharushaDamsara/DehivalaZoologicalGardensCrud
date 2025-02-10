@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.CrudDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Visitor;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
 
-public interface VisitorDao extends CrudDao<Visitor> {
+public interface VisitorDao extends CrudDao<VisitorDto> {
 }

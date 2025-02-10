@@ -3,7 +3,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EmpMngBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EmpMngDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmpMng;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EmpMngDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class EmpMngBoImpl implements EmpMngBo {
      * @throws SQLException
      */
     @Override
-    public boolean add(EmpMng dto) throws SQLException {
+    public boolean add(EmpMngDto dto) throws SQLException {
         return empMngDao.add(dto);
     }
 
@@ -26,7 +26,7 @@ public class EmpMngBoImpl implements EmpMngBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(EmpMng dto) throws SQLException {
+    public boolean update(EmpMngDto dto) throws SQLException {
         return empMngDao.update(dto);
     }
 
@@ -36,7 +36,7 @@ public class EmpMngBoImpl implements EmpMngBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(EmpMng dto) throws SQLException {
+    public boolean delete(EmpMngDto dto) throws SQLException {
         return empMngDao.delete(dto);
     }
 
@@ -45,7 +45,7 @@ public class EmpMngBoImpl implements EmpMngBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<EmpMng> getAll() throws SQLException {
+    public ArrayList<EmpMngDto> getAll() throws SQLException {
         return empMngDao.getAll();
     }
 

@@ -3,7 +3,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.HelthReportBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.HelthReportDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.HelthReportDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class HelthReportBoImpl implements HelthReportBo {
      * @throws SQLException
      */
     @Override
-    public boolean add(HelthReport dto) throws SQLException {
+    public boolean add(HelthReportDto dto) throws SQLException {
         return helthReportDao.add(dto);
     }
 
@@ -44,7 +44,7 @@ public class HelthReportBoImpl implements HelthReportBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(HelthReport dto) throws SQLException {
+    public boolean update(HelthReportDto dto) throws SQLException {
         return helthReportDao.update(dto);
     }
 
@@ -54,7 +54,7 @@ public class HelthReportBoImpl implements HelthReportBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(HelthReport dto) throws SQLException {
+    public boolean delete(HelthReportDto dto) throws SQLException {
         return helthReportDao.delete(dto);
     }
 
@@ -63,7 +63,7 @@ public class HelthReportBoImpl implements HelthReportBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<HelthReport> getAll() throws SQLException {
+    public ArrayList<HelthReportDto> getAll() throws SQLException {
         return helthReportDao.getAll();
     }
 

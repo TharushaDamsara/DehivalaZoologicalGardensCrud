@@ -43,7 +43,7 @@
       </JFXButton>
       <TableView fx:id="enclosertbl" layoutX="130.0" layoutY="374.0" onMouseClicked="#tabelClicked" prefHeight="200.0" prefWidth="515.0">
          <columns>
-            <TableColumn fx:id="idcol" prefWidth="95.99999237060547" text="vet id" />
+            <TableColumn fx:id="idcol" prefWidth="95.99999237060547" text="vetDto id" />
             <TableColumn fx:id="nameCol" prefWidth="136.79998779296875" text="name" />
             <TableColumn fx:id="addressCol" prefWidth="137.60003662109375" text="address" />
             <TableColumn fx:id="tpCol" prefWidth="137.60003662109375" text="tp" />

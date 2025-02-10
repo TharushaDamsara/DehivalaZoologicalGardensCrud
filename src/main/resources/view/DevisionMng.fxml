@@ -39,7 +39,7 @@
       </JFXButton>
       <JFXTextField fx:id="nametxt" layoutX="66.0" layoutY="162.0" prefHeight="26.0" prefWidth="177.0" promptText="Divisionl Name" />
       <JFXTextField fx:id="desctxt" layoutX="66.0" layoutY="222.0" prefHeight="26.0" prefWidth="358.0" promptText="Discription" />
-      <JFXTextField fx:id="idtxt" layoutX="66.0" layoutY="109.0" prefHeight="26.0" prefWidth="177.0" promptText="devision id" />
+      <JFXTextField fx:id="idtxt" layoutX="66.0" layoutY="109.0" prefHeight="26.0" prefWidth="177.0" promptText="devisionDto id" />
       <TableView fx:id="devisiontbl" layoutX="47.0" layoutY="346.0" onMouseClicked="#tableClicked" prefHeight="200.0" prefWidth="545.0">
         <columns>
           <TableColumn fx:id="idclm" prefWidth="152.80005645751953" text="Devision Id" />

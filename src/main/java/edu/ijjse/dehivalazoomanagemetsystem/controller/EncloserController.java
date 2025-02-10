@@ -2,9 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Encloser;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.EncloserTm;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EncloserDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EncloserBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EncloserDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.EncloserTm;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,10 +50,10 @@ public class EncloserController implements Initializable {
 
     private void loadTbl() {
         try {
-            ArrayList<Encloser> enclosers = model.getAll();
+            ArrayList<EncloserDto> encloserDtos = model.getAll();
             ObservableList<EncloserTm> encloserTms = FXCollections.observableArrayList();
-            for (Encloser encloser : enclosers) {
-                EncloserTm encloserTm = new EncloserTm(encloser.getId(), encloser.getLocation(), encloser.getSize());
+            for (EncloserDto encloserDto : encloserDtos) {
+                EncloserTm encloserTm = new EncloserTm(encloserDto.getId(), encloserDto.getLocation(), encloserDto.getSize());
                 encloserTms.add(encloserTm);
             }
             enclosertbl.setItems(encloserTms);
@@ -63,7 +64,8 @@ public class EncloserController implements Initializable {
         }
     }
 
-    EncloserDaoImpl model = new EncloserDaoImpl();
+//    EncloserDaoImpl model = new EncloserDaoImpl();
+EncloserBo model = (EncloserBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Encloser);
     @FXML
     private JFXButton addbtn;
 
@@ -115,9 +117,9 @@ public class EncloserController implements Initializable {
         if (isValidSize) {
 
 
-            Encloser encloser = new Encloser(id, location, size);
+            EncloserDto encloserDto = new EncloserDto(id, location, size);
             try {
-                boolean update = model.update(encloser);
+                boolean update = model.update(encloserDto);
                 if (update) {
                     new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
                     loadTbl();
@@ -149,9 +151,9 @@ public class EncloserController implements Initializable {
             sizetxt.setStyle(sizetxt.getStyle() + ";-fx-border-color: red;");
         }
          if (isValidSize){
-             Encloser encloser = new Encloser(id,location,size);
+             EncloserDto encloserDto = new EncloserDto(id,location,size);
              try {
-                 boolean add = model.add(encloser);
+                 boolean add = model.add(encloserDto);
                  if (add) {
                      new Alert(Alert.AlertType.INFORMATION,"Add Successful").show();
                      loadTbl();
@@ -188,15 +190,15 @@ public class EncloserController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-        Encloser encloser = new Encloser();
-        encloser.setId(idtxt.getText());
+        EncloserDto encloserDto = new EncloserDto();
+        encloserDto.setId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = model.delete(encloser);
+                boolean delete = model.delete(encloserDto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Delete Successful").show();
                     loadTbl();

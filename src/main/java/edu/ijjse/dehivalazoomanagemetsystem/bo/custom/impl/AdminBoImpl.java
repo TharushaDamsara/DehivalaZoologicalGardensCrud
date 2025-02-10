@@ -3,7 +3,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.AdminBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AdminDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Admin;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.AdminDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,18 +17,23 @@ public class AdminBoImpl implements AdminBo {
      * @throws SQLException
      */
     @Override
-    public boolean add(Admin dto) throws SQLException {
+    public boolean add(AdminDto dto) throws SQLException {
         return adminDao.add(dto);
     }
 
     /**
      * @param userName
      * @param pwd
+     * @return
      * @throws SQLException
      */
     @Override
-    public void getAdmin(String userName, String pwd) throws SQLException {
+    public boolean getAdmin(String userName, String pwd) throws SQLException {
     adminDao.getAdmin(userName, pwd);
+        System.out.println(userName);
+        System.out.println(pwd);
+
+        return adminDao.getAdmin(userName, pwd);
     }
 
     /**
@@ -37,7 +42,7 @@ public class AdminBoImpl implements AdminBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(Admin dto) throws SQLException {
+    public boolean update(AdminDto dto) throws SQLException {
         return adminDao.update(dto);
     }
 
@@ -47,7 +52,7 @@ public class AdminBoImpl implements AdminBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(Admin dto) throws SQLException {
+    public boolean delete(AdminDto dto) throws SQLException {
         return adminDao.delete(dto);
     }
 
@@ -56,7 +61,7 @@ public class AdminBoImpl implements AdminBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<Admin> getAll() throws SQLException {
+    public ArrayList<AdminDto> getAll() throws SQLException {
         return adminDao.getAll();
     }
 

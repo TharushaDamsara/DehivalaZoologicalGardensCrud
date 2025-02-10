@@ -2,9 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Visitor;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.VisitorTM;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.VisitorDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.VisitorBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.VisitorTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,16 +73,16 @@ public class VisitorMngController implements Initializable {
     }
 
     public void loadTabel() throws SQLException {
-        ArrayList<Visitor> visitors = model.getAll();
+        ArrayList<VisitorDto> visitorDtos = model.getAll();
         ObservableList<VisitorTM> visitorTMS = FXCollections.observableArrayList();
-        for (Visitor visitor : visitors) {
+        for (VisitorDto visitorDto : visitorDtos) {
             VisitorTM visitorTM = new VisitorTM(
-                    visitor.getVisitorId(),
-                    visitor.getVisitorName(),
-                    visitor.getVisitorAddress(),
-                    visitor.getVisitDate(),
-                    visitor.getVisitNic(),
-                    visitor.getTicketId()
+                    visitorDto.getVisitorId(),
+                    visitorDto.getVisitorName(),
+                    visitorDto.getVisitorAddress(),
+                    visitorDto.getVisitDate(),
+                    visitorDto.getVisitNic(),
+                    visitorDto.getTicketId()
             );
             visitorTMS.add(visitorTM);
         }
@@ -140,8 +141,7 @@ public class VisitorMngController implements Initializable {
     private JFXTextField ticketId;
 
 
-    VisitorDaoImpl model = new VisitorDaoImpl();
-
+  VisitorBo model = (VisitorBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Visitor);
     @FXML
     void Update(ActionEvent event) {
 
@@ -169,9 +169,9 @@ public class VisitorMngController implements Initializable {
             nictxt.setStyle(nictxt.getStyle() + ";-fx-border-color: red;");
         }
         if (isValidName&&validNic){
-            Visitor visitor = new Visitor(id, name, address, visitDate, visitNic, ticket);
+            VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
             try {
-                boolean update = model.update(visitor);
+                boolean update = model.update(visitorDto);
                 if (update) {
                     new Alert(Alert.AlertType.INFORMATION, "Visitor Updated").show();
                     loadTabel();
@@ -216,8 +216,8 @@ public class VisitorMngController implements Initializable {
         if (isValidName&&validNic) {
 
 
-            Visitor visitor = new Visitor(id, name, address, visitDate, visitNic, ticket);
-            boolean add = model.add(visitor);
+            VisitorDto visitorDto = new VisitorDto(id, name, address, visitDate, visitNic, ticket);
+            boolean add = model.add(visitorDto);
             if (add) {
                 new Alert(Alert.AlertType.INFORMATION, "Visitor Added").show();
                 loadTabel();
@@ -229,15 +229,15 @@ public class VisitorMngController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    Visitor visitor = new Visitor();
-    visitor.setVisitorId(idtxt.getText());
+    VisitorDto visitorDto = new VisitorDto();
+    visitorDto.setVisitorId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = model.delete(visitor);
+                boolean delete = model.delete(visitorDto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Visitor Deleted").show();
                     loadTabel();

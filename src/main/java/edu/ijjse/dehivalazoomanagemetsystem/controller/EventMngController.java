@@ -2,9 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Event;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.EventTM;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EventDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EventBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EventDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.EventTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,15 +49,15 @@ public class EventMngController implements Initializable {
     }
 
     private void loadtabel() throws SQLException {
-        ArrayList<Event> events = model.getAll();
+        ArrayList<EventDto> eventDtos = model.getAll();
         ObservableList<EventTM> eventTMS = FXCollections.observableArrayList();
 
-        for (Event event : events) {
+        for (EventDto eventDto : eventDtos) {
             EventTM eventTM = new EventTM(
-              event.getEventId(),
-              event.getEventName(),
-              event.getEventLocation(),
-              event.getEventDate()
+              eventDto.getEventId(),
+              eventDto.getEventName(),
+              eventDto.getEventLocation(),
+              eventDto.getEventDate()
             );
             eventTMS.add(eventTM);
         }
@@ -103,7 +104,8 @@ public class EventMngController implements Initializable {
     private TableView<EventTM> eventtbl;
 
 
-    EventDaoImpl model = new EventDaoImpl();
+//    EventDaoImpl model = new EventDaoImpl();
+EventBo model = (EventBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Event);
 
     @FXML
     void Update(ActionEvent event) {
@@ -112,7 +114,7 @@ public class EventMngController implements Initializable {
         String name = nametxt.getText();
         String location = locationtxt.getText();
         String date = datetxt.getValue().toString();
-        Event eventDto = new Event(id,name,location,date);
+        EventDto eventDto = new EventDto(id,name,location,date);
 
         try {
             boolean update = model.update(eventDto);
@@ -134,7 +136,7 @@ public class EventMngController implements Initializable {
         String name = nametxt.getText();
         String location = locationtxt.getText();
         String date = datetxt.getValue().toString();
-        Event eventDto = new Event(id,name,location,date);
+        EventDto eventDto = new EventDto(id,name,location,date);
         try {
             boolean save = model.add(eventDto);
             if (save){
@@ -163,7 +165,7 @@ public class EventMngController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    Event eventDto = new Event();
+    EventDto eventDto = new EventDto();
     eventDto.setEventId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

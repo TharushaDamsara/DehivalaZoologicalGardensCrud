@@ -2,9 +2,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Devision;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.DevisionTM;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.DevisionDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.DevisionBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.DevisionDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.DevisionTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,13 +49,13 @@ public class DevisionMngController implements Initializable {
     }
 
     private void loadTabel() throws SQLException {
-        ArrayList<Devision> devisions = model.getAll();
+        ArrayList<DevisionDto> devisionDtos = devisionBo.getAll();
         ObservableList<DevisionTM> devisionTMS= FXCollections.observableArrayList();
-        for (Devision devision : devisions) {
+        for (DevisionDto devisionDto : devisionDtos) {
             DevisionTM devisionTM = new DevisionTM(
-                    devision.getDevisionId(),
-                    devision.getDevisionName(),
-                    devision.getDevisionDescription()
+                    devisionDto.getDevisionId(),
+                    devisionDto.getDevisionName(),
+                    devisionDto.getDevisionDescription()
             );
             devisionTMS.add(devisionTM);
         }
@@ -94,15 +95,17 @@ public class DevisionMngController implements Initializable {
     @FXML
     private JFXButton updatebtn;
 
-    DevisionDaoImpl model = new DevisionDaoImpl();
+   DevisionBo devisionBo = (DevisionBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Devision);
+
+
     @FXML
     void Update(ActionEvent event) {
         String id = idtxt.getText();
         String name = nametxt.getText();
         String desc = desctxt.getText();
-        Devision dto = new Devision(id, name, desc);
+        DevisionDto dto = new DevisionDto(id, name, desc);
         try {
-            boolean update = model.update(dto);
+            boolean update = devisionBo.update(dto);
             if (update) {
                 new Alert(Alert.AlertType.INFORMATION, "Devision updated successfully").show();
                 loadTabel();
@@ -128,7 +131,7 @@ public class DevisionMngController implements Initializable {
     }
 
     private void getnxtId() throws SQLException {
-        String nextDevisionId = model.getNextId();
+        String nextDevisionId = devisionBo.getNextId();
         idtxt.setText(nextDevisionId);
 
 
@@ -139,9 +142,9 @@ public class DevisionMngController implements Initializable {
         String id = idtxt.getText();
         String name = nametxt.getText();
         String desc = desctxt.getText();
-        Devision dto = new Devision(id, name, desc);
+        DevisionDto dto = new DevisionDto(id, name, desc);
         try {
-            boolean add = model.add(dto);
+            boolean add = devisionBo.add(dto);
             if (add) {
                 new Alert(Alert.AlertType.INFORMATION, "Devision added successfully").show();
                 loadTabel();
@@ -154,7 +157,7 @@ public class DevisionMngController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    Devision dto = new Devision();
+    DevisionDto dto = new DevisionDto();
     dto.setDevisionId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
@@ -162,7 +165,7 @@ public class DevisionMngController implements Initializable {
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = model.delete(dto);
+                boolean delete =devisionBo.delete(dto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Devision deleted successfully").show();
                     loadTabel();

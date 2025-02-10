@@ -2,7 +2,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AdminDao;
 import edu.ijjse.dehivalazoomanagemetsystem.db.DBConnection;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Admin;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.AdminDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class AdminDaoImpl implements AdminDao  {
     @Override
     public boolean getAdmin(String userName,String pwd) throws SQLException {
+
         String sql ="select * from admin where userName = ? and password = ?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement ps =connection.prepareStatement(sql);
@@ -32,7 +33,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public boolean add(Admin dto) throws SQLException {
+    public boolean add(AdminDto dto) throws SQLException {
         return false;
     }
 
@@ -42,7 +43,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public boolean update(Admin dto) throws SQLException {
+    public boolean update(AdminDto dto) throws SQLException {
         return false;
     }
 
@@ -52,7 +53,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public boolean delete(Admin dto) throws SQLException {
+    public boolean delete(AdminDto dto) throws SQLException {
         return false;
     }
 
@@ -61,7 +62,7 @@ public class AdminDaoImpl implements AdminDao  {
      * @throws SQLException
      */
     @Override
-    public ArrayList<Admin> getAll() throws SQLException {
+    public ArrayList<AdminDto> getAll() throws SQLException {
         return null;
     }
 

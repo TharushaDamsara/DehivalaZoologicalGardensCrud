@@ -1,7 +1,7 @@
 package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EmpMngDao;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmpMng;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EmpMngDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmpMngDaoImpl implements EmpMngDao {
-    public boolean add(EmpMng dto) throws SQLException {
+    public boolean add(EmpMngDto dto) throws SQLException {
 
         String sql = "insert into employee values(?,?,?,?,?,?,?,?,?,?)";
       return   CrudUtil.execute(sql,
@@ -25,7 +25,7 @@ public class EmpMngDaoImpl implements EmpMngDao {
                 dto.getEmpPhone()
                 );
     }
-    public boolean update(EmpMng dto) throws SQLException {
+    public boolean update(EmpMngDto dto) throws SQLException {
 String sql ="UPDATE employee SET name =?,salary=?,address=?,divisionId=?,empAge=?,gender=?,empBirth=?,empJob=?,empContact=? WHERE empId=?";
         return CrudUtil.execute(sql,
                 dto.getEmpName(),
@@ -40,16 +40,16 @@ String sql ="UPDATE employee SET name =?,salary=?,address=?,divisionId=?,empAge=
                 dto.getEmpId()
         );
     }
-    public boolean delete(EmpMng dto) throws SQLException {
+    public boolean delete(EmpMngDto dto) throws SQLException {
         String sql = "delete from employee where empId=?";
         return CrudUtil.execute(sql,dto.getEmpId());
     }
-public ArrayList<EmpMng> getAll() throws SQLException {
+public ArrayList<EmpMngDto> getAll() throws SQLException {
         String sql = "select * from employee order by empId desc";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<EmpMng> empMngs = new ArrayList<EmpMng>();
+        ArrayList<EmpMngDto> empMngDtos = new ArrayList<EmpMngDto>();
         while (rst.next()) {
-            EmpMng empMng = new EmpMng(
+            EmpMngDto empMngDto = new EmpMngDto(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDouble(3),
@@ -61,9 +61,9 @@ public ArrayList<EmpMng> getAll() throws SQLException {
                     rst.getString(9),
                     rst.getString(10)
             );
-            empMngs.add(empMng);
+            empMngDtos.add(empMngDto);
         }
-    return empMngs;
+    return empMngDtos;
 }
 public String getNextId() throws SQLException {
     String sql = "select empId from employee order by empId desc limit 1";

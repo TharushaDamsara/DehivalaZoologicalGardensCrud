@@ -3,10 +3,11 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.TickDetails;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Ticket;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.TicketTm;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.TicketDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TicketBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.TicketDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.TicketTm;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.RegexUtill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -91,17 +92,17 @@ public class TicketController implements Initializable {
 
     private void loadTbl() {
         try {
-            ArrayList<Ticket> tickets = model.getAll();
+            ArrayList<TicketDto> ticketDtos = model.getAll();
             ObservableList<TicketTm> ticketTms = FXCollections.observableArrayList();
-            for (Ticket ticket : tickets) {
+            for (TicketDto ticketDto : ticketDtos) {
                 TicketTm ticketTm = new TicketTm(
-                        ticket.getTicketCode(),
-                        ticket.getVisitorId(),
-                        ticket.getType(),
-                        ticket.getDate(),
-                        ticket.getQty(),
-                        ticket.getAmount(),
-                        ticket.getPaymentType()
+                        ticketDto.getTicketCode(),
+                        ticketDto.getVisitorId(),
+                        ticketDto.getType(),
+                        ticketDto.getDate(),
+                        ticketDto.getQty(),
+                        ticketDto.getAmount(),
+                        ticketDto.getPaymentType()
                 );
                 ticketTms.add(ticketTm);
             }
@@ -111,7 +112,8 @@ public class TicketController implements Initializable {
             e.printStackTrace();
         }
     }
-TicketDaoImpl model = new TicketDaoImpl();
+//TicketDaoImpl model = new TicketDaoImpl();
+TicketBo model = (TicketBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Ticket);
     @FXML
     private JFXButton addbtn;
 
@@ -216,7 +218,7 @@ TicketDaoImpl model = new TicketDaoImpl();
             amounttxt.setStyle(amounttxt.getStyle() + ";-fx-border-color: red;");
         }
         if (isValidQuantity && isValidAmount) {
-            Ticket dto = new Ticket(id,visitorId,type,date,qty,amount,paymentType);
+            TicketDto dto = new TicketDto(id,visitorId,type,date,qty,amount,paymentType);
             try {
                 boolean update = model.update(dto);
                 if (update) {
@@ -266,7 +268,7 @@ TicketDaoImpl model = new TicketDaoImpl();
         if (isValidQuantity && isValidAmount) {
 
 
-            Ticket dto = new Ticket(id, visitorId, type, date, qty, amount, paymentType);
+            TicketDto dto = new TicketDto(id, visitorId, type, date, qty, amount, paymentType);
 
             int qoh = Integer.parseInt(qohlbl.getText());
             double price = Double.parseDouble(priceLbl.getText());
@@ -315,7 +317,7 @@ TicketDaoImpl model = new TicketDaoImpl();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            Ticket dto = new Ticket();
+            TicketDto dto = new TicketDto();
             dto.setTicketCode(idtxt.getText());
             dto.setType(typetxt.getValue());
             dto.setQty(Integer.parseInt(qtytxt.getText()));
@@ -369,7 +371,7 @@ TicketDaoImpl model = new TicketDaoImpl();
     public void typecmbOnaction(ActionEvent actionEvent) {
         String selectedItem = typetxt.getSelectionModel().getSelectedItem();
         try {
-            TickDetails byId = model.findById(selectedItem);
+            TickDetailsDto byId = model.findById(selectedItem);
             priceLbl.setText(String.valueOf(byId.getPrice()));
             qohlbl.setText(String.valueOf(byId.getQty()));
             typelbl.setText(byId.getType());

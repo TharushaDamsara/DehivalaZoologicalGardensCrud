@@ -3,7 +3,11 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.HelthReportTM;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.HelthReportBo;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.HelthReportDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.HelthReportTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.HelthReportDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,16 +79,16 @@ public class HelthReport implements Initializable {
 
     private void loadtbl() {
         try {
-            ArrayList<edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport> helthReports = model.getAll();
+            ArrayList<HelthReportDto> helthReportDtos = model.getAll();
             ObservableList<HelthReportTM> helthReportTMS = FXCollections.observableArrayList();
 
-            for (edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport helthReport : helthReports) {
+            for (HelthReportDto helthReportDto : helthReportDtos) {
                 HelthReportTM helthReportTM = new HelthReportTM(
-                        helthReport.getHelthReportId(),
-                        helthReport.getAnimalId(),
-                        helthReport.getVetId(),
-                        helthReport.getCondition(),
-                        helthReport.getDate()
+                        helthReportDto.getHelthReportId(),
+                        helthReportDto.getAnimalId(),
+                        helthReportDto.getVetId(),
+                        helthReportDto.getCondition(),
+                        helthReportDto.getDate()
                 );
                 helthReportTMS.add(helthReportTM);
             }
@@ -151,7 +155,8 @@ public class HelthReport implements Initializable {
     @FXML
     private JFXComboBox<String> wetNametxt;
 
-    HelthReportDaoImpl model = new HelthReportDaoImpl();
+//    HelthReportDaoImpl model = new HelthReportDaoImpl();
+HelthReportBo model = (HelthReportBo) BOFactory.getInstance().getBOType(BOFactory.BOType.HelthReport);
 
     @FXML
     void Update(ActionEvent event) {
@@ -161,7 +166,7 @@ public class HelthReport implements Initializable {
         String condition = conditionTxt.getText();
         String date = String.valueOf(dateTxt.getValue());
 
-        edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport dto = new edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport(id,animalId,vetId,condition,date);
+        HelthReportDto dto = new HelthReportDto(id,animalId,vetId,condition,date);
         try {
             boolean update = model.update(dto);
             System.out.println(update);
@@ -210,7 +215,7 @@ public class HelthReport implements Initializable {
         String condition = conditionTxt.getText();
         String date = String.valueOf(dateTxt.getValue());
 
-        edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport dto = new edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport(id,animalId,vetId,condition,date);
+        HelthReportDto dto = new HelthReportDto(id,animalId,vetId,condition,date);
         try {
             boolean add = model.add(dto);
             if (add) {
@@ -229,7 +234,7 @@ public class HelthReport implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-    edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport dto = new edu.ijjse.dehivalazoomanagemetsystem.entity.dto.HelthReport();
+    HelthReportDto dto = new HelthReportDto();
     dto.setHelthReportId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();

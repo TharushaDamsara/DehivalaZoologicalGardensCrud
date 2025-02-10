@@ -18,9 +18,9 @@
             <Image url="@../icon/icons8-arrow-left-94.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="idtxt" layoutX="70.0" layoutY="119.0" prefHeight="26.0" prefWidth="177.0" promptText="encloser Id" />
+      <JFXTextField fx:id="idtxt" layoutX="70.0" layoutY="119.0" prefHeight="26.0" prefWidth="177.0" promptText="encloserDto Id" />
       <JFXTextField fx:id="locationtxt" layoutX="70.0" layoutY="164.0" prefHeight="26.0" prefWidth="177.0" promptText="encloserLocation" />
-      <JFXTextField fx:id="sizetxt" layoutX="70.0" layoutY="214.0" prefHeight="26.0" prefWidth="178.0" promptText="encloser size" />
+      <JFXTextField fx:id="sizetxt" layoutX="70.0" layoutY="214.0" prefHeight="26.0" prefWidth="178.0" promptText="encloserDto size" />
       <Label layoutX="278.0" layoutY="59.0" prefHeight="46.0" prefWidth="234.0" style="-fx-background-color: #00000;" text="Encloser Manage" textFill="#7e5252">
          <font>
             <Font size="30.0" />

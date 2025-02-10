@@ -1,20 +1,24 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.VisitorBo;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Visitor;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.VisitorDao;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VisitorBoImpl implements VisitorBo {
+    VisitorDao visitorDao = (VisitorDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Visitor);
+
     /**
      * @param dto
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean add(Visitor dto) throws SQLException {
-        return false;
+    public boolean add(VisitorDto dto) throws SQLException {
+        return visitorDao.add(dto);
     }
 
     /**
@@ -23,8 +27,8 @@ public class VisitorBoImpl implements VisitorBo {
      * @throws SQLException
      */
     @Override
-    public boolean update(Visitor dto) throws SQLException {
-        return false;
+    public boolean update(VisitorDto dto) throws SQLException {
+        return visitorDao.update(dto);
     }
 
     /**
@@ -33,8 +37,8 @@ public class VisitorBoImpl implements VisitorBo {
      * @throws SQLException
      */
     @Override
-    public boolean delete(Visitor dto) throws SQLException {
-        return false;
+    public boolean delete(VisitorDto dto) throws SQLException {
+        return visitorDao.delete(dto);
     }
 
     /**
@@ -42,8 +46,8 @@ public class VisitorBoImpl implements VisitorBo {
      * @throws SQLException
      */
     @Override
-    public ArrayList<Visitor> getAll() throws SQLException {
-        return null;
+    public ArrayList<VisitorDto> getAll() throws SQLException {
+        return visitorDao.getAll();
     }
 
     /**
@@ -52,6 +56,6 @@ public class VisitorBoImpl implements VisitorBo {
      */
     @Override
     public String getNextId() throws SQLException {
-        return "";
+        return visitorDao.getNextId();
     }
 }

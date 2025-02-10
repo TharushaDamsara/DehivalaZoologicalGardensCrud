@@ -2,8 +2,11 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.EmpMng;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.EmplyeeTM;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EmpMngBo;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.EmpMngDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.EmplyeeTM;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.EmpMngDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,20 +57,20 @@ public class EmployeeManageController implements Initializable {
     }
 
     private void tabelLoad() throws SQLException {
-        ArrayList<EmpMng> empMngs = model.getAll();
+        ArrayList<EmpMngDto> empMngDtos = model.getAll();
         ObservableList<EmplyeeTM> employeeTms = FXCollections.observableArrayList();
-        for (EmpMng empMng : empMngs) {
+        for (EmpMngDto empMngDto : empMngDtos) {
             EmplyeeTM emplyeeTM = new EmplyeeTM(
-              empMng.getEmpId(),
-              empMng.getEmpName(),
-              empMng.getEmpSalary(),
-              empMng.getEmpAddress(),
-              empMng.getDivisionId(),
-              empMng.getEmpAge(),
-              empMng.getEmpGender(),
-              empMng.getEmpBirth(),
-              empMng.getEmpJob(),
-              empMng.getEmpPhone()
+              empMngDto.getEmpId(),
+              empMngDto.getEmpName(),
+              empMngDto.getEmpSalary(),
+              empMngDto.getEmpAddress(),
+              empMngDto.getDivisionId(),
+              empMngDto.getEmpAge(),
+              empMngDto.getEmpGender(),
+              empMngDto.getEmpBirth(),
+              empMngDto.getEmpJob(),
+              empMngDto.getEmpPhone()
             );
             employeeTms.add(emplyeeTM);
         }
@@ -156,7 +159,8 @@ public class EmployeeManageController implements Initializable {
     @FXML
     private JFXTextField devisiontxt;
 
-EmpMngDaoImpl model = new EmpMngDaoImpl();
+//EmpMngDaoImpl model = new EmpMngDaoImpl();
+EmpMngBo model = (EmpMngBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Emp);
     @FXML
     void UpdateEmp(ActionEvent event) {
         String id = idtext.getText();
@@ -170,9 +174,9 @@ EmpMngDaoImpl model = new EmpMngDaoImpl();
         String job = jobtxt.getText();
         String cntact = tptxt.getText();
 
-        EmpMng empMng = new EmpMng(id,name,salary,address,devision,age,gender,dob,job,cntact);
+        EmpMngDto empMngDto = new EmpMngDto(id,name,salary,address,devision,age,gender,dob,job,cntact);
         try {
-            boolean update = model.update(empMng);
+            boolean update = model.update(empMngDto);
             if (update) {
                 new Alert(Alert.AlertType.INFORMATION,"Employee updated successfully").show();
                 tabelLoad();
@@ -203,9 +207,9 @@ EmpMngDaoImpl model = new EmpMngDaoImpl();
         String job = jobtxt.getText();
         String cntact = tptxt.getText();
 
-        EmpMng empMng = new EmpMng(id,name,salary,address,devision,age,gender,dob,job,cntact);
+        EmpMngDto empMngDto = new EmpMngDto(id,name,salary,address,devision,age,gender,dob,job,cntact);
         try {
-            boolean add = model.add(empMng);
+            boolean add = model.add(empMngDto);
             if (add){
                 new Alert(Alert.AlertType.INFORMATION,"Added Successfully").show();
                 tabelLoad();
@@ -237,15 +241,15 @@ EmpMngDaoImpl model = new EmpMngDaoImpl();
 
     @FXML
     void deleteEmp(ActionEvent event) {
-    EmpMng empMng = new EmpMng();
-    empMng.setEmpId(idtext.getText());
+    EmpMngDto empMngDto = new EmpMngDto();
+    empMngDto.setEmpId(idtext.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = model.delete(empMng);
+                boolean delete = model.delete(empMngDto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully").show();
                     tabelLoad();

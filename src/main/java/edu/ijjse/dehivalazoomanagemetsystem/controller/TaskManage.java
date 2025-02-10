@@ -3,9 +3,10 @@ package edu.ijjse.dehivalazoomanagemetsystem.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.dto.Task;
-import edu.ijjse.dehivalazoomanagemetsystem.entity.tm.TaskMngTm;
-import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl.TaskDaoImpl;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.BOFactory;
+import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TaskBo;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.TaskDto;
+import edu.ijjse.dehivalazoomanagemetsystem.tm.TaskMngTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -60,14 +61,14 @@ public class TaskManage implements Initializable {
 
     private void loadTabel() {
         try {
-            ArrayList<Task> tasks = taskDaoImpl.getAll();
+            ArrayList<TaskDto> taskDtos = taskDaoImpl.getAll();
             ObservableList<TaskMngTm> taskMngTms = FXCollections.observableArrayList();
-            for (Task task : tasks) {
+            for (TaskDto taskDto : taskDtos) {
                 TaskMngTm taskMngTm = new TaskMngTm(
-                        task.getTaskId(),
-                        task.getEmpId(),
-                        task.getTaskName(),
-                        task.getDueDate()
+                        taskDto.getTaskId(),
+                        taskDto.getEmpId(),
+                        taskDto.getTaskName(),
+                        taskDto.getDueDate()
                 );
                 taskMngTms.add(taskMngTm);
             }
@@ -118,7 +119,8 @@ public class TaskManage implements Initializable {
     @FXML
     private TableColumn<TaskMngTm, String> empidcol;
 
-    TaskDaoImpl taskDaoImpl = new TaskDaoImpl();
+//    TaskDaoImpl taskDaoImpl = new TaskDaoImpl();
+        TaskBo taskDaoImpl = (TaskBo) BOFactory.getInstance().getBOType(BOFactory.BOType.Task);
 
     @FXML
     void Update(ActionEvent event) {
@@ -127,9 +129,9 @@ public class TaskManage implements Initializable {
         String taskName = nametxt.getText();
         String date = String.valueOf(datetxt.getValue());
 
-        Task task = new Task(id, empId, taskName, date);
+        TaskDto taskDto = new TaskDto(id, empId, taskName, date);
         try {
-            boolean update = taskDaoImpl.update(task);
+            boolean update = taskDaoImpl.update(taskDto);
             if (update) {
                new Alert(Alert.AlertType.INFORMATION,"Task updated successfully").show();
                 loadTabel();
@@ -169,9 +171,9 @@ public class TaskManage implements Initializable {
         String taskName = nametxt.getText();
         String date = String.valueOf(datetxt.getValue());
 
-        Task task = new Task(id, empId, taskName, date);
+        TaskDto taskDto = new TaskDto(id, empId, taskName, date);
         try {
-            boolean add = taskDaoImpl.add(task);
+            boolean add = taskDaoImpl.add(taskDto);
             if (add) {
                 new Alert(Alert.AlertType.INFORMATION,"Task added successfully").show();
                 loadTabel();
@@ -190,15 +192,15 @@ public class TaskManage implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-        Task task = new Task();
-        task.setTaskId(idtxt.getText());
+        TaskDto taskDto = new TaskDto();
+        taskDto.setTaskId(idtxt.getText());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
             try {
-                boolean delete = taskDaoImpl.delete(task);
+                boolean delete = taskDaoImpl.delete(taskDto);
                 if (delete) {
                     new Alert(Alert.AlertType.INFORMATION, "Task deleted successfully").show();
                     loadTabel();
