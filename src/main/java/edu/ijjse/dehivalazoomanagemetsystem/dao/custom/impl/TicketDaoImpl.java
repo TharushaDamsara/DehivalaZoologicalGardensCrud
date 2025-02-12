@@ -19,12 +19,7 @@ public class TicketDaoImpl implements TicketDao {
         return rst;
     }
 
-    public boolean reduseTicketDetails(TicketDto dto) throws SQLException {
 
-       String sql2 ="update ticketdetails set qty = qty - ? where id = ?";
-        boolean isReduce =   CrudUtil.execute(sql2, dto.getQty(),dto.getType());
-        return isReduce;
-    }
 
 public TickDetailsDto findById(String id) throws SQLException {
         String sql = "select * from ticketdetails where id = ?";
@@ -64,21 +59,6 @@ public TickDetailsDto findById(String id) throws SQLException {
             throw new SQLException("delete ticket failed");
         }
         return rst;
-    }
-    public boolean addqty(TicketDto dto) throws SQLException {
-
-        String sql2 ="update ticketdetails set qty = qty + ? where id = ?";
-        boolean ismaxing = CrudUtil.execute(sql2, dto.getQty(),dto.getType());
-
-        //        if(!ismaxing) {
-//            throw new SQLException("delete ticket failed");
-//        }
-//        connection.commit();
-//        result = true;
-//        if (connection != null) {
-//            connection.setAutoCommit(true);
-//        }
-        return ismaxing;
     }
 
     public ArrayList<TicketDto> getAll() throws SQLException {

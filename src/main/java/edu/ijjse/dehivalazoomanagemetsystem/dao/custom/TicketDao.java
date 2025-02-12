@@ -11,6 +11,4 @@ public interface TicketDao extends CrudDao<TicketDto> {
     public TickDetailsDto findById(String id) throws SQLException;
     public ArrayList<String> getVisitorId() throws SQLException;
     public ArrayList<String> getTypeIds() throws SQLException;
-    public boolean reduseTicketDetails(TicketDto dto) throws SQLException;
-    public boolean addqty(TicketDto dto) throws SQLException;
 }

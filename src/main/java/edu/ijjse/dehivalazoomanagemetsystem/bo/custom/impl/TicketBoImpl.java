@@ -3,6 +3,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TicketBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDao;
+import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDetailsDao;
 import edu.ijjse.dehivalazoomanagemetsystem.db.DBConnection;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TicketDto;
@@ -41,6 +42,7 @@ public class TicketBoImpl implements TicketBo {
     }
 
     TicketDao ticketDao = (TicketDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.Ticket);
+    TicketDetailsDao ticketDetailsDao = (TicketDetailsDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.TicketDetails);
     /**
      * @param dto
      * @return
@@ -57,7 +59,7 @@ public class TicketBoImpl implements TicketBo {
         if (!isadd) {
             throw new SQLException("create ticket failed");
         }
-        boolean isReduse = ticketDao.reduseTicketDetails(dto);
+        boolean isReduse = ticketDetailsDao.reduseTicketDetails(dto);
         if (!isReduse) {
             throw new SQLException("reduse ticket failed");
         }
@@ -98,7 +100,7 @@ public class TicketBoImpl implements TicketBo {
         if (!isdelete) {
             throw new SQLException("delete ticket failed");
         }
-        boolean isaddqty = ticketDao.addqty(dto);
+        boolean isaddqty = ticketDetailsDao.addqty(dto);
         if (!isaddqty) {
             throw new SQLException("add qty failed");
         }

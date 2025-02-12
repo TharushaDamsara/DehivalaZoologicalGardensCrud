@@ -3,6 +3,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDetailsDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
+import edu.ijjse.dehivalazoomanagemetsystem.dto.TicketDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,6 +36,27 @@ public class TickDetailsDaoImpl implements TicketDetailsDao {
             dtos.add(dto);
         }
         return dtos;
+    }
+    public boolean addqty(TicketDto dto) throws SQLException {
+
+        String sql2 ="update ticketdetails set qty = qty + ? where id = ?";
+        boolean ismaxing = CrudUtil.execute(sql2, dto.getQty(),dto.getType());
+
+        //        if(!ismaxing) {
+//            throw new SQLException("delete ticket failed");
+//        }
+//        connection.commit();
+//        result = true;
+//        if (connection != null) {
+//            connection.setAutoCommit(true);
+//        }
+        return ismaxing;
+    }
+    public boolean reduseTicketDetails(TicketDto dto) throws SQLException {
+
+        String sql2 ="update ticketdetails set qty = qty - ? where id = ?";
+        boolean isReduce =   CrudUtil.execute(sql2, dto.getQty(),dto.getType());
+        return isReduce;
     }
     public String getNextId() throws SQLException {
         String sql ="SELECT id FROM ticketdetails ORDER BY id DESC LIMIT 1";

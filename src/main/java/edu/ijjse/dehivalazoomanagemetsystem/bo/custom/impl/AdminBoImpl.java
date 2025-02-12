@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.AdminBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AdminDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.AdminDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Admin;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class AdminBoImpl implements AdminBo {
      */
     @Override
     public boolean add(AdminDto dto) throws SQLException {
-        return adminDao.add(dto);
+        return adminDao.add(new Admin(dto.getUsername(),dto.getPassword()));
     }
 
     /**
@@ -43,7 +44,7 @@ public class AdminBoImpl implements AdminBo {
      */
     @Override
     public boolean update(AdminDto dto) throws SQLException {
-        return adminDao.update(dto);
+        return adminDao.update(new Admin(dto.getUsername(),dto.getPassword()));
     }
 
     /**
@@ -53,7 +54,7 @@ public class AdminBoImpl implements AdminBo {
      */
     @Override
     public boolean delete(AdminDto dto) throws SQLException {
-        return adminDao.delete(dto);
+        return adminDao.delete(new Admin(dto.getUsername(),dto.getPassword()));
     }
 
     /**
@@ -62,7 +63,12 @@ public class AdminBoImpl implements AdminBo {
      */
     @Override
     public ArrayList<AdminDto> getAll() throws SQLException {
-        return adminDao.getAll();
+        ArrayList<AdminDto> adminDtos = new ArrayList<>();
+        ArrayList<Admin> admins = adminDao.getAll();
+        for (Admin admin : admins) {
+            adminDtos.add(new AdminDto(admin.getUsername(),admin.getPassword()));
+        }
+        return adminDtos;
     }
 
     /**
