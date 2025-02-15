@@ -1,12 +1,10 @@
 package edu.ijjse.dehivalazoomanagemetsystem.entity;
 
 import lombok.*;
-
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Admin {
 
     private String username;

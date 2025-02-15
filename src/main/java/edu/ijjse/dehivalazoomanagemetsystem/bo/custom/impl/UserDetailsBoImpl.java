@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserDetailsBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.UserDetailsDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDetailsDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.UserDetails;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      */
     @Override
     public boolean add(UserDetailsDto dto) throws SQLException {
-        return userDetailsDao.add(dto);
+        return userDetailsDao.add(new UserDetails(dto.getUserId(),dto.getEmpId(),dto.getUserName(),dto.getPassword()));
     }
 
     /**
@@ -36,7 +37,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      */
     @Override
     public boolean update(UserDetailsDto dto) throws SQLException {
-        return userDetailsDao.update(dto);
+        return userDetailsDao.update(new UserDetails(dto.getUserId(),dto.getEmpId(),dto.getUserName(),dto.getPassword()));
     }
 
     /**
@@ -46,7 +47,7 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      */
     @Override
     public boolean delete(UserDetailsDto dto) throws SQLException {
-        return userDetailsDao.delete(dto);
+        return userDetailsDao.delete(new UserDetails(dto.getUserId(),dto.getEmpId(),dto.getUserName(),dto.getPassword()));
     }
 
     /**
@@ -55,7 +56,12 @@ public class UserDetailsBoImpl implements UserDetailsBo {
      */
     @Override
     public ArrayList<UserDetailsDto> getAll() throws SQLException {
-        return userDetailsDao.getAll();
+        ArrayList<UserDetailsDto> userDetailsDtos = new ArrayList<>();
+        ArrayList<UserDetails> userDetails = userDetailsDao.getAll();
+        for (UserDetails userDetail : userDetails) {
+            userDetailsDtos.add(new UserDetailsDto(userDetail.getUserId(),userDetail.getEmpId(),userDetail.getUserName(),userDetail.getPassword()));
+        }
+        return userDetailsDtos;
     }
 
     /**

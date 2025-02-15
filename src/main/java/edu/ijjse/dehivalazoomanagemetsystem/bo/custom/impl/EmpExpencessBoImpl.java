@@ -4,12 +4,14 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EmpExpencessBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EmpExpencessDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.EmployeeExpencesDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.EmployeeExpences;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmpExpencessBoImpl implements EmpExpencessBo {
     EmpExpencessDao empExpencessDao = (EmpExpencessDao) DaoFactory.getInstance().getSuperDao(DaoFactory.daoType.EmpExpencess);
+
     /**
      * @param dto
      * @return
@@ -17,7 +19,7 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      */
     @Override
     public boolean add(EmployeeExpencesDto dto) throws SQLException {
-        return empExpencessDao.add(dto);
+        return empExpencessDao.add(new EmployeeExpences(dto.getPaymentId(),dto.getEmployeeId(),dto.getDate(),dto.getBasicSalary(),dto.getAddonSalary(),dto.getCutOffSalary(),dto.getTotalSalary()));
     }
 
     /**
@@ -36,7 +38,7 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      */
     @Override
     public boolean update(EmployeeExpencesDto dto) throws SQLException {
-        return empExpencessDao.update(dto);
+        return empExpencessDao.update(new EmployeeExpences(dto.getPaymentId(),dto.getEmployeeId(),dto.getDate(),dto.getBasicSalary(),dto.getAddonSalary(),dto.getCutOffSalary(),dto.getTotalSalary()));
     }
 
     /**
@@ -46,7 +48,7 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      */
     @Override
     public boolean delete(EmployeeExpencesDto dto) throws SQLException {
-        return empExpencessDao.delete(dto);
+        return empExpencessDao.delete( new EmployeeExpences(dto.getPaymentId(),dto.getEmployeeId(),dto.getDate(),dto.getBasicSalary(),dto.getAddonSalary(),dto.getCutOffSalary(),dto.getTotalSalary()));
     }
 
     /**
@@ -55,7 +57,12 @@ public class EmpExpencessBoImpl implements EmpExpencessBo {
      */
     @Override
     public ArrayList<EmployeeExpencesDto> getAll() throws SQLException {
-        return null;
+        ArrayList<EmployeeExpencesDto> dtos = new ArrayList<>();
+        ArrayList<EmployeeExpences> empExpencessDaoAll = empExpencessDao.getAll();
+        for (EmployeeExpences employeeExpences : empExpencessDaoAll) {
+            dtos.add(new EmployeeExpencesDto(employeeExpences.getPaymentId(),employeeExpences.getEmployeeId(),employeeExpences.getDate(),employeeExpences.getBasicSalary(),employeeExpences.getAddonSalary(),employeeExpences.getCutOffSalary(),employeeExpences.getTotalSalary()));
+        }
+        return dtos;
     }
 
     /**

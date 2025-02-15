@@ -3,6 +3,7 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.UserDao;
 import edu.ijjse.dehivalazoomanagemetsystem.db.DBConnection;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public class UserDaoImpl implements UserDao {
      * @throws SQLException
      */
     @Override
-    public boolean add(UserDto dto) throws SQLException {
+    public boolean add(User dto) throws SQLException {
         return false;
     }
 
@@ -42,7 +43,7 @@ public class UserDaoImpl implements UserDao {
      * @throws SQLException
      */
     @Override
-    public boolean update(UserDto dto) throws SQLException {
+    public boolean update(User dto) throws SQLException {
         return false;
     }
 
@@ -52,7 +53,7 @@ public class UserDaoImpl implements UserDao {
      * @throws SQLException
      */
     @Override
-    public boolean delete(UserDto dto) throws SQLException {
+    public boolean delete(User dto) throws SQLException {
         return false;
     }
 
@@ -61,7 +62,7 @@ public class UserDaoImpl implements UserDao {
      * @throws SQLException
      */
     @Override
-    public ArrayList<UserDto> getAll() throws SQLException {
+    public ArrayList<User> getAll() throws SQLException {
         return null;
     }
 

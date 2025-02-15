@@ -3,30 +3,31 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.DevisionDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.DevisionDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Devision;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DevisionDaoImpl implements DevisionDao {
-    public boolean add(DevisionDto dto) throws SQLException {
+    public boolean add(Devision dto) throws SQLException {
         String sql = "insert into division values(?,?,?)";
         return CrudUtil.execute(sql,dto.getDevisionId(),dto.getDevisionName(),dto.getDevisionDescription());
     }
-    public boolean update(DevisionDto dto) throws SQLException {
+    public boolean update(Devision dto) throws SQLException {
         String sql ="UPDATE division SET name=?,description=? WHERE divisionId=?";
         return CrudUtil.execute(sql,dto.getDevisionName(),dto.getDevisionDescription(),dto.getDevisionId());
     }
-    public boolean delete(DevisionDto dto) throws SQLException {
+    public boolean delete(Devision dto) throws SQLException {
         String sql = "delete from division where divisionId=?";
         return CrudUtil.execute(sql,dto.getDevisionId());
     }
-    public ArrayList<DevisionDto> getAll() throws SQLException {
+    public ArrayList<Devision> getAll() throws SQLException {
         String sql = "select * from division";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<DevisionDto> dtos = new ArrayList<>();
+        ArrayList<Devision> dtos = new ArrayList<>();
         while (rst.next()) {
-            DevisionDto dto = new DevisionDto(
+            Devision dto = new Devision(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3)

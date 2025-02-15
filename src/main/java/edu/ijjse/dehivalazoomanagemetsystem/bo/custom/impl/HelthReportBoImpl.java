@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.HelthReportBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.HelthReportDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.HelthReportDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.HelthReport;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class HelthReportBoImpl implements HelthReportBo {
      */
     @Override
     public boolean add(HelthReportDto dto) throws SQLException {
-        return helthReportDao.add(dto);
+        return helthReportDao.add(new HelthReport(dto.getHelthReportId(),dto.getAnimalId(),dto.getVetId(),dto.getCondition(),dto.getDate()));
     }
 
     /**
@@ -45,7 +46,7 @@ public class HelthReportBoImpl implements HelthReportBo {
      */
     @Override
     public boolean update(HelthReportDto dto) throws SQLException {
-        return helthReportDao.update(dto);
+        return helthReportDao.update(new HelthReport(dto.getHelthReportId(),dto.getAnimalId(),dto.getVetId(),dto.getCondition(),dto.getDate()));
     }
 
     /**
@@ -55,7 +56,7 @@ public class HelthReportBoImpl implements HelthReportBo {
      */
     @Override
     public boolean delete(HelthReportDto dto) throws SQLException {
-        return helthReportDao.delete(dto);
+        return helthReportDao.delete(new HelthReport(dto.getHelthReportId(),dto.getAnimalId(),dto.getVetId(),dto.getCondition(),dto.getDate()));
     }
 
     /**
@@ -64,7 +65,12 @@ public class HelthReportBoImpl implements HelthReportBo {
      */
     @Override
     public ArrayList<HelthReportDto> getAll() throws SQLException {
-        return helthReportDao.getAll();
+        ArrayList<HelthReportDto> helthReportDtos = new ArrayList<>();
+        ArrayList<HelthReport> helthReports = helthReportDao.getAll();
+        for (HelthReport helthReport : helthReports) {
+            helthReportDtos.add(new HelthReportDto(helthReport.getHelthReportId(),helthReport.getAnimalId(),helthReport.getVetId(),helthReport.getCondition(),helthReport.getDate()));
+        }
+        return helthReportDtos;
     }
 
     /**

@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.AnimalMngBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.AnimalMngDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.AnimalDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Animal;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      */
     @Override
     public boolean add(AnimalDto dto) throws SQLException {
-        return dao.add(dto);
+        return dao.add(new Animal(dto.getAnimalId(),dto.getAnimalName(),dto.getAnimalAge(),dto.getAnimalGender(),dto.getCatagory(),dto.getEnclosureId(),dto.getDivisionId()));
     }
 
     /**
@@ -27,7 +28,7 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      */
     @Override
     public boolean update(AnimalDto dto) throws SQLException {
-        return dao.update(dto);
+        return dao.update(new Animal(dto.getAnimalId(),dto.getAnimalName(),dto.getAnimalAge(),dto.getAnimalGender(),dto.getCatagory(),dto.getEnclosureId(),dto.getDivisionId()));
     }
 
     /**
@@ -37,7 +38,7 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      */
     @Override
     public boolean delete(AnimalDto dto) throws SQLException {
-        return dao.delete(dto);
+        return dao.delete(new Animal(dto.getAnimalId(),dto.getAnimalName(),dto.getAnimalAge(),dto.getAnimalGender(),dto.getCatagory(),dto.getEnclosureId(),dto.getDivisionId()));
     }
 
     /**
@@ -46,8 +47,12 @@ public class AnimalMngBoImpl implements AnimalMngBo {
      */
     @Override
     public ArrayList<AnimalDto> getAll() throws SQLException {
-        ArrayList<AnimalDto> all = dao.getAll();
-        return dao.getAll();
+        ArrayList<AnimalDto> animals = new ArrayList<>();
+        ArrayList<Animal> animalList = dao.getAll();
+        for (Animal animal : animalList) {
+            animals.add(new AnimalDto(animal.getAnimalId(),animal.getAnimalName(),animal.getAnimalAge(),animal.getAnimalGender(),animal.getCatagory(),animal.getEnclosureId(),animal.getDivisionId()));
+        }
+        return animals;
     }
 
     /**

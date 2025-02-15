@@ -4,30 +4,32 @@ import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDetailsDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TicketDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.TickDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Ticket;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TickDetailsDaoImpl implements TicketDetailsDao {
-    public boolean add(TickDetailsDto dto) throws SQLException {
+    public boolean add(TickDetails dto) throws SQLException {
         String sql ="INSERT INTO ticketdetails VALUES (?,?,?,?)";
         return CrudUtil.execute(sql,dto.getId(),dto.getType(),dto.getQty(),dto.getPrice());
     }
-    public boolean update(TickDetailsDto dto) throws SQLException {
+    public boolean update(TickDetails dto) throws SQLException {
         String sql ="UPDATE ticketdetails SET type=?,qty=?,price=? WHERE id =?";
         return  CrudUtil.execute(sql,dto.getType(),dto.getQty(),dto.getPrice(),dto.getId());
     }
-    public boolean delete(TickDetailsDto dto) throws SQLException {
+    public boolean delete(TickDetails dto) throws SQLException {
         String sql ="DELETE FROM ticketdetails WHERE id =?";
         return CrudUtil.execute(sql,dto.getId());
     }
-    public ArrayList<TickDetailsDto> getAll() throws SQLException {
+    public ArrayList<TickDetails> getAll() throws SQLException {
         String sql ="SELECT * FROM ticketdetails";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<TickDetailsDto> dtos = new ArrayList<>();
+        ArrayList<TickDetails> dtos = new ArrayList<>();
         while(rst.next()){
-            TickDetailsDto dto = new TickDetailsDto(
+            TickDetails dto = new TickDetails(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getInt(3),
@@ -37,7 +39,7 @@ public class TickDetailsDaoImpl implements TicketDetailsDao {
         }
         return dtos;
     }
-    public boolean addqty(TicketDto dto) throws SQLException {
+    public boolean addqty(Ticket dto) throws SQLException {
 
         String sql2 ="update ticketdetails set qty = qty + ? where id = ?";
         boolean ismaxing = CrudUtil.execute(sql2, dto.getQty(),dto.getType());
@@ -52,7 +54,7 @@ public class TickDetailsDaoImpl implements TicketDetailsDao {
 //        }
         return ismaxing;
     }
-    public boolean reduseTicketDetails(TicketDto dto) throws SQLException {
+    public boolean reduseTicketDetails(Ticket dto) throws SQLException {
 
         String sql2 ="update ticketdetails set qty = qty - ? where id = ?";
         boolean isReduce =   CrudUtil.execute(sql2, dto.getQty(),dto.getType());

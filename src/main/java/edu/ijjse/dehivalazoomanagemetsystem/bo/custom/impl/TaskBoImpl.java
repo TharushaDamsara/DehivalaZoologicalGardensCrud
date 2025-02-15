@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TaskBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TaskDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TaskDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Task;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class TaskBoImpl implements TaskBo {
      */
     @Override
     public boolean add(TaskDto dto) throws SQLException {
-        return taskDao.add(dto);
+        return taskDao.add(new Task(dto.getTaskId(),dto.getEmpId(),dto.getTaskName(),dto.getDueDate()));
     }
 
     /**
@@ -36,7 +37,7 @@ public class TaskBoImpl implements TaskBo {
      */
     @Override
     public boolean update(TaskDto dto) throws SQLException {
-        return taskDao.update(dto);
+        return taskDao.update(new Task(dto.getTaskId(),dto.getEmpId(),dto.getTaskName(),dto.getDueDate()));
     }
 
     /**
@@ -46,7 +47,7 @@ public class TaskBoImpl implements TaskBo {
      */
     @Override
     public boolean delete(TaskDto dto) throws SQLException {
-        return taskDao.delete(dto);
+        return taskDao.delete(new Task(dto.getTaskId(),dto.getEmpId(),dto.getTaskName(),dto.getDueDate()));
     }
 
     /**
@@ -55,7 +56,12 @@ public class TaskBoImpl implements TaskBo {
      */
     @Override
     public ArrayList<TaskDto> getAll() throws SQLException {
-        return taskDao.getAll();
+        ArrayList<TaskDto> taskDtos = new ArrayList<>();
+        ArrayList<Task> tasks = taskDao.getAll();
+        for (Task task : tasks) {
+            taskDtos.add(new TaskDto(task.getTaskId(),task.getEmpId(),task.getTaskName(),task.getDueDate()));
+        }
+        return taskDtos;
     }
 
     /**

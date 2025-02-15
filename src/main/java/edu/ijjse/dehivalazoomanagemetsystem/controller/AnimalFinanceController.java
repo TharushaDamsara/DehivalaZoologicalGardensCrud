@@ -160,7 +160,9 @@ animalexpencetbl.setItems(animalExpencessTMS);
         if (!isValidAmount) {
             amounttxt.setStyle(amounttxt.getStyle() + ";-fx-border-color: red;");
             System.out.println(amounttxt.getStyle());
-           // new Alert(Alert.AlertType.ERROR, "Amount is not valid", ButtonType.OK).show();
+            new Alert(Alert.AlertType.ERROR, "Amount is not valid", ButtonType.OK).show();
+
+
         }
         if (!isValidDate) {
             datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: red;");
@@ -205,6 +207,7 @@ animalexpencetbl.setItems(animalExpencessTMS);
             amounttxt.setStyle(amounttxt.getStyle() + ";-fx-border-color: red;");
             System.out.println(amounttxt.getStyle());
              new Alert(Alert.AlertType.ERROR, "Amount is not valid", ButtonType.OK).show();
+            System.out.println(amounttxt.getText());
         }
         if (!isValidDate) {
             datetxt.setStyle(datetxt.getStyle() + ";-fx-border-color: red;");

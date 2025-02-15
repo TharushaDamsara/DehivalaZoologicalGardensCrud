@@ -1,12 +1,15 @@
 package edu.ijjse.dehivalazoomanagemetsystem.bo.custom.impl;
 
 import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TicketBo;
+import edu.ijjse.dehivalazoomanagemetsystem.controller.TicketDetails;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDetailsDao;
 import edu.ijjse.dehivalazoomanagemetsystem.db.DBConnection;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TicketDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.TickDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Ticket;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,7 +23,14 @@ public class TicketBoImpl implements TicketBo {
      */
     @Override
     public TickDetailsDto findById(String id) throws SQLException {
-        return ticketDao.findById(id);
+        ArrayList<TickDetailsDto> tickets = new ArrayList<>();
+        TickDetails byId = ticketDao.findById(id);
+        for (TickDetailsDto dto : tickets) {
+            if (dto.getId().equals(id)) {
+                return dto;
+            }
+        }
+        return null;
     }
 
     /**
@@ -55,11 +65,11 @@ public class TicketBoImpl implements TicketBo {
         connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
-        boolean isadd = ticketDao.add(dto);
+        boolean isadd = ticketDao.add(new Ticket(dto.getTicketCode(),dto.getVisitorId(),dto.getType(),dto.getDate(),dto.getQty(),dto.getAmount(),dto.getPaymentType()));
         if (!isadd) {
             throw new SQLException("create ticket failed");
         }
-        boolean isReduse = ticketDetailsDao.reduseTicketDetails(dto);
+        boolean isReduse = ticketDetailsDao.reduseTicketDetails(new Ticket(dto.getTicketCode(),dto.getVisitorId(),dto.getType(),dto.getDate(),dto.getQty(),dto.getAmount(),dto.getPaymentType()));
         if (!isReduse) {
             throw new SQLException("reduse ticket failed");
         }
@@ -82,7 +92,7 @@ public class TicketBoImpl implements TicketBo {
     @Override
     public boolean update(TicketDto dto) throws SQLException {
 
-    return ticketDao.update(dto);}
+    return ticketDao.update(new Ticket(dto.getTicketCode(),dto.getVisitorId(),dto.getType(),dto.getDate(),dto.getQty(),dto.getAmount(),dto.getPaymentType()));}
 
     /**
      * @param dto
@@ -96,11 +106,11 @@ public class TicketBoImpl implements TicketBo {
         connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
-        boolean isdelete = ticketDao.delete(dto);
+        boolean isdelete = ticketDao.delete(new Ticket(dto.getTicketCode(),dto.getVisitorId(),dto.getType(),dto.getDate(),dto.getQty(),dto.getAmount(),dto.getPaymentType()));
         if (!isdelete) {
             throw new SQLException("delete ticket failed");
         }
-        boolean isaddqty = ticketDetailsDao.addqty(dto);
+        boolean isaddqty = ticketDetailsDao.addqty(new Ticket(dto.getTicketCode(),dto.getVisitorId(),dto.getType(),dto.getDate(),dto.getQty(),dto.getAmount(),dto.getPaymentType()));
         if (!isaddqty) {
             throw new SQLException("add qty failed");
         }
@@ -120,7 +130,12 @@ public class TicketBoImpl implements TicketBo {
      */
     @Override
     public ArrayList<TicketDto> getAll() throws SQLException {
-        return ticketDao.getAll();
+        ArrayList<TicketDto> tickets = new ArrayList<>();
+        ArrayList<Ticket> all = ticketDao.getAll();
+        for (Ticket ticket : all) {
+            tickets.add(new TicketDto(ticket.getTicketCode(),ticket.getVisitorId(),ticket.getType(),ticket.getDate(),ticket.getQty(),ticket.getAmount(),ticket.getPaymentType()));
+        }
+        return tickets;
     }
 
     /**

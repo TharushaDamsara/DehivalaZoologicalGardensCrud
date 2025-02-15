@@ -5,6 +5,8 @@ import edu.ijjse.dehivalazoomanagemetsystem.db.DBConnection;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TicketDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.TickDetails;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Ticket;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 
 public class TicketDaoImpl implements TicketDao {
 
-    public boolean add(TicketDto dto) throws SQLException {
+    public boolean add(Ticket dto) throws SQLException {
         String sql = "insert into ticket values(?,?,?,?,?,?,?)";
         boolean rst = CrudUtil.execute(sql, dto.getTicketCode(), dto.getVisitorId(), dto.getType(), dto.getDate(), dto.getQty(), dto.getAmount(), dto.getPaymentType());
         return rst;
@@ -21,12 +23,12 @@ public class TicketDaoImpl implements TicketDao {
 
 
 
-public TickDetailsDto findById(String id) throws SQLException {
+public TickDetails findById(String id) throws SQLException {
         String sql = "select * from ticketdetails where id = ?";
     ResultSet execute = CrudUtil.execute(sql, id);
 
     if(execute.next()) {
-        TickDetailsDto dto = new TickDetailsDto(
+        TickDetails dto = new TickDetails(
                 execute.getString(1),
                 execute.getString(2),
                 execute.getInt(3),
@@ -37,7 +39,7 @@ public TickDetailsDto findById(String id) throws SQLException {
     return null;
 }
 
-    public boolean update(TicketDto dto) throws SQLException {
+    public boolean update(Ticket dto) throws SQLException {
 //        Connection connection = null;
 //        boolean result = false;
 //        connection = DBConnection.getInstance().getConnection();
@@ -47,7 +49,7 @@ public TickDetailsDto findById(String id) throws SQLException {
         return CrudUtil.execute(sql, dto.getVisitorId(),dto.getType(), dto.getDate(),dto.getQty(), dto.getAmount(), dto.getPaymentType(), dto.getTicketCode());
     }
 
-    public boolean delete(TicketDto dto) throws SQLException {
+    public boolean delete(Ticket dto) throws SQLException {
 //        Connection connection = null;
 //        boolean result = false;
 //        connection = DBConnection.getInstance().getConnection();
@@ -61,12 +63,12 @@ public TickDetailsDto findById(String id) throws SQLException {
         return rst;
     }
 
-    public ArrayList<TicketDto> getAll() throws SQLException {
+    public ArrayList<Ticket> getAll() throws SQLException {
         String sql = "select * from ticket";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<TicketDto> dtos = new ArrayList<>();
+        ArrayList<Ticket> dtos = new ArrayList<>();
         while (rst.next()) {
-            TicketDto dto = new TicketDto(
+            Ticket dto = new Ticket(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),

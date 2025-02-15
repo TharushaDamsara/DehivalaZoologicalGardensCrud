@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.UserBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.UserDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.UserDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class UserBoImpl implements UserBo {
      */
     @Override
     public boolean add(UserDto dto) throws SQLException {
-        return userDao.add(dto);
+        return userDao.add(new User(dto.getUsername(),dto.getPassword()));
     }
 
     /**
@@ -39,7 +40,7 @@ public class UserBoImpl implements UserBo {
      */
     @Override
     public boolean update(UserDto dto) throws SQLException {
-        return userDao.update(dto);
+        return userDao.update(new User(dto.getUsername(),dto.getPassword()));
     }
 
     /**
@@ -49,7 +50,7 @@ public class UserBoImpl implements UserBo {
      */
     @Override
     public boolean delete(UserDto dto) throws SQLException {
-        return userDao.delete(dto);
+        return userDao.delete(new User(dto.getUsername(),dto.getPassword()));
     }
 
     /**
@@ -58,7 +59,12 @@ public class UserBoImpl implements UserBo {
      */
     @Override
     public ArrayList<UserDto> getAll() throws SQLException {
-        return userDao.getAll();
+        ArrayList<UserDto> dtos = new ArrayList<>();
+        ArrayList<User> users = userDao.getAll();
+        for (User user : users) {
+            dtos.add(new UserDto(user.getUsername(),user.getPassword()));
+        }
+        return dtos;
     }
 
     /**

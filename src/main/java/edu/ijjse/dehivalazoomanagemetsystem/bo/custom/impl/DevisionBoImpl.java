@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.DevisionBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.DevisionDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.DevisionDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Devision;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class DevisionBoImpl implements DevisionBo {
      */
     @Override
     public boolean add(DevisionDto dto) throws SQLException {
-        return devisionDao.add(dto);
+        return devisionDao.add(new Devision(dto.getDevisionId(),dto.getDevisionName(),dto.getDevisionDescription()));
     }
 
     /**
@@ -27,7 +28,7 @@ public class DevisionBoImpl implements DevisionBo {
      */
     @Override
     public boolean update(DevisionDto dto) throws SQLException {
-        return devisionDao.update(dto);
+        return devisionDao.update(new Devision(dto.getDevisionId(),dto.getDevisionName(),dto.getDevisionDescription()));
     }
 
     /**
@@ -37,7 +38,7 @@ public class DevisionBoImpl implements DevisionBo {
      */
     @Override
     public boolean delete(DevisionDto dto) throws SQLException {
-        return devisionDao.delete(dto);
+        return devisionDao.delete(new Devision(dto.getDevisionId(),dto.getDevisionName(),dto.getDevisionDescription()));
     }
 
     /**
@@ -46,8 +47,14 @@ public class DevisionBoImpl implements DevisionBo {
      */
     @Override
     public ArrayList<DevisionDto> getAll() throws SQLException {
-        return devisionDao.getAll();
+        ArrayList<DevisionDto> dtos = new ArrayList<>();
+        ArrayList<Devision> devisions = devisionDao.getAll();
+        for (Devision devision : devisions) {
+            dtos.add(new DevisionDto(devision.getDevisionId(),devision.getDevisionName(),devision.getDevisionDescription()));
+        }
+        return dtos;
     }
+
 
     /**
      * @return

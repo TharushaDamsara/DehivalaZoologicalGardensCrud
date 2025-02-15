@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.TicketDetailsBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.TicketDetailsDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.TickDetailsDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.TickDetails;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      */
     @Override
     public boolean add(TickDetailsDto dto) throws SQLException {
-        return ticketDetailsDao.add(dto);
+        return ticketDetailsDao.add(new TickDetails(dto.getId(),dto.getType(),dto.getQty(),dto.getPrice()));
     }
 
     /**
@@ -27,7 +28,7 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      */
     @Override
     public boolean update(TickDetailsDto dto) throws SQLException {
-        return ticketDetailsDao.update(dto);
+        return ticketDetailsDao.update(new TickDetails(dto.getId(),dto.getType(),dto.getQty(),dto.getPrice()));
     }
 
     /**
@@ -37,7 +38,7 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      */
     @Override
     public boolean delete(TickDetailsDto dto) throws SQLException {
-        return ticketDetailsDao.delete(dto);
+        return ticketDetailsDao.delete(new TickDetails(dto.getId(),dto.getType(),dto.getQty(),dto.getPrice()));
     }
 
     /**
@@ -46,7 +47,12 @@ public class TicketDetailsBoImpl implements TicketDetailsBo {
      */
     @Override
     public ArrayList<TickDetailsDto> getAll() throws SQLException {
-        return ticketDetailsDao.getAll();
+        ArrayList<TickDetailsDto> dtos = new ArrayList<>();
+        ArrayList<TickDetails> tickets = ticketDetailsDao.getAll();
+        for (TickDetails ticket : tickets) {
+            dtos.add(new TickDetailsDto(ticket.getId(),ticket.getType(),ticket.getQty(),ticket.getPrice()));
+        }
+        return dtos;
     }
 
     /**

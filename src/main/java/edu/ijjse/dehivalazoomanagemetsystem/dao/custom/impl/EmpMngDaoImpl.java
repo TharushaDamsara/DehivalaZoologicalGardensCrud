@@ -3,13 +3,14 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EmpMngDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.EmpMngDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.EmpMng;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmpMngDaoImpl implements EmpMngDao {
-    public boolean add(EmpMngDto dto) throws SQLException {
+    public boolean add(EmpMng dto) throws SQLException {
 
         String sql = "insert into employee values(?,?,?,?,?,?,?,?,?,?)";
       return   CrudUtil.execute(sql,
@@ -25,7 +26,7 @@ public class EmpMngDaoImpl implements EmpMngDao {
                 dto.getEmpPhone()
                 );
     }
-    public boolean update(EmpMngDto dto) throws SQLException {
+    public boolean update(EmpMng dto) throws SQLException {
 String sql ="UPDATE employee SET name =?,salary=?,address=?,divisionId=?,empAge=?,gender=?,empBirth=?,empJob=?,empContact=? WHERE empId=?";
         return CrudUtil.execute(sql,
                 dto.getEmpName(),
@@ -40,16 +41,16 @@ String sql ="UPDATE employee SET name =?,salary=?,address=?,divisionId=?,empAge=
                 dto.getEmpId()
         );
     }
-    public boolean delete(EmpMngDto dto) throws SQLException {
+    public boolean delete(EmpMng dto) throws SQLException {
         String sql = "delete from employee where empId=?";
         return CrudUtil.execute(sql,dto.getEmpId());
     }
-public ArrayList<EmpMngDto> getAll() throws SQLException {
+public ArrayList<EmpMng> getAll() throws SQLException {
         String sql = "select * from employee order by empId desc";
         ResultSet rst = CrudUtil.execute(sql);
-        ArrayList<EmpMngDto> empMngDtos = new ArrayList<EmpMngDto>();
+        ArrayList<EmpMng> empMngDtos = new ArrayList<EmpMng>();
         while (rst.next()) {
-            EmpMngDto empMngDto = new EmpMngDto(
+            EmpMng empMngDto = new EmpMng(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDouble(3),

@@ -21,6 +21,7 @@ public class RegexUtill {
         String amountPattern = "^\\d+(\\.\\d{1,2})?$";
         return amount.matches(amountPattern);
    }
+
    public static boolean IsValidDate(String date) {
         String datePattern = "^[0-9]{4}$";
         return date.matches(datePattern);

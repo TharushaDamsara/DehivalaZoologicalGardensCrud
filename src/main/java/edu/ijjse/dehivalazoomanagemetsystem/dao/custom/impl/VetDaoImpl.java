@@ -3,30 +3,31 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.VetDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.VetDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Vet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VetDaoImpl implements VetDao {
-    public boolean add(VetDto dto) throws SQLException {
+    public boolean add(Vet dto) throws SQLException {
     String sql = "insert into vet values(?,?,?,?)";
         return CrudUtil.execute(sql,dto.getVetId(),dto.getVetName(),dto.getVetAddress(),dto.getVetPhone());
     }
-    public boolean update(VetDto dto) throws SQLException {
+    public boolean update(Vet dto) throws SQLException {
         String sql ="update vet set vetName =?,address=?,tp=? where vetId =?";
         return CrudUtil.execute(sql,dto.getVetName(),dto.getVetAddress(),dto.getVetPhone(),dto.getVetId());
     }
-    public boolean delete(VetDto dto) throws SQLException {
+    public boolean delete(Vet dto) throws SQLException {
         String sql = "delete from vet where vetId =?";
         return CrudUtil.execute(sql,dto.getVetId());
     }
-    public ArrayList<VetDto> getAll() throws SQLException {
+    public ArrayList<Vet> getAll() throws SQLException {
         String sql = "select * from vet";
        ResultSet rst = CrudUtil.execute(sql);
-       ArrayList<VetDto> vetDtos = new ArrayList<>();
+       ArrayList<Vet> vetDtos = new ArrayList<>();
        while(rst.next()){
-           VetDto vetDto = new VetDto(
+           Vet vetDto = new Vet(
                    rst.getString(1),
                    rst.getString(2),
                    rst.getString(3),

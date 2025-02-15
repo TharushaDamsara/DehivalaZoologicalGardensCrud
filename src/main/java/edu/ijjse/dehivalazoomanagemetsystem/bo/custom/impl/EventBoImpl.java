@@ -4,6 +4,7 @@ import edu.ijjse.dehivalazoomanagemetsystem.bo.custom.EventBo;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.DaoFactory;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.EventDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.EventDto;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Event;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class EventBoImpl implements EventBo {
      */
     @Override
     public boolean add(EventDto dto) throws SQLException {
-        return eventDao.add(dto);
+        return eventDao.add(new Event(dto.getEventId(),dto.getEventName(),dto.getEventLocation(),dto.getEventDate()));
     }
 
     /**
@@ -27,7 +28,7 @@ public class EventBoImpl implements EventBo {
      */
     @Override
     public boolean update(EventDto dto) throws SQLException {
-        return eventDao.update(dto);
+        return eventDao.update(new Event(dto.getEventId(),dto.getEventName(),dto.getEventLocation(),dto.getEventDate()));
     }
 
     /**
@@ -37,7 +38,7 @@ public class EventBoImpl implements EventBo {
      */
     @Override
     public boolean delete(EventDto dto) throws SQLException {
-        return eventDao.delete(dto);
+        return eventDao.delete(new Event(dto.getEventId(),dto.getEventName(),dto.getEventLocation(),dto.getEventDate()));
     }
 
     /**
@@ -46,7 +47,12 @@ public class EventBoImpl implements EventBo {
      */
     @Override
     public ArrayList<EventDto> getAll() throws SQLException {
-        return eventDao.getAll();
+     ArrayList<EventDto> eventDtos = new ArrayList<>();
+     ArrayList<Event> events = eventDao.getAll();
+     for (Event event : events) {
+         eventDtos.add(new EventDto(event.getEventId(),event.getEventName(),event.getEventLocation(),event.getEventDate()));
+     }
+        return eventDtos;
     }
 
     /**

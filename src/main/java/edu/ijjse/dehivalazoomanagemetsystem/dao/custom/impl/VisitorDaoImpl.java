@@ -3,13 +3,14 @@ package edu.ijjse.dehivalazoomanagemetsystem.dao.custom.impl;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.custom.VisitorDao;
 import edu.ijjse.dehivalazoomanagemetsystem.dto.VisitorDto;
 import edu.ijjse.dehivalazoomanagemetsystem.dao.utill.CrudUtil;
+import edu.ijjse.dehivalazoomanagemetsystem.entity.Visitor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VisitorDaoImpl implements VisitorDao {
-    public boolean add(VisitorDto dto) throws SQLException {
+    public boolean add(Visitor dto) throws SQLException {
         String sql ="insert into visitor values(?,?,?,?,?,?)";
         return CrudUtil.execute(sql,
                 dto.getVisitorId(),
@@ -20,7 +21,7 @@ public class VisitorDaoImpl implements VisitorDao {
                 dto.getTicketId()
         );
     }
-    public boolean update(VisitorDto dto) throws SQLException {
+    public boolean update(Visitor dto) throws SQLException {
         String sql ="UPDATE visitor SET name=? ,address=?,date=?,nic=?,ticketId =? WHERE visitorId =?";
         return CrudUtil.execute(sql,
                 dto.getVisitorName(),
@@ -30,16 +31,16 @@ public class VisitorDaoImpl implements VisitorDao {
                 dto.getTicketId(),
                 dto.getVisitorId());
     }
-    public boolean delete(VisitorDto dto) throws SQLException {
+    public boolean delete(Visitor dto) throws SQLException {
         String sql ="DELETE FROM visitor WHERE visitorId =?";
         return CrudUtil.execute(sql,dto.getVisitorId());
     }
-    public ArrayList<VisitorDto> getAll() throws SQLException {
-        ArrayList<VisitorDto> visitorDtos = new ArrayList<>();
+    public ArrayList<Visitor> getAll() throws SQLException {
+        ArrayList<Visitor> visitorDtos = new ArrayList<>();
         String sql ="select * from visitor";
         ResultSet rst  = CrudUtil.execute(sql);
         while (rst.next()) {
-            VisitorDto visitorDto = new VisitorDto(
+            Visitor visitorDto = new Visitor(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
