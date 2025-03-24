@@ -80,6 +80,7 @@ public class TicketBoImpl implements TicketBo {
         if (connection != null) {
             connection.setAutoCommit(true);
         }
+        
 
         return result;
     }
@@ -121,6 +122,7 @@ public class TicketBoImpl implements TicketBo {
         if (connection != null) {
             connection.setAutoCommit(true);
         }
+
         return result;
     }
 
